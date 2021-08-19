@@ -1,0 +1,37 @@
+#!/usr/bin/env sh
+
+# Spacebar setting
+# spacebar -m config status_bar                   on
+
+spacebar -m config position           bottom
+spacebar -m config height             24
+spacebar -m config spacing_left       18
+spacebar -m config spacing_right      18
+spacebar -m config text_font          "JetBrainsMono Nerd Font Mono:Bold:14.0"
+spacebar -m config icon_font          "Font Awesome 5 Free:Solid:12.0"
+#spacebar -m config background_color   0xff004D40
+spacebar -m config background_color   0xff1f1f1f
+spacebar -m config foreground_color   0xffffffff
+spacebar -m config space_icon_color   0xff54baf9
+spacebar -m config power_icon_color   0xffb3e052
+spacebar -m config battery_icon_color 0xffde5d57
+spacebar -m config dnd_icon_color     0xffa8a8a8
+spacebar -m config clock_icon_color   0xffa4d4ce
+#spacebar -m config space_icon_strip       
+#spacebar -m config space_icon_strip   🀙 🀚 🀛 🀜 🀝 🀞 🀟 🀠 🀡
+spacebar -m config space_icon_strip   Ⅰ Ⅱ Ⅲ Ⅳ Ⅴ Ⅵ Ⅶ Ⅷ Ⅸ
+spacebar -m config power_icon_strip    
+spacebar -m config space_icon         
+spacebar -m config clock_icon         
+spacebar -m config dnd_icon           
+spacebar -m config clock_format       "%m-%d %R"
+
+# left shell command
+spacebar -m config left_shell          on
+spacebar -m config left_shell_icon     ​
+spacebar -m config left_shell_command  "echo 🤦🏼💆🏻🙆🏼"
+
+# right shell command
+spacebar -m config right_shell          on
+spacebar -m config right_shell_icon     ​
+spacebar -m config right_shell_command  "~/.config/yabai/spacebar_status.sh"

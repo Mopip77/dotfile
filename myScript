@@ -1,0 +1,107 @@
+#!/bin/bash
+
+# alias
+alias mv="mv -i" # overwrite prompt
+alias cp="cp -i" # overwrite prompt
+alias tnew="tmux new -s"
+alias o="open"
+alias nvi="nvim"
+alias gdhh="git diff HEAD HEAD^"
+alias gs="git status -s"
+alias gl="git-foresta"
+alias rr="ranger"
+alias k="kubectl"
+alias T="([ ! -e /tmp/T ] && mkdir /tmp/T); cd /tmp/T"
+alias agf="ag -l -g"
+alias tt="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
+
+# path
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home/"
+export PATH=${PATH}:${JAVA_HOME}/bin
+
+export GRADLE_USER_HOME="${HOME}/.m2/repository/"
+
+export PATH=${PATH}:${HOME}/go/bin
+export PATH=${PATH}:${HOME}/.local/bin
+export PATH=${PATH}:${HOME}/grampro/jmeter/bin
+
+switch_java() {
+  if [ $# = 0 ]; then
+    echo "switch_java <version>  version: 8, 11, 14"
+  else
+    case "$1" in
+      "8")
+        export JAVA_HOME="/Library/Java/JavaVirtualMachines/zulu_jdk8_arm/zulu-8.jdk/Contents/Home"
+        export PATH=${PATH}:${JAVA_HOME}/bin
+        ;;
+      "11")
+        export JAVA_HOME="/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home/"
+        export PATH=${PATH}:${JAVA_HOME}/bin
+        ;;
+      "14")
+        export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk-14.0.1.jdk/Contents/Home/"
+        export PATH=${PATH}:${JAVA_HOME}/bin
+        ;;
+    esac
+ fi
+}
+
+goto() {
+	cd "$(dirname $1)"
+}
+
+qr() {
+  tmp_qr_path="tmp.png"
+  if [ $# -eq 1 ]
+  then
+    text=$1 
+  else
+    # 默认使用剪贴板
+    text=`xclip -o`
+  fi
+  qrencode $text -o $tmp_qr_path -s 7
+  xviewer $tmp_qr_path
+  rm $tmp_qr_path
+}
+
+# photoscaner
+# 为了快捷，默认读取pictures文件夹下的最新的图片
+# 只接收 o(ocr) b(base64) u(upload)
+pho() {
+screenshotPath="${HOME}/Pictures/screenshot/"
+
+curPath=$( pwd )
+if [ $# -eq 2 ]
+then 
+  if [ "${2:0:1}" = "/" ]
+  then
+    # 绝对路径
+    pic_file="$2"
+  else
+    # 默认当前路径,有../类似的相对路径就不处理了
+    pic_file="$curPath/$2"
+  fi
+
+  if [ $1 = 'cp' ];then 
+    pic_file=$(ls -t $screenshotPath | head -1)
+    pic_file="$screenshotPath$pic_file"
+    cp "${pic_file}" "$2"
+    return 0
+  fi
+elif [ $# -eq 1 ]
+then
+  pic_file=$(ls -t $screenshotPath | head -1)
+  pic_file="$screenshotPath$pic_file"
+fi
+python3 ${HOME}/.myjiaoben/pho/photoscaner.py $1 ${pic_file}
+cd $curPath
+}
+
+gnb() {
+if [ -z "`git br | grep -E "\btest/authority\b"`" ]
+then
+	git checkout -b ${1} && git push -u origin ${1}:${1}
+else
+	git checkout ${1} && git push -u origin ${1}:${1}
+fi
+}
