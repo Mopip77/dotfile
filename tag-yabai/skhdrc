@@ -163,9 +163,9 @@ alt - o : yabai -m window --toggle topmost
 
 # toggle sticky(+float), topmost, border and picture-in-picture
 alt - p : yabai -m window --toggle sticky;\
-          yabai -m window --toggle topmost;\
+          yabai -m window --toggle topmost;
           #yabai -m window --toggle border;\
-          yabai -m window --toggle pip
+          # yabai -m window --toggle pip
 
 # change layout of desktop(更换layout方式)
 ctrl + alt - a : yabai -m space --layout bsp
