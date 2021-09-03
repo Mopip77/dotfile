@@ -543,6 +543,50 @@
               ]
             }
           ]
+        },
+        {
+          "description": "caps + , => scroll up fast",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "caps_arrow_mode",
+              "type": "variable_if",
+              "value": 1
+            }
+          ],
+          "from": {
+            "key_code": "comma"
+          },
+          "to": [
+            {
+              "mouse_key": {
+                "vertical_wheel": -32,
+                "speed_multiplier": 2
+              }
+            }
+          ]
+        },
+        {
+          "description": "caps + . => scroll down fast",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "caps_arrow_mode",
+              "type": "variable_if",
+              "value": 1
+            }
+          ],
+          "from": {
+            "key_code": "period"
+          },
+          "to": [
+            {
+              "mouse_key": {
+                "vertical_wheel": 32,
+                "speed_multiplier": 2
+              }
+            }
+          ]
         }
       ]
     }

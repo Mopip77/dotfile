@@ -1,0 +1,288 @@
+{
+  "title": "小键盘替换按键",
+  "rules": [
+    {
+      "description": "小键盘替换",
+      "manipulators": [
+        {
+          "description": "1层1 => 左工作区",
+          "type": "basic",
+          "from": {
+            "key_code": "f13",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_arrow",
+              "modifiers": [
+                "left_control"
+              ]
+            }
+          ]
+        },
+        {
+          "description": "1层2",
+          "type": "basic",
+          "from": {
+            "key_code": "f14",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to_if_alone": [
+            {
+              "consumer_key_code": "play_or_pause"
+            }
+          ],
+          "to": [
+            {
+              "set_variable": {
+                "name": "layer1_key2",
+                "value": 1
+              }
+            }
+          ],
+          "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "layer1_key2",
+                "value": 0
+              }
+            }
+          ]
+        },
+        {
+          "description": "1层3 => 右工作区",
+          "type": "basic",
+          "from": {
+            "key_code": "f15",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_arrow",
+              "modifiers": [
+                "left_control"
+              ]
+            }
+          ]
+        },
+        {
+          "description": "2层1 => 上一首",
+          "type": "basic",
+          "from": {
+            "key_code": "f16",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "rewind"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "f17",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "1"
+            }
+          ]
+        },
+        {
+          "description": "2层3 => 下一首",
+          "type": "basic",
+          "from": {
+            "key_code": "f18",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "consumer_key_code": "fast_forward"
+            }
+          ]
+        },
+        {
+          "description": "旋钮按下左 => 亮度减小",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "radio_pressed",
+              "type": "variable_if",
+              "value": 1
+            }
+          ],
+          "from": {
+            "key_code": "f19"
+          },
+          "to": [
+            {
+              "key_code": "apple_top_case_display_brightness_decrement"
+            }
+          ]
+        },
+        {
+          "description": "l1k2 + 旋钮左 => 缩放- * 2",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "layer1_key2",
+              "type": "variable_if",
+              "value": 1
+            }
+          ],
+          "from": {
+            "key_code": "f19"
+          },
+          "to": [
+            {
+              "key_code": "hyphen",
+              "modifiers": [
+                "left_option",
+                "left_command"
+              ]
+            },
+            {
+              "key_code": "hyphen",
+              "modifiers": [
+                "left_option",
+                "left_command"
+              ]
+            }
+          ]
+        },
+        {
+          "description": "旋钮左 => 音量减小",
+          "type": "basic",
+          "from": {
+            "key_code": "f19"
+          },
+          "to": [
+            {
+              "key_code": "volume_decrement"
+            }
+          ]
+        },
+        {
+          "description": "旋钮按下 => 静音",
+          "type": "basic",
+          "from": {
+            "key_code": "f20",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to_if_alone": [
+            {
+              "key_code": "mute"
+            }
+          ],
+          "to": [
+            {
+              "set_variable": {
+                "name": "radio_pressed",
+                "value": 1
+              }
+            }
+          ],
+          "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "radio_pressed",
+                "value": 0
+              }
+            }
+          ]
+        },
+        {
+          "description": "旋钮按下右 => 亮度增加",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "radio_pressed",
+              "type": "variable_if",
+              "value": 1
+            }
+          ],
+          "from": {
+            "key_code": "f21"
+          },
+          "to": [
+            {
+              "key_code": "apple_top_case_display_brightness_increment"
+            }
+          ]
+        },
+        {
+          "description": "l1k2 + 旋钮右 => 缩放+ * 2",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "layer1_key2",
+              "type": "variable_if",
+              "value": 1
+            }
+          ],
+          "from": {
+            "key_code": "f21"
+          },
+          "to": [
+            {
+              "key_code": "equal_sign",
+              "modifiers": [
+                "left_option",
+                "left_command"
+              ]
+            },
+            {
+              "key_code": "equal_sign",
+              "modifiers": [
+                "left_option",
+                "left_command"
+              ]
+            }
+          ]
+        },
+        {
+          "description": "旋钮右 => 音量增加",
+          "type": "basic",
+          "from": {
+            "key_code": "f21"
+          },
+          "to": [
+            {
+              "key_code": "volume_increment"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
