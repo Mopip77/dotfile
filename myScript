@@ -50,6 +50,18 @@ goto() {
 	cd "$(dirname $1)"
 }
 
+note() {
+  NOTE_PATH="${HOME}/Documents/note"
+  [[ ! -d $PATH ]] && mkdir -p $NOTE_PATH
+  dt=$(date +"%Y-%m-%d_%H:%M:%S")
+  fileName="$dt.md"
+  if [ "$1" = "-a" ]; then
+    recentFile=$(ls -t $NOTE_PATH | head -n1)
+    [[ ! -z $recentFile ]] && fileName=$recentFile
+  fi
+  nvim $NOTE_PATH/$fileName
+}
+
 qr() {
   tmp_qr_path="tmp.png"
   if [ $# -eq 1 ]

@@ -27,7 +27,10 @@
           ],
           "to_if_alone": [
             {
-              "key_code": "right_shift"
+              "key_code": "spacebar",
+              "modifiers": [
+                "left_control"
+              ]
             }
           ]
         },
@@ -474,7 +477,13 @@
           },
           "to": [
             {
-              "shell_command": "open -a 'Microsoft Edge.app'"
+              "key_code": "o",
+              "modifiers": [
+                "left_command",
+                "left_shift",
+                "left_option",
+                "left_control"
+              ]
             }
           ]
         },

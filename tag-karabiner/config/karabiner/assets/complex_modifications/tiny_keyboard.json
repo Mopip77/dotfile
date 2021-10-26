@@ -5,6 +5,70 @@
       "description": "小键盘替换",
       "manipulators": [
         {
+          "description": "layer2 1+3 进入高级层",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "advanced_layer",
+              "type": "variable_unless",
+              "value": 1
+            }
+          ],
+          "from": {
+            "simultaneous": [
+              {
+                "key_code": "f16"
+              },
+              {
+                "key_code": "f18"
+              }
+            ]
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "advanced_layer",
+                "value": 1
+              }
+            },
+            {
+              "shell_command": "osascript -e 'display notification \"进入高级层\"'"
+            }
+          ]
+        },
+        {
+          "description": "layer2 1+3 退出高级层",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "advanced_layer",
+              "type": "variable_unless",
+              "value": 0
+            }
+          ],
+          "from": {
+            "simultaneous": [
+              {
+                "key_code": "f16"
+              },
+              {
+                "key_code": "f18"
+              }
+            ]
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "advanced_layer",
+                "value": 0
+              }
+            },
+            {
+              "shell_command": "osascript -e 'display notification \"退出高级层\"'"
+            }
+          ]
+        },
+        {
           "description": "1层1 => 左工作区",
           "type": "basic",
           "from": {
@@ -78,6 +142,63 @@
           ]
         },
         {
+          "description": "2层1 (edge) => 恢复关闭的标签 (高级层生效)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "advanced_layer",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.edgemac$"
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "f16"
+          },
+          "to": [
+            {
+              "key_code": "t",
+              "modifiers": [
+                "left_command",
+                "left_shift"
+              ]
+            }
+          ]
+        },
+        {
+          "description": "2层1 (idea) => 运行到鼠标处 (高级层有效)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "advanced_layer",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.jetbrains\\.intellij$"
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "f16"
+          },
+          "to": [
+            {
+              "key_code": "f9",
+              "modifiers": [
+                "left_option"
+              ]
+            }
+          ]
+        },
+        {
           "description": "2层1 => 上一首",
           "type": "basic",
           "from": {
@@ -95,6 +216,7 @@
           ]
         },
         {
+          "description": "2层2 => 暂不使用",
           "type": "basic",
           "from": {
             "key_code": "f17",
@@ -107,6 +229,63 @@
           "to": [
             {
               "key_code": "1"
+            }
+          ]
+        },
+        {
+          "description": "2层3 (edge) => 关闭标签页 (高级层生效)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "advanced_layer",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.edgemac$"
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "f18"
+          },
+          "to": [
+            {
+              "key_code": "w",
+              "modifiers": [
+                "left_command"
+              ]
+            }
+          ]
+        },
+        {
+          "description": "2层3 (idea) => 继续运行 (高级层有效)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "advanced_layer",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.jetbrains\\.intellij$"
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "f18"
+          },
+          "to": [
+            {
+              "key_code": "r",
+              "modifiers": [
+                "left_option",
+                "left_command"
+              ]
             }
           ]
         },
@@ -172,6 +351,60 @@
               "modifiers": [
                 "left_option",
                 "left_command"
+              ]
+            }
+          ]
+        },
+        {
+          "description": "旋钮左 (idea) => F7  (高级层有效)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "advanced_layer",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.jetbrains\\.intellij$"
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "f19"
+          },
+          "to": [
+            {
+              "key_code": "f7"
+            }
+          ]
+        },
+        {
+          "description": "旋钮左 (edge) => 前一个标签页  (高级层有效)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "advanced_layer",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.edgemac$"
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "f19"
+          },
+          "to": [
+            {
+              "key_code": "tab",
+              "modifiers": [
+                "left_control",
+                "left_shift"
               ]
             }
           ]
@@ -267,6 +500,59 @@
                 "left_option",
                 "left_command"
               ]
+            }
+          ]
+        },
+        {
+          "description": "旋钮右 (edge) => 下一个标签页  (高级层有效)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "advanced_layer",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.edgemac$"
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "f21"
+          },
+          "to": [
+            {
+              "key_code": "tab",
+              "modifiers": [
+                "left_control"
+              ]
+            }
+          ]
+        },
+        {
+          "description": "旋钮左 (idea) => F8  (高级层有效)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "advanced_layer",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.jetbrains\\.intellij$"
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "f21"
+          },
+          "to": [
+            {
+              "key_code": "f8"
             }
           ]
         },

@@ -24,14 +24,14 @@ spacebar -m config power_icon_strip    
 spacebar -m config space_icon         
 spacebar -m config clock_icon         
 spacebar -m config dnd_icon           
-spacebar -m config clock_format       "%m-%d %R"
+spacebar -m config clock_format       "%a %m-%d %R"
 
 # left shell command
 spacebar -m config left_shell          on
 spacebar -m config left_shell_icon     ​
-spacebar -m config left_shell_command  "echo 🤦🏼💆🏻🙆🏼"
+spacebar -m config left_shell_command  "~/.config/yabai/spacebar_left_command.sh"
 
 # right shell command
 spacebar -m config right_shell          on
 spacebar -m config right_shell_icon     ​
-spacebar -m config right_shell_command  "~/.config/yabai/spacebar_status.sh"
+spacebar -m config right_shell_command  "~/.config/yabai/spacebar_right_command.sh"

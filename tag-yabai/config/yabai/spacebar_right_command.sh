@@ -1,5 +1,22 @@
 #!/bin/bash
 
+output_device() {
+  output="`SwitchAudioSource -c`"
+
+  case "$output" in
+    "MacBook Pro扬声器")
+      output="MBP"
+      ;;
+    "MOPIP'Airpods Pro")
+      output="Pods Pro"
+      ;;
+    "MOPIP'AirPods")
+      output="Pods"
+      ;;
+  esac
+  echo $output
+}
+
 volume() {
   volume=$(osascript -e 'output volume of (get volume settings)')
   [[ $volume = "0" ]] && volume="mute"
@@ -15,6 +32,7 @@ ip() {
 }
 
 arr=(
+"`output_device`"
 "`volume`"
 "`ip`"
 #"`info`"
