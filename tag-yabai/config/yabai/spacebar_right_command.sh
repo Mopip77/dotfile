@@ -32,7 +32,8 @@ ip() {
 }
 
 arr=(
-"`output_device`"
+# 这个软件有bug, 卡死后mac的sound直接不可用了
+#"`output_device`"
 "`volume`"
 "`ip`"
 #"`info`"
