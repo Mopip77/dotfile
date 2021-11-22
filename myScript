@@ -14,9 +14,10 @@ alias k="kubectl"
 alias T="([ ! -e /tmp/T ] && mkdir /tmp/T); cd /tmp/T"
 alias agf="ag -l -g"
 alias tt="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
+alias localFirst="PATH=${HOME}/.local/bin:$PATH"
 
 # path
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home/"
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home"
 export PATH=${PATH}:${JAVA_HOME}/bin
 
 export GRADLE_USER_HOME="${HOME}/.m2/repository/"
