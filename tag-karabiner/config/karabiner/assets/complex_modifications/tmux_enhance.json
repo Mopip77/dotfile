@@ -458,6 +458,39 @@
           ]
         },
         {
+          "description": "trigger easy motion(tmux jump)",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "tmux_mode",
+              "type": "variable_if",
+              "value": 1
+            }
+          ],
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "e",
+              "modifiers": [
+                "left_control"
+              ]
+            },
+            {
+              "key_code": "f",
+              "modifiers": [
+                "left_shift"
+              ]
+            }
+          ]
+        },
+        {
           "description": "1 window",
           "type": "basic",
           "conditions": [
