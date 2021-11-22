@@ -219,6 +219,9 @@ set foldlevel=99
 nnoremap <space> za
 let g:SimpylFold_docstring_preview=1
 
+" indentLine 
+" json文件展示双引号
+let g:indentLine_setConceal = 0
 
 " airline
 let g:airline_theme="bubblegum"
