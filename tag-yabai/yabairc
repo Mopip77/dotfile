@@ -3,8 +3,8 @@
 set -x
 
 # initialization
-#sudo yabai --load-sa
-#yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+arch -arm64e sudo yabai --load-sa
+yabai -m signal --add event=dock_did_restart action="arch -arm64e sudo yabai --load-sa"
 
 source ~/.config/yabai/initialization.sh
 
@@ -17,7 +17,7 @@ yabai -m signal --add event=display_added action="~/.config/yabai/initialization
 yabai -m signal --add event=display_removed action="~/.config/yabai/initialization.sh"
 
 # Auto focus on window after switching space.
-yabai -m signal --add event=space_changed action='yabai -m window --focus "$(yabai -m query --windows --space | jq .[0].id)"'
+yabai -m signal --add event=space_changed action='~/.config/yabai/active_window_when_change_space.sh'
 
 # global settings
 yabai -m config mouse_follows_focus          off
@@ -25,18 +25,18 @@ yabai -m config focus_follows_mouse          off
 yabai -m config window_placement             second_child
 yabai -m config window_topmost               off
 yabai -m config window_opacity               off
-yabai -m config window_opacity_duration      0.0
+yabai -m config window_opacity_duration      96
 yabai -m config window_shadow                off
 
 # border 配置由limelight接管
-# yabai -m config window_border                off
-# yabai -m config window_border_placement      inset
-# yabai -m config window_border_width          1
-# yabai -m config window_border_radius         -1.0
-# yabai -m config active_window_border_topmost off
-# yabai -m config active_window_border_color   0x11111111
-# yabai -m config normal_window_border_color   0x00505000
-# yabai -m config insert_window_border_color   0xffd75f5f
+yabai -m config window_border                on
+yabai -m config window_border_placement      inset
+yabai -m config window_border_width          4
+yabai -m config window_border_radius         50
+yabai -m config active_window_border_topmost off
+yabai -m config active_window_border_color   0xfc9575CD
+yabai -m config normal_window_border_color   0x00ffffff
+yabai -m config insert_window_border_color   0xffd75f5f
 
 yabai -m config active_window_opacity        0
 yabai -m config normal_window_opacity        0.1
@@ -55,10 +55,10 @@ yabai -m config right_padding                2
 yabai -m config window_gap                   3
 
 # limelight config
-killall limelight &> /dev/null
-limelight -c ${HOME}/.limelightrc &> /dev/null &
+#killall limelight &> /dev/null
+#limelight -c ${HOME}/.limelightrc &> /dev/null &
 
-otherApp='^(IINA|访达|Calendar|日历|System Preferences|系统偏好设置|Mail|微信|WeChatc|QQ|Android Studio|印象笔记|灵犀|网易云音乐|Alfred Preferences|Tencent Lemon)$'
+otherApp='^(IINA|访达|Calendar|日历|System Preferences|系统偏好设置|Mail|微信|WeChatc|QQ|Android Studio|印象笔记|灵犀|网易云音乐|Alfred Preferences|Tencent Lemon|企业微信)$'
 yabai -m rule --add app="${otherApp}" manage=off
 
 echo "yabai configuration loaded.."

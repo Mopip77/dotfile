@@ -32,19 +32,10 @@ shift + alt - 0 : yabai -m space --balance
 # shift + alt - right  : yabai -m window --grid 1:2:1:0:1:1
 
 # create desktop, move window and follow focus - uses jq for parsing json (brew install jq)
-alt - c : yabai -m space --create && \
-                  index="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0))[-1].index')" && \
-                  yabai -m window --space "${index}" && \
-                  yabai -m space --focus "${index}" && \
-                  ~/.config/yabai/change-random-wallpaper.sh && \
-                  spacebar -m config spaces on
+alt - c : ~/.config/yabai/create_new_space.sh 1
 
 # create desktop and follow focus - uses jq for parsing json (brew install jq)
-cmd + alt - c : yabai -m space --create && \
-                index="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0))[-1].index')" && \
-                yabai -m space --focus "${index}" && \
-                ~/.config/yabai/change-random-wallpaper.sh && \
-                spacebar -m config spaces on
+cmd + alt - c : ~/.config/yabai/create_new_space.sh
 
 # destroy desktop and goto recent space
 # force refresh space bar
