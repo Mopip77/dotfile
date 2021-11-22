@@ -463,7 +463,7 @@
           ]
         },
         {
-          "description": "打开Edge",
+          "description": "打开Chrome",
           "type": "basic",
           "conditions": [
             {
@@ -477,13 +477,7 @@
           },
           "to": [
             {
-              "key_code": "o",
-              "modifiers": [
-                "left_command",
-                "left_shift",
-                "left_option",
-                "left_control"
-              ]
+              "shell_command": "open -a Google Chrome.app"
             }
           ]
         },
