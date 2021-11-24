@@ -114,6 +114,7 @@ autocmd Filetype html setl ts=2 sw=2 expandtab
 autocmd Filetype sh setl ts=2 sw=2 expandtab
 autocmd Filetype json setl ts=2 sw=2 expandtab
 autocmd Filetype yaml setl ts=2 sw=2 expandtab
+autocmd Filetype lua setl ts=2 sw=2 expandtab
 
 " fast copy
 :map <Leader>c "+y
