@@ -97,11 +97,6 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-source ${HOME}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-source ${HOME}/.myScript
 
 # oh-my-zsh execution time
 function preexec() {
@@ -118,11 +113,29 @@ function precmd() {
   fi
 }
 
+
+
+# Third part source
+
+# custom scripts
+source ${HOME}/.myScript
 source ~/.zsh_enhance
 
+# kubectl
 export KUBE_EDITOR="/usr/local/bin/nvim"
 source <(kubectl completion zsh)
 
+# editor
 export EDITOR="nvim"
 
+# direnv
 eval "$(direnv hook zsh)"
+
+# highlighting
+source ${HOME}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# the fuck
+eval $(thefuck --alias)
