@@ -132,7 +132,7 @@ end
 --- AClock:toggleShow()
 --- Method
 --- Show AClock for 4 seconds. If already showing, hide it.
-function obj:toggleShow()
+function obj:toggleShow(specShowSec)
   self:resetText()
   if self:isShowing() then
     self:hide()
@@ -142,7 +142,8 @@ function obj:toggleShow()
     end
   else
     self:show()
-    self.show_timer = hs.timer.doAfter(self.showDuration, function()
+	showSec = specShowSec or self.showDuration
+    self.show_timer = hs.timer.doAfter(showSec, function()
       self:hide()
       self.show_timer = nil
     end)

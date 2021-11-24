@@ -11,5 +11,4 @@ end)
 
 clock = require "Aclock"
 ac = clock:init()
-ac:show()
 
