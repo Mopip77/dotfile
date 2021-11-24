@@ -68,7 +68,7 @@ ZSH_THEME="mcpp"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-open extract branch zsh-autosuggestions z vi-mode zsh-256color virtualenv)
+plugins=(git git-open extract branch zsh-autosuggestions z vi-mode zsh-256color virtualenv fast-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -130,9 +130,6 @@ export EDITOR="nvim"
 
 # direnv
 eval "$(direnv hook zsh)"
-
-# highlighting
-source ${HOME}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
