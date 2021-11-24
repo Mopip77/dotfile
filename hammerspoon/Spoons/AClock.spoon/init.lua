@@ -90,6 +90,10 @@ function obj:isShowing()
   return self.canvas:isShowing()
 end
 
+function obj:resetText()
+  self.canvas[1].text = ""
+end
+
 --- AClock:show()
 --- Method
 --- Show AClock.
@@ -100,6 +104,7 @@ end
 --- Returns:
 ---  * The AClock object
 function obj:show()
+  self:resetText()
   self.canvas:show()
   self.tick_timer = self:tick_timer_fn()
   if self.hotkey then
@@ -128,6 +133,7 @@ end
 --- Method
 --- Show AClock for 4 seconds. If already showing, hide it.
 function obj:toggleShow()
+  self:resetText()
   if self:isShowing() then
     self:hide()
     if self.show_timer then
