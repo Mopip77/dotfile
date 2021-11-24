@@ -15,6 +15,8 @@ alias T="([ ! -e /tmp/T ] && mkdir /tmp/T); cd /tmp/T"
 alias agf="ag -l -g"
 alias tt="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 alias localFirst="PATH=${HOME}/.local/bin:$PATH"
+alias proxy="export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7891"
+alias reset-proxy="export https_proxy= http_proxy= all_proxy="
 
 # path
 export JAVA_HOME="/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home"
@@ -25,6 +27,10 @@ export GRADLE_USER_HOME="${HOME}/.m2/repository/"
 export PATH=${PATH}:${HOME}/go/bin
 export PATH=${PATH}:${HOME}/.local/bin
 export PATH=${PATH}:${HOME}/grampro/jmeter/bin
+
+# global config
+# brew 禁止自动更新
+export HOMEBREW_NO_AUTO_UPDATE=1
 
 switch_java() {
   if [ $# = 0 ]; then
