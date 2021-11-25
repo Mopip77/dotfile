@@ -51,6 +51,7 @@ local function getWindowUnderMouse()
 
   local my_pos = hs.geometry.new(hs.mouse.absolutePosition())
   local my_screen = hs.mouse.getCurrentScreen()
+  print("current screen:", my_pos, " xx:", my_screen)
 
   return hs.fnutils.find(hs.window.orderedWindows(), function(w)
     return my_screen == w:screen() and my_pos:inside(w:frame())
@@ -197,6 +198,7 @@ end
 
 function SkyRocket:handleClick()
   return function(event)
+    print("skyRocket:handleClick() invoked!")
     if self.dragging then return true end
 
     local flags = event:getFlags()
@@ -204,8 +206,12 @@ function SkyRocket:handleClick()
     local isMoving = flags:containExactly(self.moveModifiers)
     local isResizing = flags:containExactly(self.resizeModifiers)
 
+    print("isMoving:", isMoving, " isResizing:", isResizing)
+
     if isMoving or isResizing then
       local currentWindow = getWindowUnderMouse()
+
+      print("got currentWindow")
 
       if self.disabledApps[currentWindow:application():name()] then
         return nil
