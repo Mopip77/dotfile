@@ -29,7 +29,7 @@ yabai -m config window_opacity_duration      96
 yabai -m config window_shadow                off
 
 # border 配置由limelight接管
-yabai -m config window_border                on
+yabai -m config window_border                off
 yabai -m config window_border_placement      inset
 yabai -m config window_border_width          4
 yabai -m config window_border_radius         50
