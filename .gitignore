@@ -1,0 +1,2 @@
+tmux/resurrect/**
+tmux/plugins/*.log
