@@ -182,7 +182,7 @@
             {
               "type": "frontmost_application_if",
               "bundle_identifiers": [
-                "^com\\.jetbrains\\.intellij$"
+                "^com\\.jetbrains\\."
               ]
             }
           ],
@@ -272,7 +272,7 @@
             {
               "type": "frontmost_application_if",
               "bundle_identifiers": [
-                "^com\\.jetbrains\\.intellij$"
+                "^com\\.jetbrains\\."
               ]
             }
           ],
@@ -367,7 +367,7 @@
             {
               "type": "frontmost_application_if",
               "bundle_identifiers": [
-                "^com\\.jetbrains\\.intellij$"
+                "^com\\.jetbrains\\."
               ]
             }
           ],
@@ -543,7 +543,7 @@
             {
               "type": "frontmost_application_if",
               "bundle_identifiers": [
-                "^com\\.jetbrains\\.intellij$"
+                "^com\\.jetbrains\\."
               ]
             }
           ],
