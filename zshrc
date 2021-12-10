@@ -68,7 +68,7 @@ ZSH_THEME="mcpp"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-open extract branch zsh-autosuggestions z vi-mode zsh-256color virtualenv fast-syntax-highlighting)
+plugins=(git-open extract branch z vi-mode zsh-256color virtualenv)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -98,7 +98,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# oh-my-zsh execution time
+### ------------------------ oh-my-zsh execution time --------------------------------
 function preexec() {
   timer=$(($(gdate +%s%0N)/1000000))
 }
@@ -113,26 +113,30 @@ function precmd() {
   fi
 }
 
+### -------------------------- Third part source -----------------------------------
 
-
-# Third part source
+source ${ZSH_CUSTOM}/plugins/zsh-defer/zsh-defer.plugin.zsh
 
 # custom scripts
-source ${HOME}/.myScript
+zsh-defer source ${HOME}/.myScript
 source ~/.zsh_enhance
+
+# zsh plugins
+zsh-defer source ${ZSH_CUSTOM}/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+zsh-defer source ${ZSH_CUSTOM}/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
 # kubectl
 export KUBE_EDITOR="/usr/local/bin/nvim"
-source <(kubectl completion zsh)
+zsh-defer source <(kubectl completion zsh)
 
 # editor
 export EDITOR="nvim"
 
 # direnv
-eval "$(direnv hook zsh)"
+zsh-defer eval "$(direnv hook zsh)"
 
 # fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.fzf.zsh ] && zsh-defer source ~/.fzf.zsh
 
 # the fuck
-eval $(thefuck --alias)
+zsh-defer eval $(thefuck --alias)
