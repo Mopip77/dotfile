@@ -68,7 +68,7 @@ ZSH_THEME="mcpp"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git-open extract branch z vi-mode zsh-256color virtualenv)
+plugins=(git git-open extract branch z vi-mode zsh-256color virtualenv)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -100,18 +100,33 @@ source $ZSH/oh-my-zsh.sh
 
 ### ------------------------ oh-my-zsh execution time --------------------------------
 function preexec() {
-  timer=$(($(gdate +%s%0N)/1000000))
+	timer=$(($(gdate +%s%0N)/1000000))
 }
 
 function precmd() {
-  if [ $timer ]; then
-    now=$(($(gdate +%s%0N)/1000000))
-    elapsed=$(($now-$timer))
-
-    export RPROMPT="%F{cyan}${elapsed}ms %{$reset_color%}"
-    unset timer
-  fi
+	if [ $timer ]; then
+		now=$(($(gdate +%s%0N)/1000000))
+		export COMMAND_ELAPSED_MS=$(($now-$timer))
+		unset timer
+	else
+		unset COMMAND_ELAPSED_MS
+	fi
 }
+
+### -------------------------- Git Info -------------------------------------------
+source ${ZSH_CUSTOM}/plugins/gitstatus/gitstatus.plugin.zsh
+
+function my_set_prompt() {
+	if gitstatus_query MY && [[ $VCS_STATUS_RESULT == ok-sync ]]; then
+		IS_GIT_REPO="1"
+	else
+		unset IS_GIT_REPO
+	fi
+}
+
+gitstatus_stop 'MY' && gitstatus_start -s -1 -u -1 -c -1 -d -1 'MY'
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd my_set_prompt
 
 ### -------------------------- Third part source -----------------------------------
 

@@ -8,24 +8,31 @@ YS_THEME_VIRTUALENV_PROMPT_PREFIX="%{$fg_bold[green]%}"
 YS_THEME_VIRTUALENV_PROMPT_SUFFIX=" %{$reset_color%}"
 
 ## ----------------- GIT INFO  -----------------------------
-ZSH_THEME_GIT_PROMPT_ADDED="%{$fg[cyan]%}+%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_MODIFIED="%{$fg[yellow]%}M%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_DELETED="%{$fg[red]%}-%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[green]%}U%{$reset_color%}"
-
-ZSH_THEME_GIT_PROMPT_PREFIX=""
-ZSH_THEME_GIT_PROMPT_SUFFIX=""
-ZSH_THEME_GIT_PROMPT_DIRTY=""
-ZSH_THEME_GIT_PROMPT_CLEAN=""
-
 function git_info() {
-	local git_showing_msg="$(git_prompt_info)$(git_prompt_status)"
-	[[ ! -z $git_showing_msg ]] && git_showing_msg="<${git_showing_msg}> "
-	echo $git_showing_msg
+	if [[ -z ${IS_GIT_REPO} ]]; then
+		return
+	fi
+
+    GIT_CUSTOM_INFO=${${VCS_STATUS_LOCAL_BRANCH:-@${VCS_STATUS_COMMIT}}//\%/%%}  # escape %
+	GIT_CUSTOM_INFO="<${GIT_CUSTOM_INFO}"
+    (( VCS_STATUS_NUM_STAGED    )) && GIT_CUSTOM_INFO+="%{$fg[cyan]%}+%{$reset_color%}"
+    (( VCS_STATUS_NUM_UNSTAGED  )) && GIT_CUSTOM_INFO+="%{$fg[yellow]%}!%{$reset_color%}"
+    (( VCS_STATUS_NUM_UNTRACKED )) && GIT_CUSTOM_INFO+="%{$fg[red]%}?%{$reset_color%}"
+	#echo "$GIT_CUSTOM_INFO%{$fg_bold[white]%}>%{$reset_color%} "
+	echo "$GIT_CUSTOM_INFO> "
+}
+
+## ------------------ COMMAND TIME ------------------------
+function last_cmd_exec_time() {
+	if [ $COMMAND_ELAPSED_MS ]; then
+		echo "%{$fg[cyan]%}${COMMAND_ELAPSED_MS}ms %{$reset_color%}"
+	fi
 }
 
 ## ------------------ DISPLAY FIELDS -----------------------
 LAST_STATUS="%(?:🎾:😡) "
 PATH_INFO="%{$fg[cyan]%}%~%{$reset_color%} "
 
-PROMPT='${LAST_STATUS}${VENV_INFOj}${PATH_INFO}$(git_info)'
+## ------------------- PROMPTS -----------------------------
+PROMPT='${LAST_STATUS}${VENV_INFO}${PATH_INFO}$(git_info)'
+RPS1='$(last_cmd_exec_time)'
