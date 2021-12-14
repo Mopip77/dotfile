@@ -155,3 +155,20 @@ zsh-defer eval "$(direnv hook zsh)"
 
 # the fuck
 zsh-defer eval $(thefuck --alias)
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+# You can disable activate conda env by $(conda config --set auto_activate_base false)
+__conda_setup="$('/usr/local/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    zsh-defer eval "$__conda_setup"
+else
+    if [ -f "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
+        zsh-defer . "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+    else
+        export PATH="/usr/local/Caskroom/miniconda/base/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
