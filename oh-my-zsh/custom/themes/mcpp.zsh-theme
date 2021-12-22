@@ -29,10 +29,18 @@ function last_cmd_exec_time() {
 	fi
 }
 
+function new_line() {
+	local pwd="${PWD/$HOME/~}"
+	if [ ${#pwd} -gt 30 ]; then
+		echo "\n%{$fg_bold[yellow]%}> %{$reset_color%}"
+	fi
+}
+
 ## ------------------ DISPLAY FIELDS -----------------------
 LAST_STATUS="%(?:🎾:😡) "
 PATH_INFO="%{$fg[cyan]%}%~%{$reset_color%} "
 
 ## ------------------- PROMPTS -----------------------------
-PROMPT='${LAST_STATUS}${VENV_INFO}${PATH_INFO}$(git_info)'
-RPS1='$(last_cmd_exec_time)'
+PROMPT='${LAST_STATUS}${VENV_INFO}${PATH_INFO}$(git_info)$(new_line)'
+#RPS1='%{$reset_color%}$(last_cmd_exec_time)'
+RPROMPT='$(last_cmd_exec_time)'
