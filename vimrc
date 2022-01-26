@@ -275,9 +275,9 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 "
 
 " 当新建 .h .c .hpp .cpp .mk .sh等文件时自动调用SetTitle 函数
-autocmd BufNewFile *.py exec ":call SetTitle()" 
+autocmd BufNewFile *.py exec ":call SetPyTitle()" 
 " 加入注释 
-func SetTitle()
+func SetPyTitle()
 call setline(1, "#-*- coding:utf-8 -*-") 
 call append(line("."), "\"\"\"") 
 call append(line(".")+1, "@file  : ".expand("%:t")) 
@@ -288,4 +288,14 @@ call append(line(".")+5, "\"\"\"")
 call append(line(".")+6, "") 
     normal G
 endfunc
+
+autocmd BufNewFile *.sh exec ":call SetShellTitle()"
+" 加入注释 
+func SetShellTitle()
+call setline(1, "#!/bin/bash") 
+call setline(2, "set -euo pipefail") 
+call setline(3, "IFS=$'\\n\\t'") 
+    normal Go
+endfunc
+
 
