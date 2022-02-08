@@ -11,8 +11,8 @@ hs.hotkey.bind({'cmd', 'alt', 'ctrl', 'shift'}, 'o', function()
 end)
 
 -- aclock
-clock = require "Aclock"
-clock:init()
+--clock = require "Aclock"
+--clock:init()
 
 
 --------------------------------
