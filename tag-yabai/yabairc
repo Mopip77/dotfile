@@ -49,7 +49,7 @@ yabai -m config mouse_action2                resize
 # general space settings(设置间隔,都设置成0)
 yabai -m config layout                       bsp
 yabai -m config top_padding                  2
-yabai -m config bottom_padding               26
+yabai -m config bottom_padding               30
 yabai -m config left_padding                 2
 yabai -m config right_padding                2
 yabai -m config window_gap                   3
