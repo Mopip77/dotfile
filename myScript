@@ -31,6 +31,15 @@ export PATH=${PATH}:${HOME}/go/bin
 export PATH=${PATH}:${HOME}/.local/bin
 export PATH=${PATH}:${HOME}/grampro/jmeter/bin
 
+# GNU paths
+# install GNU tools in place of mac by `brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt grep`
+export PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
+PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
+PATH="/usr/local/opt/gnu-indent/libexec/gnubin:$PATH"
+PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
+PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
+
+
 # global config
 # brew 禁止自动更新
 export HOMEBREW_NO_AUTO_UPDATE=1
