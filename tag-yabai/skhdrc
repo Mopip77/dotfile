@@ -60,9 +60,11 @@ alt - 9 : yabai -m space --focus 9
 alt - 0 : yabai -m space --focus 10
 
 # send window to desktop and follow focus(将当前活跃窗口发送到指定空间)
-# shift + cmd - x : yabai -m window --space recent; yabai -m space --focus recent
-# shift + cmd - z : yabai -m window --space prev; yabai -m space --focus prev
-# shift + cmd - c : yabai -m window --space next; yabai -m space --focus next
+alt + cmd - tab : yabai -m window --space recent; yabai -m space --focus recent
+alt + cmd - n : (yabai -m window --space prev && yabai -m space --focus prev) \
+	|| (yabai -m window --space last && yabai -m space --focus last)
+alt + cmd - m : (yabai -m window --space next && yabai -m space --focus next) \
+	|| (yabai -m window --space first && yabai -m space --focus first)
 cmd + alt - 1 : yabai -m window --space  1; yabai -m space --focus 1
 cmd + alt - 2 : yabai -m window --space  2; yabai -m space --focus 2
 cmd + alt - 3 : yabai -m window --space  3; yabai -m space --focus 3
