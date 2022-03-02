@@ -298,7 +298,7 @@
             }
           ],
           "from": {
-            "key_code": "volume_decrement"
+            "key_code": "volume_increment"
           },
           "to": [
             {
