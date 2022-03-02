@@ -819,6 +819,66 @@
               "key_code": "close_bracket"
             }
           ]
+        },
+        {
+          "description": "troggle tmux fzf",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "tmux_mode",
+              "type": "variable_if",
+              "value": 1
+            }
+          ],
+          "from": {
+            "key_code": "t",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "e",
+              "modifiers": [
+                "left_control"
+              ]
+            },
+            {
+              "key_code": "t"
+            }
+          ]
+        },
+        {
+          "description": "troggle tmux easymotion",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "tmux_mode",
+              "type": "variable_if",
+              "value": 1
+            }
+          ],
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "e",
+              "modifiers": [
+                "left_control"
+              ]
+            },
+            {
+              "key_code": "F"
+            }
+          ]
         }
       ]
     }
