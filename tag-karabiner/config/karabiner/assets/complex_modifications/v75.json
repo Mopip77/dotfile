@@ -1,0 +1,590 @@
+{
+  "title": "v75键盘配置",
+  "desciprtion": "v75键盘旋钮分别是音量加减和(ctrl+shift+f9)，下面的四个按键依次是insert，end，page_up，page_down, 简称为r1-r4",
+  "rules": [
+    {
+      "description": "v75键盘配置",
+      "manipulators": [
+        {
+          "description": "r1+r2 进入高级层",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "advanced_layer",
+              "type": "variable_unless",
+              "value": 1
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 64020,
+                  "description": "v75"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "simultaneous": [
+              {
+                "key_code": "insert"
+              },
+              {
+                "key_code": "end"
+              }
+            ]
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "advanced_layer",
+                "value": 1
+              }
+            },
+            {
+              "shell_command": "osascript -e 'display notification \"进入高级层\"'"
+            }
+          ]
+        },
+        {
+          "description": "r1+r2 退出高级层",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "advanced_layer",
+              "type": "variable_unless",
+              "value": 0
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 64020,
+                  "description": "v75"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "simultaneous": [
+              {
+                "key_code": "insert"
+              },
+              {
+                "key_code": "end"
+              }
+            ]
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "advanced_layer",
+                "value": 0
+              }
+            },
+            {
+              "shell_command": "osascript -e 'display notification \"退出高级层\"'"
+            }
+          ]
+        },
+        {
+          "description": "旋钮按下 => 静音",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 64020,
+                  "description": "v75"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "f9",
+            "modifiers": {
+              "mandatory": [
+                "left_control",
+                "left_shift"
+              ],
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to_if_alone": [
+            {
+              "key_code": "mute"
+            }
+          ],
+          "to": [
+            {
+              "set_variable": {
+                "name": "radio_pressed",
+                "value": 1
+              }
+            }
+          ],
+          "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "radio_pressed",
+                "value": 0
+              }
+            }
+          ]
+        },
+        {
+          "description": "key2 => 运行到鼠标处 (高级层有效)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "advanced_layer",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.jetbrains\\."
+              ]
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 64020,
+                  "description": "v75"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "end"
+          },
+          "to": [
+            {
+              "key_code": "f9",
+              "modifiers": [
+                "left_option"
+              ]
+            }
+          ]
+        },
+        {
+          "description": "key1 => 继续运行 (高级层有效)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "advanced_layer",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.jetbrains\\."
+              ]
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 64020,
+                  "description": "v75"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "insert"
+          },
+          "to": [
+            {
+              "key_code": "r",
+              "modifiers": [
+                "left_option",
+                "left_command"
+              ]
+            }
+          ]
+        },
+        {
+          "description": "旋钮左 (idea) => F7  (高级层有效)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "advanced_layer",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.jetbrains\\."
+              ]
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 64020,
+                  "description": "v75"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "volume_decrement"
+          },
+          "to": [
+            {
+              "key_code": "f7"
+            }
+          ]
+        },
+        {
+          "description": "旋钮左 (idea) => F8  (高级层有效)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "advanced_layer",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.jetbrains\\."
+              ]
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 64020,
+                  "description": "v75"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "volume_decrement"
+          },
+          "to": [
+            {
+              "key_code": "f8"
+            }
+          ]
+        },
+        {
+          "description": "key1 => 关闭标签页 (高级层生效)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "advanced_layer",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.edgemac$",
+                "^com\\.google\\.Chrome$"
+              ]
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 64020,
+                  "description": "v75"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "insert"
+          },
+          "to": [
+            {
+              "key_code": "w",
+              "modifiers": [
+                "left_command"
+              ]
+            }
+          ]
+        },
+        {
+          "description": "key2 => 恢复前一页 (高级层生效)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "advanced_layer",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.edgemac$",
+                "^com\\.google\\.Chrome$"
+              ]
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 64020,
+                  "description": "v75"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "end"
+          },
+          "to": [
+            {
+              "key_code": "t",
+              "modifiers": [
+                "left_command",
+                "left_shift"
+              ]
+            }
+          ]
+        },
+        {
+          "description": "旋钮按下左 => 亮度减小",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "radio_pressed",
+              "type": "variable_if",
+              "value": 1
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 64020,
+                  "description": "v75"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "volume_decrement",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "apple_top_case_display_brightness_decrement"
+            }
+          ]
+        },
+        {
+          "description": "旋钮按下右 => 亮度增加",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "radio_pressed",
+              "type": "variable_if",
+              "value": 1
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 64020,
+                  "description": "v75"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "volume_increment",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "apple_top_case_display_brightness_increment"
+            }
+          ]
+        },
+        {
+          "description": "旋钮左 (edge) => 前一个标签页  (高级层有效)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "advanced_layer",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.edgemac$",
+                "^com\\.google\\.Chrome$"
+              ]
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 64020,
+                  "description": "v75"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "volume_decrement"
+          },
+          "to": [
+            {
+              "key_code": "tab",
+              "modifiers": [
+                "left_control",
+                "left_shift"
+              ]
+            }
+          ]
+        },      
+        {
+          "description": "旋钮右 (edge) => 下一个标签页  (高级层有效)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "advanced_layer",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.edgemac$",
+                "^com\\.google\\.Chrome$"
+              ]
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 64020,
+                  "description": "v75"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "volume_increment"
+          },
+          "to": [
+            {
+              "key_code": "tab",
+              "modifiers": [
+                "left_control"
+              ]
+            }
+          ]
+        },
+        {
+          "description": "key1 => 上一首",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 64020,
+                  "description": "v75"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "insert",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "rewind"
+            }
+          ]
+        },
+        {
+          "description": "key2 => 下一首",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 64020,
+                  "description": "v75"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "end",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "fast_forward"
+            }
+          ]
+        },
+        {
+          "description": "key3+key4 => 播放暂停",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 64020,
+                  "description": "v75"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "simultaneous": [
+              {
+                "key_code": "page_up"
+              },
+              {
+                "key_code": "page_down"
+              }
+            ]
+          },
+          "to": [
+            {
+              "key_code": "play_or_pause"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
