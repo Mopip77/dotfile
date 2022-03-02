@@ -27,10 +27,7 @@
           ],
           "to_if_alone": [
             {
-              "key_code": "spacebar",
-              "modifiers": [
-                "left_control"
-              ]
+              "key_code": "right_shift"
             }
           ]
         },
