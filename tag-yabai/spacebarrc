@@ -19,7 +19,8 @@ spacebar -m config dnd_icon_color     0xffa8a8a8
 spacebar -m config clock_icon_color   0xffa4d4ce
 #spacebar -m config space_icon_strip       
 #spacebar -m config space_icon_strip   🀙 🀚 🀛 🀜 🀝 🀞 🀟 🀠 🀡
-spacebar -m config space_icon_strip   Ⅰ Ⅱ Ⅲ Ⅳ Ⅴ Ⅵ Ⅶ Ⅷ Ⅸ
+#spacebar -m config space_icon_strip   Ⅰ Ⅱ Ⅲ Ⅳ Ⅴ Ⅵ Ⅶ Ⅷ Ⅸ
+spacebar -m config space_icon_strip   𝟏 𝟐 𝟑 𝟒 𝟓 𝟔 𝟕 𝟖 𝟗
 spacebar -m config power_icon_strip    
 spacebar -m config space_icon         
 spacebar -m config clock_icon         
