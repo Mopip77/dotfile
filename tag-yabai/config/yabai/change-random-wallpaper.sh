@@ -1,21 +1,39 @@
 #!/usr/bin/env bash
 
+CURRENT_DESKTOP=
 RANDOM_FOLDER="${HOME}/Pictures/wallpaper"
 
-if [ -d $RANDOM_FOLDER ];
-then
-  # 分批打乱两次
-  wallpaper=$(ls $RANDOM_FOLDER | shuf -n 5 | shuf -n 1)
-  echo "change new wallpaper ${wallpaper}"
-  #osascript -e 'tell application "Finder" to set desktop picture to POSIX file "'${RANDOM_FOLDER}/${wallpaper}'"'
-  #osascript -e 'tell application "current desktop" to set picture to POSIX file "'${RANDOM_FOLDER}/${wallpaper}'"'
+acquire_current_desktop() {
+  local currentDisplayIndex=$(yabai -m query --displays --display | jq '.id')
+  case $currentDisplayIndex in
+    1)
+      CURRENT_DESKTOP="current"
+      ;;
+    2)
+      CURRENT_DESKTOP="second"
+      ;;
+    3)
+      CURRENT_DESKTOP="third"
+      ;;
+  esac
+}
 
-  osascript -e "
-    tell application \"System Events\"
-      tell current desktop
-        set picture to \"${RANDOM_FOLDER}/${wallpaper}\"
+change_random_wallpaper() {
+  acquire_current_desktop
+  if [ -d $RANDOM_FOLDER ];
+  then
+    # 分批打乱两次
+    wallpaper=$(ls $RANDOM_FOLDER | shuf -n 5 | shuf -n 1)
+    echo "change new wallpaper ${wallpaper}"
+
+    osascript -e "
+      tell application \"System Events\"
+        tell ${CURRENT_DESKTOP} desktop
+          set picture to \"${RANDOM_FOLDER}/${wallpaper}\"
+        end tell
       end tell
-    end tell
-  "
+    "
+  fi
+}
 
-fi
+change_random_wallpaper
