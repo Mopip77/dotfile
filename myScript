@@ -39,6 +39,9 @@ PATH="/usr/local/opt/gnu-indent/libexec/gnubin:$PATH"
 PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
 PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
 
+# GO config
+export GO111MODULE="on"
+
 
 # global config
 # brew 禁止自动更新
