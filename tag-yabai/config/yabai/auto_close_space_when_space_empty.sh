@@ -1,9 +1,5 @@
 #!/bin/bash
 
-set -x
-
-echo "--------------deub---------------"
-
 space_index=$(yabai -m query --spaces --space | jq '.index')
 
 if [[ -n $space_index && "0" != $space_index ]]; then

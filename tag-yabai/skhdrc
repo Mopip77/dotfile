@@ -39,7 +39,7 @@ cmd + alt - c : ~/.config/yabai/create_new_space.sh
 
 # destroy desktop and goto recent space
 # force refresh space bar
-alt - w : ~/.config/yabai/destroy_space.sh &>> /tmp/T/ga.log
+alt - w : ~/.config/yabai/destroy_space.sh
 
 # fast focus desktop(切换空间焦点)
 alt - tab : yabai -m space --focus recent
@@ -162,7 +162,7 @@ ctrl + alt - a : yabai -m space --layout bsp
 ctrl + alt - d : yabai -m space --layout float
 
 # close window
-alt - x : yabai -m window --close
+alt - x : yabai -m window --close && ~/.config/yabai/auto_close_space_when_space_empty.sh
 
 # Stack
 # 就用两个映射吧，alt - s进入或者退出stack，alt - d 切换到下一个stack
