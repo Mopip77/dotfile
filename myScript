@@ -42,6 +42,9 @@ PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
 # GO config
 export GO111MODULE="on"
 
+# node path
+export PATH=$PATH:/usr/local/lib/node_modules
+
 
 # global config
 # brew 禁止自动更新
