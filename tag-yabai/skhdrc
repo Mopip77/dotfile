@@ -39,10 +39,7 @@ cmd + alt - c : ~/.config/yabai/create_new_space.sh
 
 # destroy desktop and goto recent space
 # force refresh space bar
-alt - w : index="$(yabai -m query --spaces --space | jq '.index')" && \
-                yabai -m space --focus recent && \
-                yabai -m space "${index}" --destroy && \
-                spacebar -m config spaces on
+alt - w : ~/.config/yabai/destroy_space.sh &>> /tmp/T/ga.log
 
 # fast focus desktop(切换空间焦点)
 alt - tab : yabai -m space --focus recent
