@@ -1,2 +1,2 @@
 TAGS="yabai"
-EXCLUDES="README.md"
+EXCLUDES="README.md package.json node_modules"
