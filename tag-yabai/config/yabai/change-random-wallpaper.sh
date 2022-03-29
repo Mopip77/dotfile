@@ -4,7 +4,7 @@ CURRENT_DESKTOP=
 RANDOM_FOLDER="${HOME}/Pictures/wallpaper"
 
 acquire_current_desktop() {
-  local currentDisplayIndex=$(yabai -m query --displays --display | jq '.id')
+  local currentDisplayIndex=$(yabai -m query --displays --display | jq '.index')
   case $currentDisplayIndex in
     1)
       CURRENT_DESKTOP="current"
@@ -24,7 +24,7 @@ change_random_wallpaper() {
   then
     # 分批打乱两次
     wallpaper=$(ls $RANDOM_FOLDER | shuf -n 5 | shuf -n 1)
-    echo "change new wallpaper ${wallpaper}"
+    echo "change new wallpaper ${wallpaper}, display: ${CURRENT_DESKTOP}"
 
     osascript -e "
       tell application \"System Events\"
@@ -35,5 +35,7 @@ change_random_wallpaper() {
     "
   fi
 }
+
+echo "$0 executed."
 
 change_random_wallpaper
