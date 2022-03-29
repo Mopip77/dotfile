@@ -43,8 +43,8 @@ PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
 export GO111MODULE="on"
 
 # node path
-export PATH=$PATH:/usr/local/lib/node_modules
-
+export NODE_PATH=$(npm root --quiet -g)
+export PATH=$PATH:$NODE_PATH
 
 # global config
 # brew 禁止自动更新
