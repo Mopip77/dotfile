@@ -1,5 +1,12 @@
 #!/bin/bash
 
+LOCK_FILE=/tmp/yabai_active_window_when_space_changed.lock
+
+# add lock
+if ! (set -o noclobber ; echo > $LOCK_FILE) ; then
+    exit 1
+fi
+
 new_space_id=$1
 old_space_id=$2
 
@@ -23,3 +30,6 @@ if [[ -n $active_window && 'null' != $active_window ]]; then
     yabai -m window --focus $active_window
   fi
 fi
+
+# remove lock
+rm $LOCK_FILE
