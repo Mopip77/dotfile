@@ -1,5 +1,6 @@
 {
+    "name": "global",
     "dependencies": {
-        "node-mac-notifier": "1.2.0"
+        "node-notifier": "^10.0.1"
     }
 }
