@@ -49,6 +49,10 @@ export PATH=$PATH:$NODE_PATH
 # global config
 # brew 禁止自动更新
 export HOMEBREW_NO_AUTO_UPDATE=1
+# editor
+export EDITOR="nvim"
+# kubectl
+export KUBE_EDITOR="/usr/local/bin/nvim"
 
 switch_java() {
   if [ $# = 0 ]; then

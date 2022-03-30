@@ -134,41 +134,36 @@ source ${ZSH_CUSTOM}/plugins/zsh-defer/zsh-defer.plugin.zsh
 
 # custom scripts
 zsh-defer source ${HOME}/.myScript
-source ~/.zsh_enhance
+zsh-defer source ~/.zsh_enhance
 
 # zsh plugins
 zsh-defer source ${ZSH_CUSTOM}/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 zsh-defer source ${ZSH_CUSTOM}/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
-# kubectl
-export KUBE_EDITOR="/usr/local/bin/nvim"
-zsh-defer source <(kubectl completion zsh)
-
-# editor
-export EDITOR="nvim"
-
 # direnv
-zsh-defer eval "$(direnv hook zsh)"
+_eval_direnv() { eval "$(direnv hook zsh)" }
+zsh-defer _eval_direnv
 
 # fzf
 [ -f ~/.fzf.zsh ] && zsh-defer source ~/.fzf.zsh
 
 # the fuck
-zsh-defer eval $(thefuck --alias)
+_eval_thefuck() { eval $(thefuck --alias) }
+zsh-defer _eval_thefuck
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-# You can disable activate conda env by $(conda config --set auto_activate_base false)
-__conda_setup="$('/usr/local/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    zsh-defer eval "$__conda_setup"
-else
-    if [ -f "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
-        zsh-defer . "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh"
-    else
-        export PATH="/usr/local/Caskroom/miniconda/base/bin:$PATH"
-    fi
-fi
-unset __conda_setup
+function init_conda() {
+	local __conda_setup="$('/usr/local/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+	if [ $? -eq 0 ]; then
+		eval "$__conda_setup"
+	else
+		if [ -f "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
+			. "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+		else
+			export PATH="/usr/local/Caskroom/miniconda/base/bin:$PATH"
+		fi
+	fi
+}
+zsh-defer init_conda
 # <<< conda initialize <<<
-
