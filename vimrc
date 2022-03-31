@@ -28,6 +28,8 @@ Plug 'tpope/vim-surround'
 Plug 'rking/ag.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'ryanoasis/vim-devicons'
+Plug 'github/copilot.vim'
+Plug 'neoclide/coc.nvim'
 
 " theme
 Plug 'w0ng/vim-hybrid'
@@ -36,18 +38,6 @@ Plug 'jpo/vim-railscasts-theme'
 Plug 'arcticicestudio/nord-vim'
 Plug 'joshdick/onedark.vim'
 
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-
-Plug 'zchee/deoplete-jedi'
-Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
-"Plug 'Shougo/deoplete-clangx'
 call plug#end()
 
 " leaderF
@@ -132,15 +122,6 @@ nnoremap <C-h> <C-W><C-H>
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
-
-" multiple cursor 
-" 解决deoplete会自动插入<Plug>的bug
-function g:Multiple_cursors_before()
-	call deoplete#custom#buffer_option('auto_complete', v:false)
-endfunction
-function g:Multiple_cursors_after()
-	call deoplete#custom#buffer_option('auto_complete', v:true)
-endfunction
 
 " nerdtree
 map <leader>n :NERDTreeToggle<CR>
@@ -265,20 +246,6 @@ xmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
-
-" deoplete 
-set rtp+=${HOME}/.vim/plugged/deoplete.nvim/
-let g:deoplete#enable_at_startup = 1
-" 使用tab替换候选
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>" 
-" Change clang binary path
-" call deoplete#custom#var('clangx', 'clang_binary', '/usr/bin/clang')
-let g:deoplete#sources#go#gocode_binary = '~/go/bin/gocode'
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-"
-" deoplete threading error
-call deoplete#custom#option('num_processes', 4)
-"
 
 " 当新建 .h .c .hpp .cpp .mk .sh等文件时自动调用SetTitle 函数
 autocmd BufNewFile *.py exec ":call SetPyTitle()" 
