@@ -32,10 +32,17 @@ function new_line() {
 	fi
 }
 
+## ------------------ PROXY STATUS -----------------------
+function proxy_status() {
+	if [ -n "${http_proxy:=}" ]; then
+		echo "✈️  "
+	fi
+}
+
 ## ------------------ DISPLAY FIELDS -----------------------
-LAST_STATUS="%(?:🎾:😡) "
-PATH_INFO="%{$fg[cyan]%}%~%{$reset_color%} "
+PATH_COLOR="%(?.%B%F{cyan}.%B%F{red})"
+PATH_INFO="%~%{$reset_color%} "
 
 ## ------------------- PROMPTS -----------------------------
-PROMPT='${LAST_STATUS}$(virtenv_prompt)${PATH_INFO}$(git_info)$(new_line)'
+PROMPT='$(proxy_status)$(virtenv_prompt)${PATH_COLOR}${PATH_INFO}$(git_info)$(new_line)'
 RPROMPT='$(last_cmd_exec_time)'
