@@ -31,7 +31,7 @@ yabai -m config window_shadow                off
 # border 配置由limelight接管
 yabai -m config window_border                on
 yabai -m config window_border_placement      inset
-yabai -m config window_border_width          4
+yabai -m config window_border_width          6
 yabai -m config window_border_radius         15
 yabai -m config active_window_border_topmost off
 yabai -m config active_window_border_color   0xfc9575CD
