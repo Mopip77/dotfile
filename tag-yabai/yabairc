@@ -16,9 +16,6 @@ source ~/.config/yabai/initialization.sh
 yabai -m signal --add event=display_added action="~/.config/yabai/initialization.sh"
 yabai -m signal --add event=display_removed action="~/.config/yabai/initialization.sh"
 
-# Auto focus on window after switching space.
-yabai -m signal --add event=space_changed action='~/.config/yabai/active_window_when_change_space.sh $YABAI_SPACE_ID $YABAI_RECENT_SPACE_ID'
-
 # global settings
 yabai -m config mouse_follows_focus          off
 yabai -m config focus_follows_mouse          off
