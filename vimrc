@@ -2,11 +2,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'easymotion/vim-easymotion'
 Plug 'scrooloose/nerdtree'
-"Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'mhinz/vim-startify'
 Plug 'Yggdroot/indentLine'
 Plug 'vim-scripts/indentpython.vim'
-" Plug 'scrooloose/syntastic'
 Plug 'altercation/vim-colors-solarized'
 Plug 'jnurmine/Zenburn'
 Plug 'mileszs/ack.vim'
@@ -22,7 +20,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'majutsushi/tagbar'
 Plug 'Chiel92/vim-autoformat'
 Plug 'sbdchd/neoformat'
-"Plug 'w0rp/ale'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'rking/ag.vim'
@@ -37,6 +34,8 @@ Plug 'sjl/badwolf'
 Plug 'jpo/vim-railscasts-theme'
 Plug 'arcticicestudio/nord-vim'
 Plug 'joshdick/onedark.vim'
+Plug 'catppuccin/nvim', {'as': 'catppuccin'}
+Plug 'sainnhe/gruvbox-material'
 
 call plug#end()
 
@@ -95,12 +94,16 @@ syntax on
 syntax enable
 set background=dark
 " https://github.com/w0ng/vim-hybrid
-let g:hybrid_custom_term_colors = 1
-let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.
-colorscheme hybrid
-filetype on
+"let g:hybrid_custom_term_colors = 1
+"let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.
+"colorscheme hybrid
+colorscheme gruvbox-material
+let g:gruvbox_material_background = 'soft'
+let g:gruvbox_material_better_performance = 1
+
 
 " 特定格式 文件下使用两个空格
+filetype on
 "autocmd BufNewFile,BufRead *.(sh|json|html|yaml) set noexpandtab tabstop=2 shiftwidth=2
 autocmd Filetype html setl ts=2 sw=2 expandtab
 autocmd Filetype sh setl ts=2 sw=2 expandtab
@@ -183,7 +186,6 @@ map <Leader><leader>l <Plug>(easymotion-lineforward)
 " 重复上一次操作, 类似repeat插件, 很强大
 map <Leader><leader>. <Plug>(easymotion-repeat)
 
-
 " ag
 let g:ackprg = 'ag --vimgrep'
 command! -bang -nargs=* Ag
@@ -196,6 +198,8 @@ command! -bang -nargs=* Ag
 nnoremap <silent> <Leader>ag :Ag
 nnoremap <silent> <Leader>f :Files<CR>
 
+" neoformat
+nnoremap <silent> <Leader>g :Neoformat<CR>
 
 " folding
 set foldmethod=indent
@@ -210,20 +214,6 @@ let g:indentLine_setConceal = 0
 " airline
 let g:airline_theme="bubblegum"
 let g:airline_powerline_fonts = 1
-
-" ale
-" . /home/mopip77/.vim/ale/plugin/ale.vim
-let g:ale_sign_error = '✗'
-let g:ale_sign_warning = '⚡'
-map <Leader>s :ALEToggle<CR>
-" 只有保存时检查
-" let g:ale_lint_on_text_changed = 'never'
-" 默认关闭
-let g:ale_lint_on_enter = 0
-let g:ale_fixers = {
-\ 'python': ['add_blank_lines_for_python_control_statements','autopep8','isort','yapf','remove_trailing_lines']
-\}
-
 
 " vim-gitgutter
 let g:gitgutter_max_signs = 500  " default value
