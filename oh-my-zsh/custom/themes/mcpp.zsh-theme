@@ -21,7 +21,15 @@ function git_info() {
 ## ------------------ COMMAND TIME ------------------------
 function last_cmd_exec_time() {
 	if [ $COMMAND_ELAPSED_MS ]; then
-		echo "%{$fg[cyan]%}${COMMAND_ELAPSED_MS}ms %{$reset_color%}"
+		local hours=$(( $COMMAND_ELAPSED_MS / 1000 / 60 / 60 ))
+		[[ $hours -eq 0 ]] && hours="" || hours="${hours}:"
+		local minutes=$(( $COMMAND_ELAPSED_MS / 1000 / 60 % 60 ))
+		[[ -z $hours && $minutes -eq 0 ]] && minutes="" || minutes="${minutes}:"
+		local seconds=$(( $COMMAND_ELAPSED_MS / 1000 % 60 ))
+		[[ -z $minutes && $seconds -eq 0 ]] && seconds="" || seconds="${seconds}"
+		local ms=$(( $COMMAND_ELAPSED_MS % 1000 ))
+		[[ -z $seconds && $ms -eq 0 ]] && ms="" || ms=$(printf ".%03d" $ms)
+		echo "%{$fg[cyan]%}${hours}${minutes}${seconds}${ms} %{$reset_color%}"
 	fi
 }
 
