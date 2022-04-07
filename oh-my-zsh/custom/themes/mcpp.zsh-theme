@@ -29,7 +29,8 @@ function last_cmd_exec_time() {
 		[[ -z $minutes && $seconds -eq 0 ]] && seconds="" || seconds="${seconds}"
 		local ms=$(( $COMMAND_ELAPSED_MS % 1000 ))
 		[[ -z $seconds && $ms -eq 0 ]] && ms="" || ms=$(printf ".%03d" $ms)
-		echo "%{$fg[cyan]%}${hours}${minutes}${seconds}${ms} %{$reset_color%}"
+		#echo "%{$fg[cyan]%}${hours}${minutes}${seconds}${ms} %{$reset_color%}"
+		echo "%F{#FCB667}${hours}${minutes}${seconds}${ms} %{$reset_color%}"
 	fi
 }
 
