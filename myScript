@@ -13,7 +13,7 @@ alias rr="ranger"
 alias k="kubectl"
 alias T="([ ! -e /tmp/T ] && mkdir /tmp/T); cd /tmp/T"
 alias sch="screenshot-handler"
-alias changelog="conventional-changelog -p conventionalcommits -i CHANGELOG.md -s"
+#alias changelog="conventional-changelog -p conventionalcommits -i CHANGELOG.md -s"
 alias agf="ag -l -g"
 alias tt="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 alias localFirst="PATH=${HOME}/.local/bin:$PATH"
@@ -145,4 +145,33 @@ then
 else
 	git checkout ${1} && git push -u origin ${1}:${1}
 fi
+}
+
+# changelog
+changelog() {
+  local base_command() {
+    conventional-changelog -p conventionalcommits -i CHANGELOG.md -s $*
+  }
+  local help() {
+    echo "changelog [-v version] [convertional-changelog args]"
+  }
+  
+  local version=""
+
+  while getopts 'hv:' OPT; do
+    case $OPT in
+      h) help; return;;
+      v) version="$OPTARG";;
+    esac
+  done
+
+  echo "version is:$version"
+
+  if [[ ! -z $version ]]; then
+    tmp_file="/tmp/$(uuidgen).json"
+    echo "{\"version\": \"${version}\"}" > $tmp_file
+    base_command -c $tmp_file
+  else
+    base_command
+  fi
 }
