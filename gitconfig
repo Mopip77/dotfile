@@ -5,6 +5,7 @@
     br = branch
     co = checkout
     st = status
+	cl = clone
 [user]
 	name = mopip77
 	email = mopip77@qq.com
