@@ -27,7 +27,10 @@
           ],
           "to_if_alone": [
             {
-              "key_code": "right_shift"
+              "key_code": "spacebar",
+              "modifiers": [
+                "left_control"
+              ]
             }
           ]
         },
@@ -407,6 +410,32 @@
                 "left_command",
                 "left_option"
               ]
+            }
+          ]
+        },
+        {
+          "description": "caps + u (idea) => alt + f12 (terminal)",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "caps_arrow_mode",
+              "type": "variable_if",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.jetbrains\\."
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "u"
+          },
+          "to": [
+            {
+              "key_code": "f12",
+              "modifiers": [ "left_option" ]
             }
           ]
         },
