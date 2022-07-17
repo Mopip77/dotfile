@@ -1,0 +1,20 @@
+#! /usr/bin/env sh
+
+# lesspipe exa chafa exiftool bat is required
+clear
+
+# this is a example of .lessfilter, you can change it
+mime=$(file -bL --mime-type "$1")
+category=${mime%%/*}
+kind=${mime##*/}
+if [ -d "$1" ]; then
+	exa --git -hl --color=always --icons "$1"
+elif [ "$category" = image ]; then
+	chafa "$1"
+	exiftool "$1"
+elif [ "$category" = text ]; then
+	bat --color=always "$1"
+else
+	lesspipe.sh "$1"  | bat --color=always
+fi
+# lesspipe.sh don't use exa, bat and chafa, it use ls and exiftool. so we create a lessfilter.
