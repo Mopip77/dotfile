@@ -46,6 +46,12 @@ export GO111MODULE="on"
 export NODE_PATH=$(npm root --quiet -g)
 export PATH=$PATH:$NODE_PATH
 
+# krew
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+# msf
+export PATH="/opt/metasploit-framework/bin:$PATH"
+
 # global config
 # brew 禁止自动更新
 export HOMEBREW_NO_AUTO_UPDATE=1
@@ -69,6 +75,10 @@ switch_java() {
         ;;
       "14")
         export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk-14.0.1.jdk/Contents/Home/"
+        export PATH=${PATH}:${JAVA_HOME}/bin
+        ;;
+      "17")
+        export JAVA_HOME="/Library/Java/JavaVirtualMachines/amazon-corretto-17.jdk/Contents/Home/"
         export PATH=${PATH}:${JAVA_HOME}/bin
         ;;
     esac
@@ -157,21 +167,24 @@ changelog() {
   }
   
   local version=""
+  local depthArg=""
 
-  while getopts 'hv:' OPT; do
+  while getopts 'hv:r:' OPT; do
     case $OPT in
       h) help; return;;
       v) version="$OPTARG";;
+      r) depthArg="-r $OPTARG";;
     esac
   done
 
+  [[ ! -z $depthArg ]] && echo "depth: ${depthArg:3}"
   echo "version is:$version"
 
   if [[ ! -z $version ]]; then
     tmp_file="/tmp/$(uuidgen).json"
     echo "{\"version\": \"${version}\"}" > $tmp_file
-    base_command -c $tmp_file
+    base_command ${depthArg} -c $tmp_file
   else
-    base_command
+    base_command ${depthArg}
   fi
 }
