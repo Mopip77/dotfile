@@ -68,9 +68,20 @@ ZSH_THEME="mcpp"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-open extract branch z vi-mode zsh-256color virtualenv)
+plugins=(git git-open extract branch vi-mode zsh-256color virtualenv)
 
 source $ZSH/oh-my-zsh.sh
+
+# antigen
+source ${ZSH_CUSTOM}/deps/antigen.zsh
+
+# Bundles from the default repo (robbyrussell's oh-my-zsh).
+antigen bundle command-not-found
+
+antigen bundle Aloxaf/fzf-tab
+
+# Tell Antigen that you're done.
+antigen apply
 
 # User configuration
 
@@ -78,7 +89,6 @@ source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
-
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
@@ -128,6 +138,10 @@ gitstatus_stop 'MY' && gitstatus_start -s -1 -u -1 -c -1 -d -1 'MY'
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd my_set_prompt
 
+### -------------------------- Alias ----------------------------------------------
+
+alias rgg="${ZSH_CUSTOM}/scripts/riggrep-fzf-vim.sh"
+
 ### -------------------------- Third part source -----------------------------------
 
 source ${ZSH_CUSTOM}/plugins/zsh-defer/zsh-defer.plugin.zsh
@@ -150,6 +164,38 @@ zsh-defer _eval_direnv
 # the fuck
 _eval_thefuck() { eval $(thefuck --alias) }
 zsh-defer _eval_thefuck
+
+# fasd
+fasd_cache="$HOME/.fasd-init-zsh"
+if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
+  fasd --init posix-alias zsh-hook zsh-ccomp zsh-ccomp-install >| "$fasd_cache"
+  # injet fzf completion
+  gsed -i "s/\$compl\"/\$compl\" | fzf --height 40% --reverse --preview 'less {}'/" $fasd_cache
+fi
+source "$fasd_cache"
+unset fasd_cache
+
+# pinyin completion 
+source ${ZSH_CUSTOM}/plugins/pinyin-complete/pinyin-comp.zsh
+
+# zsh completion auto generator
+GENCOMPL_PY="/usr/bin/python3"
+GENCOMPL_FPATH=${ZSH}/cache/completions
+source ${ZSH_CUSTOM}/plugins/zsh-completion-generator/zsh-completion-generator.plugin.zsh
+zstyle :plugin:zsh-completion-generator programs curl http
+
+# fzf-tab
+source ${ZSH_CUSTOM}/scripts/fzf-tab-config.zsh
+
+# fzf-browser
+source ${ZSH_CUSTOM}/scripts/fzf-google-chrome.zsh
+
+### ----------------------- Configuration ----------------------------------------
+
+
+# fasd-fzf
+#source ${ZSH_CUSTOM}/scripts/fzf-fasd.zsh
+
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
