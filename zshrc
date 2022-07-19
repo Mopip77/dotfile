@@ -160,10 +160,14 @@ zsh-defer _eval_direnv
 
 # fzf
 [ -f ~/.fzf.zsh ] && zsh-defer source ~/.fzf.zsh
+FZF_DEFAULT_OPTS='--height 40% --layout=reverse --inline-info'
 
 # the fuck
 _eval_thefuck() { eval $(thefuck --alias) }
 zsh-defer _eval_thefuck
+
+# lessfilter
+export LESSOPEN='|~/.lessfilter %s'
 
 # fasd
 fasd_cache="$HOME/.fasd-init-zsh"
@@ -174,6 +178,8 @@ if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
 fi
 source "$fasd_cache"
 unset fasd_cache
+## extra alias
+alias v="a -e nvim"
 
 # pinyin completion 
 source ${ZSH_CUSTOM}/plugins/pinyin-complete/pinyin-comp.zsh
@@ -191,11 +197,6 @@ source ${ZSH_CUSTOM}/scripts/fzf-tab-config.zsh
 source ${ZSH_CUSTOM}/scripts/fzf-google-chrome.zsh
 
 ### ----------------------- Configuration ----------------------------------------
-
-
-# fasd-fzf
-#source ${ZSH_CUSTOM}/scripts/fzf-fasd.zsh
-
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
