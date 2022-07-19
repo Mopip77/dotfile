@@ -188,3 +188,8 @@ changelog() {
     base_command ${depthArg}
   fi
 }
+
+# navi shortcuts
+ch() {
+  [[ $# -eq 0 ]] && navi || navi --query $*
+}
