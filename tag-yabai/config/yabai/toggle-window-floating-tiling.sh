@@ -6,13 +6,13 @@
 spaceType=$(yabai -m query --spaces --space | jq .type)
 if [ $spaceType = '"bsp"' ]; then
 
-  read -r id floating <<< $(echo $(yabai -m query --windows --window | jq '.id, .floating'))
+  read -r id floating <<< $(echo $(yabai -m query --windows --window | jq '.id, ."is-floating"'))
   tmpfile=/tmp/yabai-tiling-floating-toggle/$id
 
   # border=$(yabai -m config window_border)
 
   # If the window is floating, record its position and size into a temp file and toggle it to be tiling.
-  if [ $floating -eq 1 ]
+  if [[ $floating = true ]]
   then
     [ -e $tmpfile ] && rm $tmpfile
     echo $(yabai -m query --windows --window | jq .frame) >> $tmpfile
