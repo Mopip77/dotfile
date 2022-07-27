@@ -179,6 +179,8 @@ let g:EasyMotion_smartcase = 1
 "let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 map <Leader><Leader>f <Plug>(easymotion-overwin-f)
 map <Leader><Leader>w <Plug>(easymotion-bd-w)
+" 比较常用，使用一个leader的shortcuts
+map <Leader>d <Plug>(easymotion-bd-w)
 map <Leader><leader>h <Plug>(easymotion-linebackward)
 map <Leader><Leader>j <Plug>(easymotion-j)
 map <Leader><Leader>k <Plug>(easymotion-k)
