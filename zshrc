@@ -188,6 +188,7 @@ source ${ZSH_CUSTOM}/plugins/pinyin-complete/pinyin-comp.zsh
 GENCOMPL_PY="/usr/bin/python3"
 GENCOMPL_FPATH=${ZSH}/cache/completions
 source ${ZSH_CUSTOM}/plugins/zsh-completion-generator/zsh-completion-generator.plugin.zsh
+# use `man2comp <command>` generate autosuggestions manually
 zstyle :plugin:zsh-completion-generator programs curl http
 
 # fzf-tab
@@ -195,6 +196,9 @@ source ${ZSH_CUSTOM}/scripts/fzf-tab-config.zsh
 
 # fzf-browser
 source ${ZSH_CUSTOM}/scripts/fzf-google-chrome.zsh
+
+# lab
+source <(lab completion zsh)
 
 ### ----------------------- Configuration ----------------------------------------
 
