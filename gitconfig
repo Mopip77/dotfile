@@ -6,6 +6,7 @@
     co = checkout
     st = status
 	cl = clone
+	lab = "!lab"
 [user]
 	name = mopip77
 	email = mopip77@qq.com
