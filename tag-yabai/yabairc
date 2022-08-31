@@ -55,7 +55,7 @@ yabai -m config window_gap                   3
 #killall limelight &> /dev/null
 #limelight -c ${HOME}/.limelightrc &> /dev/null &
 
-otherApp='^(IINA|访达|Calendar|日历|System Preferences|系统偏好设置|Mail|微信|WeChatc|QQ|印象笔记|灵犀|网易云音乐|Alfred Preferences|Tencent Lemon|企业微信|Todoist)$'
+otherApp='^(IINA|访达|Calendar|日历|System Preferences|系统偏好设置|Mail|微信|WeChatc|QQ|印象笔记|灵犀|网易云音乐|Alfred Preferences|Tencent Lemon|企业微信|Todoist|Input Source Pro|Spotify)$'
 yabai -m rule --add app="${otherApp}" manage=off
 
 echo "yabai configuration loaded.."
