@@ -1,6 +1,14 @@
 #!/bin/bash
 
+##
 # alias
+##
+
+# git alias
+alias ga="git add"
+alias grhh="git reset --hard HEAD"
+alias glog="git log --decorate --oneline --graph HEAD"
+
 alias mv="mv -i" # overwrite prompt
 alias cp="cp -i" # overwrite prompt
 alias tnew="tmux new -s"
@@ -21,7 +29,9 @@ alias p="export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:78
 alias rp="export https_proxy= http_proxy= all_proxy="
 alias charles_proxy="export https_proxy=http://127.0.0.1:12580 http_proxy=http://127.0.0.1:12580"
 
+##
 # path
+##
 export JAVA_HOME="/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home"
 export PATH=${PATH}:${JAVA_HOME}/bin
 
@@ -43,7 +53,7 @@ PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
 export GO111MODULE="on"
 
 # node path
-export NODE_PATH=$(npm root --quiet -g)
+export NODE_PATH=/usr/local/lib/node_modules
 export PATH=$PATH:$NODE_PATH
 
 # krew
