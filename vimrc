@@ -27,6 +27,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'ryanoasis/vim-devicons'
 Plug 'github/copilot.vim'
 Plug 'neoclide/coc.nvim'
+Plug 'dhruvasagar/vim-table-mode'
 
 " theme
 Plug 'w0ng/vim-hybrid'
