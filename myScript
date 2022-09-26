@@ -8,16 +8,21 @@
 alias ga="git add"
 alias grhh="git reset --hard HEAD"
 alias glog="git log --decorate --oneline --graph HEAD"
+alias gpl="git pull"
+alias gcmsg="git commit -m"
 
 alias mv="mv -i" # overwrite prompt
 alias cp="cp -i" # overwrite prompt
 alias tnew="tmux new -s"
 alias o="open"
 alias nvi="nvim"
+alias vim="nvim"
+alias vi="nvim"
 alias gdhh="git diff HEAD HEAD^"
 alias gs="git status -s"
 alias gll="lazygit"
 alias rr="ranger"
+alias ll="ls -alh"
 alias k="kubectl"
 alias T="([ ! -e /tmp/T ] && mkdir /tmp/T); cd /tmp/T"
 alias sch="screenshot-handler"
@@ -65,8 +70,6 @@ export PATH="/opt/metasploit-framework/bin:$PATH"
 # global config
 # brew 禁止自动更新
 export HOMEBREW_NO_AUTO_UPDATE=1
-# editor
-export EDITOR="nvim"
 # kubectl
 export KUBE_EDITOR="/usr/local/bin/nvim"
 
@@ -202,4 +205,11 @@ changelog() {
 # navi shortcuts
 ch() {
   [[ $# -eq 0 ]] && navi || navi --query $*
+}
+
+# latest file
+lt() {
+  local targetFolder=${1:-$PWD}
+  local fileName=$(ls -t $targetFolder | head -n 1)
+  echo ${targetFolder%%/}/${fileName}
 }
