@@ -22,6 +22,8 @@ zmodule termtitle
 zmodule paulirish/git-open
 # Extract all compressed files
 zmodule xvoland/Extract --source extract.sh --cmd 'alias x="extract"'
+# Auto pair punctuation
+zmodule hlissner/zsh-autopair
 
 
 #
