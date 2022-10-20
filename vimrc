@@ -28,6 +28,8 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'github/copilot.vim'
 Plug 'neoclide/coc.nvim'
 Plug 'dhruvasagar/vim-table-mode'
+Plug 'jiangmiao/auto-pairs'
+Plug 'junegunn/rainbow_parentheses.vim'
 
 " theme
 Plug 'w0ng/vim-hybrid'
@@ -54,7 +56,7 @@ let mapleader=','
 let python_highlight_all=1
 set noshowmode
 set ts=4
-"set expandtab
+set expandtab
 set autoindent
 set noundofile
 set rnu
@@ -65,6 +67,8 @@ set shiftwidth=4
 " 设置不可见字符样式
 set list
 set listchars=tab:→\ ,nbsp:␣,trail:•,extends:⟩,precedes:⟨
+" highlight
+"hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
 
 "highlight LineNr cterm=bold ctermfg=white
 "highlight pythonFunction cterm=bold ctermfg=blue
@@ -76,6 +80,9 @@ inoremap jj <Esc>`^
 " 使用 leader+q 直接退出
 inoremap <leader>q <Esc>:q<cr>
 noremap <leader>q :q<cr>
+" 使用 leader+Q 不保存直接退出
+inoremap <leader>Q <Esc>:q!<cr>
+noremap <leader>Q :q!<cr>
 " 使用 leader+w 直接保存
 inoremap <leader>w <Esc>:w<cr>
 noremap <leader>w :w<cr>
@@ -83,9 +90,19 @@ noremap <leader>w :w<cr>
 cnoremap cdc cd %:h
 " Sudo to write
 cnoremap w!! w !sudo tee % >/dev/null
-" 使用tab键切换tab
-nnoremap <tab> gt
-nnoremap <S-tab> gT
+
+" buffer相关
+" This allows buffers to be hidden if you've modified a buffer.
+" This is almost a must if you wish to use buffers in this way.
+set hidden
+" To open a new empty buffer
+" This replaces :tabnew which I used to bind to this mapping
+nnoremap <C-t> :enew<cr>
+" 关闭当前buffer，切换至前一个buffer
+nnoremap <C-w> :bp <BAR> bd #<CR>
+" 使用tab键切换buffer
+nnoremap <tab> : bnext<CR>
+nnoremap <S-tab> : bprevious<CR>
 
 set encoding=UTF-8
 set cursorline
@@ -217,6 +234,7 @@ let g:indentLine_setConceal = 0
 " airline
 let g:airline_theme="bubblegum"
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
 
 " vim-gitgutter
 let g:gitgutter_max_signs = 500  " default value
@@ -239,6 +257,13 @@ xmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
+" rainbow_parentheses 根据文件类型自动生效
+" Activation based on file type
+augroup rainbow_lisp
+  autocmd!
+  autocmd FileType sh,rust,java,javascript,go,python RainbowParentheses
+augroup END
 
 " 当新建 .h .c .hpp .cpp .mk .sh等文件时自动调用SetTitle 函数
 autocmd BufNewFile *.py exec ":call SetPyTitle()" 
