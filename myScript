@@ -33,6 +33,7 @@ alias localFirst="PATH=${HOME}/.local/bin:$PATH"
 alias p="export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890"
 alias rp="export https_proxy= http_proxy= all_proxy="
 alias charles_proxy="export https_proxy=http://127.0.0.1:12580 http_proxy=http://127.0.0.1:12580"
+alias yabai-startup="killall yabai; nohup yabai &> /dev/null &; killall spacebar; nohup spacebar &> /dev/null &;"
 
 ##
 # path
@@ -212,4 +213,9 @@ lt() {
   local targetFolder=${1:-$PWD}
   local fileName=$(ls -t $targetFolder | head -n 1)
   echo ${targetFolder%%/}/${fileName}
+}
+
+# mkdir and cd
+take() {
+  mkdir -p "$1" && cd "$1"
 }
