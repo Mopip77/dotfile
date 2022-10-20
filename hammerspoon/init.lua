@@ -26,11 +26,10 @@ local vim = VimMode:new()
 -- vim
 vim
   :disableForApp('Code')
-  :disableForApp('zoom.us')
-  :disableForApp('iTerm')
   :disableForApp('iTerm2')
   :disableForApp('Terminal')
   :disableForApp('IntelliJ IDEA')
+  :disableForApp('Google Chrome')
 
 -- If you want the screen to dim (a la Flux) when you enter normal mode
 -- flip this to true.
@@ -41,10 +40,10 @@ vim:shouldDimScreenInNormalMode(false)
 vim:shouldShowAlertInNormalMode(true)
 
 -- You can configure your on-screen alert font
-vim:setAlertFont("HarmonyOS Sans SC")
+vim:setAlertFont("Monaco")
 
--- Enter normal mode by typing a key sequence
--- vim:enterWithSequence('jk')
+-- Block cursor mode
+vim:enableBetaFeature('block_cursor_overlay')
 
 -- 在karabiner中重载为 caps + u
 vim:bindHotKeys({ enter = { {'ctrl', 'shift', 'alt'}, '8' } })
