@@ -219,3 +219,33 @@ lt() {
 take() {
   mkdir -p "$1" && cd "$1"
 }
+
+# 使用rsa加密文本，加密内容存储在 ${HOME}/.pwd/$1 中
+encrypt_pwd() {
+  mkdir -p ${HOME}/.pwd
+  rsaKey="${HOME}/.ssh/pwd_rsa"
+  PWD_FOLDER="${HOME}/.pwd"
+  pwdName="$1"
+  
+  mkdir -p ${PWD_FOLDER}
+  [[ ! -f $rsaKey ]] && openssl genrsa -out $rsaKey 2048
+
+  read -s "plainText?Your password: "
+  echo "$plainText" | openssl rsautl -inkey $rsaKey -encrypt > $PWD_FOLDER/$pwdName
+  echo "\nYour encrypted password have been store in ${PWD_FOLDER}/${pwdName}."
+  echo "Use \033[36mdecrypt_pwd $pwdName\033[0m to fetch plain password."
+}
+
+# 使用rsa解密文本，解密 ${HOME}/.pwd/$1 文件中的文本
+decrypt_pwd() {
+  rsaSecretKey="${HOME}/.ssh/pwd_rsa"
+  PWD_FOLDER="${HOME}/.pwd"
+  pwdPath="$PWD_FOLDER/$1"
+
+  if [ ! -f $pwdPath ]; then
+    echo "Password file not exist.\n\nAvaliable password:"
+    ls "$PWD_FOLDER" | xargs -I{} echo "  * {}"
+  else
+    openssl rsautl -inkey $rsaSecretKey -decrypt < $pwdPath
+  fi
+}
