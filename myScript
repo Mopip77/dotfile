@@ -1,5 +1,7 @@
 #!/bin/bash
 
+[[ -f ${HOME}/.myScript.private.sh ]] && source ${HOME}/.myScript.private.sh
+
 ##
 # alias
 ##
