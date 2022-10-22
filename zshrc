@@ -1,139 +1,134 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Path to your oh-my-zsh installation.
-export ZSH="${HOME}/.oh-my-zsh"
-
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: time_debug $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="mcpp"
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git-open extract branch vi-mode zsh-256color virtualenv)
-
-time_debug() {
-	#return 0
-	echo "$1: $2"
-}
-
-for plugin ($plugins); do
-  timer=$(($(gdate +%s%N)/1000000))
-  if [ -f $ZSH_CUSTOM/plugins/$plugin/$plugin.plugin.zsh ]; then
-    source $ZSH_CUSTOM/plugins/$plugin/$plugin.plugin.zsh
-  elif [ -f $ZSH/plugins/$plugin/$plugin.plugin.zsh ]; then
-    source $ZSH/plugins/$plugin/$plugin.plugin.zsh
-  fi
-  now=$(($(gdate +%s%N)/1000000))
-  elapsed=$(($now-$timer))
-  time_debug $plugin $elapsed
-done
-
-base=$(($(gdate +%s%N)/1000000))
-
-source $ZSH/oh-my-zsh.sh
-
-elapsed=$(($(gdate +%s%N)/1000000-$base))
-base=$(($(gdate +%s%N)/1000000)) && time_debug "oh-my-zsh" $elapsed
-
-# antigen
-source ${ZSH_CUSTOM}/deps/antigen.zsh
-
-# Bundles from the default repo (robbyrussell's oh-my-zsh).
-antigen bundle command-not-found
-
-antigen bundle Aloxaf/fzf-tab
-
-# Tell Antigen that you're done.
-antigen apply
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
+# Start configuration added by Zim install {{{
 #
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# User configuration sourced by interactive shells
+#
 
-elapsed=$(($(gdate +%s%N)/1000000-$base))
-base=$(($(gdate +%s%N)/1000000)) && time_debug "antigen:" $elapsed
+# -----------------
+# Zsh configuration
+# -----------------
 
-### ------------------------ oh-my-zsh execution time --------------------------------
+#
+# History
+#
+
+zmodload zsh/zprof
+
+# Remove older command from the history if a duplicate is to be added.
+setopt HIST_IGNORE_ALL_DUPS
+
+#
+# Input/output
+#
+
+
+# Set editor default keymap to emacs (`-e`) or vi (`-v`)
+bindkey -v
+bindkey "^P" up-line-or-search
+bindkey "^N" down-line-or-search
+export EDITOR=nvim
+
+# Prompt for spelling correction of commands.
+setopt CORRECT
+
+# Customize spelling correction prompt.
+#SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]? '
+
+# Remove path separator from WORDCHARS.
+WORDCHARS=${WORDCHARS//[\/]}
+
+# Color Settings
+export CLICOLOR=1
+export LSCOLORS=GxFxCxDxHxagadabagacad
+export GREP_COLORS='sl=97;48;5;236:cx=37;40:mt=30;48;5;186:fn=38;5;197:ln=38;5;154:bn=38;5;141:se=38;5;81';
+export GREP_OPTIONS='--color=always'
+export GREP_COLOR='1;35;40'
+
+# -----------------
+# Zim configuration
+# -----------------
+
+# Use degit instead of git as the default tool to install and update modules.
+zstyle ':zim:zmodule' use 'git'
+
+# --------------------
+# Module configuration
+# --------------------
+
+#
+# git
+#
+
+# Set a custom prefix for the generated aliases. The default prefix is 'G'.
+zstyle ':zim:git' aliases-prefix 'g'
+
+#
+# input
+#
+
+# Append `../` to your input for each `.` you type after an initial `..`
+#zstyle ':zim:input' double-dot-expand yes
+
+#
+# termtitle
+#
+
+# Set a custom terminal title format using prompt expansion escape sequences.
+# See http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html#Simple-Prompt-Escapes
+# If none is provided, the default '%n@%m: %~' is used.
+#zstyle ':zim:termtitle' format '%1~'
+
+#
+# zsh-autosuggestions
+#
+
+# Disable automatic widget re-binding on each precmd. This can be set when
+# zsh-users/zsh-autosuggestions is the last module in your ~/.zimrc.
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+
+# Customize the style that the suggestions are shown with.
+# See https://github.com/zsh-users/zsh-autosuggestions/blob/master/README.md#suggestion-highlight-style
+#ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
+
+
+# ------------------
+# Initialize modules
+# ------------------
+
+ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
+ZIM_CUSTOM=${ZDOTDIR:-${HOME}}/.zim/custom
+# Download zimfw plugin manager if missing.
+if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
+  if (( ${+commands[curl]} )); then
+    curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
+        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+  else
+    mkdir -p ${ZIM_HOME} && wget -nv -O ${ZIM_HOME}/zimfw.zsh \
+        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+  fi
+fi
+# Install missing modules, and update ${ZIM_HOME}/init.zsh if missing or outdated.
+if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
+  source ${ZIM_HOME}/zimfw.zsh init -q
+fi
+# Initialize modules.
+source ${ZIM_HOME}/init.zsh
+
+# ------------------------------
+# Post-init module configuration
+# ------------------------------
+
+#
+# completion
+#
+zstyle ':completion::complete:*' cache-path ${HOME}/.cache/zsh/completions
+
+# ------------------------------
+# custom configuration
+# ------------------------------
+
+
+### ------------------------ execution time --------------------------------
+
 function preexec() {
 	timer=$(($(gdate +%s%0N)/1000000))
 }
@@ -149,10 +144,6 @@ function precmd() {
 }
 
 ### -------------------------- Git Info -------------------------------------------
-source ${ZSH_CUSTOM}/plugins/gitstatus/gitstatus.plugin.zsh
-
-elapsed=$(($(gdate +%s%N)/1000000-$base))
-base=$(($(gdate +%s%N)/1000000)) && time_debug "gitstatus:" $elapsed
 
 function my_set_prompt() {
 	if gitstatus_query MY && [[ $VCS_STATUS_RESULT == ok-sync ]]; then
@@ -166,12 +157,9 @@ gitstatus_stop 'MY' && gitstatus_start -s -1 -u -1 -c -1 -d -1 'MY'
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd my_set_prompt
 
-elapsed=$(($(gdate +%s%N)/1000000-$base))
-base=$(($(gdate +%s%N)/1000000)) && time_debug "git repo:" $elapsed
-
 ### -------------------------- Alias ----------------------------------------------
 
-alias rgg="${ZSH_CUSTOM}/scripts/riggrep-fzf-vim.sh"
+alias rgg="${ZIM_CUSTOM}/scripts/riggrep-fzf-vim.sh"
 
 ### -------------------------- Third part source -----------------------------------
 
@@ -179,36 +167,9 @@ alias rgg="${ZSH_CUSTOM}/scripts/riggrep-fzf-vim.sh"
 source ${HOME}/.myScript
 source ~/.zsh_enhance
 
-elapsed=$(($(gdate +%s%N)/1000000-$base))
-base=$(($(gdate +%s%N)/1000000)) && time_debug "custom script:" $elapsed
-
-# zsh plugins
-source ${ZSH_CUSTOM}/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
-source ${ZSH_CUSTOM}/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-
-elapsed=$(($(gdate +%s%N)/1000000-$base))
-base=$(($(gdate +%s%N)/1000000)) && time_debug "highlighting plugins:" $elapsed
-
-# direnv
-_eval_direnv() { eval "$(direnv hook zsh)" }
-_eval_direnv
-
-elapsed=$(($(gdate +%s%N)/1000000-$base))
-base=$(($(gdate +%s%N)/1000000)) && time_debug "dir env:" $elapsed
-
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 FZF_DEFAULT_OPTS='--height 40% --layout=reverse --inline-info'
-
-elapsed=$(($(gdate +%s%N)/1000000-$base))
-base=$(($(gdate +%s%N)/1000000)) && time_debug "fzf:" $elapsed
-
-# the fuck
-#_eval_thefuck() { eval $(thefuck --alias) }
-#_eval_thefuck
-
-elapsed=$(($(gdate +%s%N)/1000000-$base))
-base=$(($(gdate +%s%N)/1000000)) && time_debug "the fuck:" $elapsed
 
 # lessfilter
 export LESSOPEN='|~/.lessfilter %s'
@@ -223,50 +184,30 @@ fi
 source "$fasd_cache"
 unset fasd_cache
 ## extra alias
-alias v="a -e nvim"
-
-elapsed=$(($(gdate +%s%N)/1000000-$base))
-base=$(($(gdate +%s%N)/1000000)) && time_debug "fasd:" $elapsed
-
-# pinyin completion 
-source ${ZSH_CUSTOM}/plugins/pinyin-complete/pinyin-comp.zsh
-
-elapsed=$(($(gdate +%s%N)/1000000-$base))
-base=$(($(gdate +%s%N)/1000000)) && time_debug "pinyin:" $elapsed
+alias v="a -e $EDITOR"
 
 # zsh completion auto generator
 GENCOMPL_PY="/usr/bin/python3"
-GENCOMPL_FPATH=${ZSH}/cache/completions
-source ${ZSH_CUSTOM}/plugins/zsh-completion-generator/zsh-completion-generator.plugin.zsh
-# use `man2comp <command>` generate autosuggestions manually
-zstyle :plugin:zsh-completion-generator programs curl http
-
-elapsed=$(($(gdate +%s%N)/1000000-$base))
-base=$(($(gdate +%s%N)/1000000)) && time_debug "zsh completion:" $elapsed
+GENCOMPL_FPATH=${HOME}/.cache/zsh/completions
+# too slow to initialize, and nearly not using. invoke manually.
+#source ${ZIM_CUSTOM}/plugins/zsh-completion-generator/zsh-completion-generator.plugin.zsh
+ #use `man2comp <command>` generate autosuggestions manually
+#zstyle :plugin:zsh-completion-generator programs curl http locusts
 
 # fzf-tab
-source ${ZSH_CUSTOM}/scripts/fzf-tab-config.zsh
-
-elapsed=$(($(gdate +%s%N)/1000000-$base))
-base=$(($(gdate +%s%N)/1000000)) && time_debug "fzf tab:" $elapsed
+source ${ZIM_CUSTOM}/scripts/fzf-tab-config.zsh
 
 # fzf-browser
-source ${ZSH_CUSTOM}/scripts/fzf-google-chrome.zsh
+source ${ZIM_CUSTOM}/scripts/fzf-google-chrome.zsh
 
-elapsed=$(($(gdate +%s%N)/1000000-$base))
-base=$(($(gdate +%s%N)/1000000)) && time_debug "fzf browser:" $elapsed
-
-# lab
-#source <(lab completion zsh)
-
-elapsed=$(($(gdate +%s%N)/1000000-$base))
-base=$(($(gdate +%s%N)/1000000)) && time_debug "lab:" $elapsed
+# direnv
+#eval "$(direnv hook zsh)"
 
 ### ----------------------- Configuration ----------------------------------------
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-function init_conda() {
+function __init_conda() {
 	local __conda_setup="$('/usr/local/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 	if [ $? -eq 0 ]; then
 		eval "$__conda_setup"
@@ -278,12 +219,8 @@ function init_conda() {
 		fi
 	fi
 }
-#init_conda
 # <<< conda initialize <<<
-elapsed=$(($(gdate +%s%N)/1000000-$base))
-base=$(($(gdate +%s%N)/1000000)) && time_debug "conda:" $elapsed
 
-timezsh() {
-  shell=${1-$SHELL}
-  for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
-}
+# }}} End configuration added by Zim install
+
+export PATH=/Users/bjhl/.tiup/bin:$PATH
