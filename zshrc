@@ -203,7 +203,21 @@ source ${ZIM_CUSTOM}/scripts/fzf-google-chrome.zsh
 # direnv
 #eval "$(direnv hook zsh)"
 
+# atuin
+#lazyload atuin -- 'eval "$(atuin init zsh)"'
+eval "$(atuin init zsh)"
+# rebind up arrow to previous cmd
+bindkey '^[[A' history-search-backward
+bindkey '^[OA' history-search-backward
+
 ### ----------------------- Configuration ----------------------------------------
+
+# php configuration
+export LDFLAGS="-L/usr/local/opt/libffi/lib"
+export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
+
+# tidb tiup
+export PATH=/Users/bjhl/.tiup/bin:$PATH
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -222,5 +236,3 @@ function __init_conda() {
 # <<< conda initialize <<<
 
 # }}} End configuration added by Zim install
-
-export PATH=/Users/bjhl/.tiup/bin:$PATH
