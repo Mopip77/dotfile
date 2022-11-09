@@ -24,7 +24,12 @@ zmodule paulirish/git-open
 zmodule xvoland/Extract --source extract.sh --cmd 'alias x="extract"'
 # Auto pair punctuation
 zmodule hlissner/zsh-autopair
-
+# zsh vi mode
+zmodule jeffreytse/zsh-vi-mode
+# eval 缓存
+zmodule mroth/evalcache
+# 懒加载
+zmodule qoomon/zsh-lazyload
 
 #
 # Prompt

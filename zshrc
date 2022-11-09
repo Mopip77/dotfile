@@ -89,6 +89,11 @@ ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 # See https://github.com/zsh-users/zsh-autosuggestions/blob/master/README.md#suggestion-highlight-style
 #ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
 
+# zsh-vi-mode 
+# 修正C-r为atuin
+zvm_after_init_commands+=("bindkey '^r' _atuin_search_widget")
+# 调整高亮背景色
+ZVM_VI_HIGHLIGHT_BACKGROUND=#81AFD5
 
 # ------------------
 # Initialize modules
@@ -160,6 +165,7 @@ add-zsh-hook precmd my_set_prompt
 ### -------------------------- Alias ----------------------------------------------
 
 alias rgg="${ZIM_CUSTOM}/scripts/riggrep-fzf-vim.sh"
+alias v="a -e $EDITOR"
 
 ### -------------------------- Third part source -----------------------------------
 
@@ -183,8 +189,7 @@ if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
 fi
 source "$fasd_cache"
 unset fasd_cache
-## extra alias
-alias v="a -e $EDITOR"
+export _FASD_NOCASE=1
 
 # zsh completion auto generator
 GENCOMPL_PY="/usr/bin/python3"
@@ -201,14 +206,13 @@ source ${ZIM_CUSTOM}/scripts/fzf-tab-config.zsh
 source ${ZIM_CUSTOM}/scripts/fzf-google-chrome.zsh
 
 # direnv
-#eval "$(direnv hook zsh)"
+_evalcache direnv hook $SHELL
 
 # atuin
-#lazyload atuin -- 'eval "$(atuin init zsh)"'
-eval "$(atuin init zsh)"
-# rebind up arrow to previous cmd
-bindkey '^[[A' history-search-backward
-bindkey '^[OA' history-search-backward
+export ATUIN_NOBIND="true"
+_evalcache atuin init zsh
+# bind C-r to atuin
+bindkey '^r' _atuin_search_widget
 
 ### ----------------------- Configuration ----------------------------------------
 
