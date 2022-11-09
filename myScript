@@ -12,11 +12,17 @@ alias grhh="git reset --hard HEAD"
 alias glog="git log --decorate --oneline --graph HEAD"
 alias gpl="git pull"
 alias gcmsg="git commit -m"
+alias gcl="git clone"
+alias gcom="git checkout master"
+alias gbnm="git checkout master && git checkout -b"
 
+alias ls="exa"
 alias mv="mv -i" # overwrite prompt
-alias cp="cp -i" # overwrite prompt
+alias rm="rip"
+alias cp="xcp -n"
 alias tnew="tmux new -s"
 alias o="open"
+alias c="pbcopy"
 alias nvi="nvim"
 alias vim="nvim"
 alias vi="nvim"
@@ -36,6 +42,7 @@ alias p="export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:78
 alias rp="export https_proxy= http_proxy= all_proxy="
 alias charles_proxy="export https_proxy=http://127.0.0.1:12580 http_proxy=http://127.0.0.1:12580"
 alias yabai-startup="killall yabai; nohup yabai &> /dev/null &; killall spacebar; nohup spacebar &> /dev/null &;"
+alias preview="open -a Preview"
 
 ##
 # path
