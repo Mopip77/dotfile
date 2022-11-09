@@ -464,7 +464,7 @@
           ]
         },
         {
-          "description": "Vill Q",
+          "description": "show/hide notification center",
           "type": "basic",
           "conditions": [
             {
@@ -478,12 +478,9 @@
           },
           "to": [
             {
-              "key_code": "k",
+              "key_code": "f2",
               "modifiers": [
-                "left_control",
-                "left_option",
-                "left_shift",
-                "left_command"
+                "left_control"
               ]
             }
           ]
