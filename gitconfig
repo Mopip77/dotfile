@@ -19,3 +19,5 @@
 	defaultBranch = master
 [includeIf "gitdir:~/project/yunying/"]
 	path = ~/.gitconfig.work
+[push]
+	autoSetupRemote = true
