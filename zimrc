@@ -30,6 +30,8 @@ zmodule jeffreytse/zsh-vi-mode
 zmodule mroth/evalcache
 # 懒加载
 zmodule qoomon/zsh-lazyload
+# alias reminder
+zmodule djui/alias-tips
 
 #
 # Prompt
