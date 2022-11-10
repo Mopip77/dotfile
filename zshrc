@@ -165,7 +165,7 @@ add-zsh-hook precmd my_set_prompt
 ### -------------------------- Alias ----------------------------------------------
 
 alias rgg="${ZIM_CUSTOM}/scripts/riggrep-fzf-vim.sh"
-alias v="a -e $EDITOR"
+alias v="fasd -a -e $EDITOR"
 
 ### -------------------------- Third part source -----------------------------------
 
@@ -184,11 +184,14 @@ export LESSOPEN='|~/.lessfilter %s'
 fasd_cache="$HOME/.fasd-init-zsh"
 if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
   fasd --init posix-alias zsh-hook zsh-ccomp zsh-ccomp-install >| "$fasd_cache"
-  # injet fzf completion
+  # inject fzf completion
   gsed -i "s/\$compl\"/\$compl\" | fzf --height 40% --reverse --preview 'less {}'/" $fasd_cache
+  # remove some alias
+  gsed -i -E '/alias (a|s|sd|sf|zz)/d' $fasd_cache
 fi
 source "$fasd_cache"
 unset fasd_cache
+# fasd match text ignore case
 export _FASD_NOCASE=1
 
 # zsh completion auto generator
@@ -240,3 +243,5 @@ function __init_conda() {
 # <<< conda initialize <<<
 
 # }}} End configuration added by Zim install
+
+source /Users/bjhl/.config/broot/launcher/bash/br
