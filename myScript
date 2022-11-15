@@ -261,3 +261,7 @@ decrypt_pwd() {
     openssl rsautl -inkey $rsaSecretKey -decrypt < $pwdPath
   fi
 }
+
+flush_dns() {
+  sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder
+}
