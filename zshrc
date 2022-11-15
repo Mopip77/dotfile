@@ -95,6 +95,12 @@ zvm_after_init_commands+=("bindkey '^r' _atuin_search_widget")
 # 调整高亮背景色
 ZVM_VI_HIGHLIGHT_BACKGROUND=#81AFD5
 
+# alias-tip
+# 使用alias时展示expand命令
+export ZSH_PLUGINS_ALIAS_TIPS_REVEAL=1
+# 不需要expand的alias
+export ZSH_PLUGINS_ALIAS_TIPS_REVEAL_EXCLUDES=(_ ls ll vi z fasd_cd curl)
+
 # ------------------
 # Initialize modules
 # ------------------

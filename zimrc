@@ -31,7 +31,7 @@ zmodule mroth/evalcache
 # 懒加载
 zmodule qoomon/zsh-lazyload
 # alias reminder
-zmodule djui/alias-tips
+zmodule Mopip77/alias-tips
 
 #
 # Prompt
