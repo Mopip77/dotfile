@@ -249,5 +249,3 @@ function __init_conda() {
 # <<< conda initialize <<<
 
 # }}} End configuration added by Zim install
-
-source /Users/bjhl/.config/broot/launcher/bash/br
