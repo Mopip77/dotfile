@@ -47,6 +47,13 @@ function new_line() {
 	fi
 }
 
+function ssh_user() {
+    # show user if logon by ssh
+    if [ -n "${SSH_CLIENT}" ]; then
+        echo "%F{#FF9800}[%n@%m]%f "
+    fi
+}
+
 ## ------------------ PROXY STATUS -----------------------
 function proxy_status() {
 	if [ -n "${http_proxy:=}" ]; then
@@ -59,5 +66,5 @@ PATH_COLOR="%(?.%B%F{cyan}.%B%F{red})"
 PATH_INFO="%~%f "
 
 ## ------------------- PROMPTS -----------------------------
-PROMPT='$(proxy_status)$(virtenv_prompt)${PATH_COLOR}${PATH_INFO}$(git_info)$(new_line)'
+PROMPT='$(proxy_status)$(virtenv_prompt)$(ssh_user)${PATH_COLOR}${PATH_INFO}$(git_info)$(new_line)'
 RPROMPT='$(last_cmd_exec_time)'
