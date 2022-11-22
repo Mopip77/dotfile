@@ -247,5 +247,6 @@ function __init_conda() {
 	fi
 }
 # <<< conda initialize <<<
+lazyload conda -- __init_conda
 
 # }}} End configuration added by Zim install
