@@ -152,17 +152,8 @@ alt - t : ~/.config/yabai/toggle-window-floating-tiling.sh
 # float / unfloat 到鼠标所在space
 alt - g : ~/.config/yabai/toggle-display-center-floating-tiling.sh
 
-# toggle sticky (show on all spaces)
-# alt - s : yabai -m window --toggle sticky
-
-# toggle topmost (keep above other windows)
-alt - o : yabai -m window --toggle topmost
-
 # toggle sticky(+float), topmost, border and picture-in-picture
-alt - p : yabai -m window --toggle sticky;\
-          yabai -m window --toggle topmost;
-          #yabai -m window --toggle border;\
-          # yabai -m window --toggle pip
+alt - o : ~/.config/yabai/toggle-window-sticking-tiling.sh
 
 # change layout of desktop(更换layout方式)
 ctrl + alt - a : yabai -m space --layout bsp
