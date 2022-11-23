@@ -265,3 +265,8 @@ decrypt_pwd() {
 flush_dns() {
   sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder
 }
+
+enable_zerotier_redirect() {
+  sudo sysctl -w net.inet.ip.forwarding=1
+  sudo pfctl -e -f /etc/pf.conf
+}
