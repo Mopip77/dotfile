@@ -300,7 +300,10 @@
           },
           "to": [
             {
-              "key_code": "play_or_pause"
+              "key_code": "tab",
+              "modifiers": [
+                "left_command"
+              ]
             }
           ]
         },
@@ -435,7 +438,9 @@
           "to": [
             {
               "key_code": "f12",
-              "modifiers": [ "left_option" ]
+              "modifiers": [
+                "left_option"
+              ]
             }
           ]
         },
@@ -486,7 +491,7 @@
           ]
         },
         {
-          "description": "Xnip",
+          "description": "Shortcut",
           "type": "basic",
           "conditions": [
             {
@@ -500,10 +505,10 @@
           },
           "to": [
             {
-              "key_code": "o",
+              "key_code": "g",
               "modifiers": [
                 "left_command",
-                "left_option",
+                "left_shift",
                 "left_control"
               ]
             }
@@ -752,6 +757,28 @@
               "pointing_button": "button2",
               "modifiers": [
                 "fn"
+              ]
+            }
+          ]
+        },
+        {
+          "description": "cap + w => cmd + w",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "caps_arrow_mode",
+              "type": "variable_if",
+              "value": 1
+            }
+          ],
+          "from": {
+            "key_code": "w"
+          },
+          "to": [
+            {
+              "key_code": "w",
+              "modifiers": [
+                "left_command"
               ]
             }
           ]
