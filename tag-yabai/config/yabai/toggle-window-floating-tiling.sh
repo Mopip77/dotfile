@@ -3,6 +3,8 @@
 # Toggle a window between floating and tiling.
 # Only works when the workspace layout is bsp, i.e., the windows in it are tiled.
 
+forceCenter=${1:-}
+
 spaceType=$(yabai -m query --spaces --space | jq .type)
 if [ $spaceType = '"bsp"' ]; then
 
@@ -15,8 +17,17 @@ if [ $spaceType = '"bsp"' ]; then
   if [[ $floating = true ]]
   then
     [ -e $tmpfile ] && rm $tmpfile
-    echo $(yabai -m query --windows --window | jq .frame) >> $tmpfile
-    yabai -m window --toggle float
+
+    if [ ! -z $forceCenter ]; then
+      display=$(yabai -m query --windows --window | jq .display)
+      . /tmp/yabai-tiling-floating-toggle/display-$display
+      yabai -m window --move abs:$x:$y
+      yabai -m window --resize abs:$w:$h
+    else
+      echo $(yabai -m query --windows --window | jq .frame) >> $tmpfile
+      yabai -m window --toggle float
+    fi
+
     # [ $border = 'on' ] && yabai -m window --toggle border
 
   # If the window is tiling, toggle it to be floating.
@@ -27,7 +38,13 @@ if [ $spaceType = '"bsp"' ]; then
   else
     yabai -m window --toggle float
     # [ $border = 'on' ] && yabai -m window --toggle border
-    if [ -e $tmpfile ]
+    if [ ! -z $forceCenter ]; then
+      display=$(yabai -m query --windows --window | jq .display)
+      . /tmp/yabai-tiling-floating-toggle/display-$display
+      yabai -m window --move abs:$x:$y
+      yabai -m window --resize abs:$w:$h
+      echo $(yabai -m query --windows --window | jq .frame) >> $tmpfile
+    elif [ -e $tmpfile ]
     then
       read -r x y w h <<< $(echo $(cat $tmpfile | jq '.x, .y, .w, .h'))
       yabai -m window --move abs:$x:$y

@@ -150,6 +150,9 @@ alt - e : yabai -m window --toggle split
           #yabai -m window --grid 4:4:1:1:2:2
 alt - t : ~/.config/yabai/toggle-window-floating-tiling.sh \
           && ~/.config/yabai/change-window-border-color-when-window-focused.sh
+# 强制float居中
+shift + alt - t : ~/.config/yabai/toggle-window-floating-tiling.sh forceCenter \
+          && ~/.config/yabai/change-window-border-color-when-window-focused.sh
 # float / unfloat 到鼠标所在space
 alt - g : ~/.config/yabai/toggle-display-center-floating-tiling.sh \
           && ~/.config/yabai/change-window-border-color-when-window-focused.sh
