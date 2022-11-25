@@ -46,7 +46,7 @@ vim:setAlertFont("Monaco")
 vim:enableBetaFeature('block_cursor_overlay')
 
 -- 在karabiner中重载为 caps + u
-vim:bindHotKeys({ enter = { {'ctrl', 'shift', 'alt'}, '8' } })
+--vim:bindHotKeys({ enter = { {'ctrl', 'shift', 'alt'}, '8' } })
 
 --------------------------------
 -- END VIM CONFIG
