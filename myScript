@@ -270,3 +270,7 @@ enable_zerotier_redirect() {
   sudo sysctl -w net.inet.ip.forwarding=1
   sudo pfctl -e -f /etc/pf.conf
 }
+
+fakeTimeWhen() {
+  DYLD_FORCE_FLAT_NAMESPACE=1 DYLD_INSERT_LIBRARIES=/usr/local/lib/faketime/libfaketime.1.dylib FAKETIME=$1 ${@:2:100}
+}
