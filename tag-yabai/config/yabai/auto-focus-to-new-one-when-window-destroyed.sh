@@ -14,7 +14,7 @@ fi
 # It is weird to query twice, cause some active window can only be quired out with `--window` option.
 hasFocused=$(yabai -m query --windows --window | jq '."has-focus"') || hasFocused=false
 if [[ "true" != $hasFocused ]]; then
-  hasFocused=$(yabai -m query --windows | jq '.[] | select(."has-focus") | ."has-focus"') || hasFocused=false
+  hasFocused=$(yabai -m query --windows | jq '.[] | select(."has-focus" and ."is-visible") | ."has-focus"') || hasFocused=false
 fi
 
 if [[ "true" != $hasFocused ]]; then
