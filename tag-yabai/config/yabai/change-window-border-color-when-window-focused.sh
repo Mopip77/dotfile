@@ -1,8 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 window_id="${YABAI_WINDOW_ID:-}"
 
-read -r sticky floating <<< $(echo $(yabai -m query --windows --window $window_id | jq '."is-sticky", ."is-floating"'))
+read -r subrole sticky floating <<< $(echo $(yabai -m query --windows --window $window_id | jq -r '.subrole, ."is-sticky", ."is-floating"'))
+
+if [ "AXSystemDialog" = "$subrole" ]; then
+    exit 0
+fi
 
 if [ "true" = $floating ]; then
   yabai -m config active_window_border_color 0xfc26A69A
