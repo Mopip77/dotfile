@@ -20,8 +20,10 @@ yabai -m signal --add event=window_destroyed action="~/.config/yabai/auto-focus-
 yabai -m signal --add event=application_hidden action="~/.config/yabai/auto-focus-to-new-one-when-window-destroyed.sh 2> /dev/null"
 yabai -m signal --add event=window_minimized action="~/.config/yabai/auto-focus-to-new-one-when-window-destroyed.sh 2> /dev/null"
 
+# ====
+# Settings
+# ====
 
-# global settings
 yabai -m config mouse_follows_focus          off
 yabai -m config focus_follows_mouse          off
 yabai -m config window_placement             second_child
@@ -49,7 +51,6 @@ yabai -m config mouse_modifier               fn
 yabai -m config mouse_action1                move
 yabai -m config mouse_action2                resize
 
-# general space settings(设置间隔,都设置成0)
 yabai -m config layout                       bsp
 yabai -m config top_padding                  2
 yabai -m config bottom_padding               26
@@ -57,11 +58,19 @@ yabai -m config left_padding                 2
 yabai -m config right_padding                2
 yabai -m config window_gap                   1
 
-# 动画
+# animation
 #yabai -m config window_animation_duration    0.30
+
+# ====
+# Rules
+# ====
 
 otherApp='^(IINA|访达|Calendar|日历|System Preferences|系统偏好设置|Mail|微信|WeChatc|QQ|印象笔记|灵犀|网易云音乐|Alfred Preferences|Tencent Lemon|企业微信|Todoist|Input Source Pro|Spotify|Enpass|预览)$'
 yabai -m rule --add app="${otherApp}" manage=off
 
-echo "yabai configuration loaded.."
+## specific rule
 
+yabai -m rule --add app="^IntelliJ IDEA$" manage=off
+yabai -m rule --add app="^IntelliJ IDEA$" title="( – )" manage=on
+
+echo "yabai configuration loaded.."
