@@ -564,50 +564,6 @@
           ]
         },
         {
-          "description": "yabai -> fn + button1",
-          "type": "basic",
-          "conditions": [
-            {
-              "name": "caps_arrow_mode",
-              "type": "variable_if",
-              "value": 1
-            }
-          ],
-          "from": {
-            "pointing_button": "button1"
-          },
-          "to": [
-            {
-              "pointing_button": "button1",
-              "modifiers": [
-                "fn"
-              ]
-            }
-          ]
-        },
-        {
-          "description": "yabai -> fn + button2",
-          "type": "basic",
-          "conditions": [
-            {
-              "name": "caps_arrow_mode",
-              "type": "variable_if",
-              "value": 1
-            }
-          ],
-          "from": {
-            "pointing_button": "button2"
-          },
-          "to": [
-            {
-              "pointing_button": "button2",
-              "modifiers": [
-                "fn"
-              ]
-            }
-          ]
-        },
-        {
           "description": "tmux -> ctrl-b",
           "type": "basic",
           "conditions": [
