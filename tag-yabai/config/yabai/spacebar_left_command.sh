@@ -1,23 +1,10 @@
 #!/bin/bash
 
-shurufa() {
-  curPath=$(cd `dirname $0`; pwd)
-  layout=$(${curPath}/get_current_shurufa)
-  if [[ $layout == *"ABC"* ]];then
-     echo "🇺🇸 "
-  else
-     echo "🇨🇳 "
-  fi
-}
-
-emoji() {
-  echo " 🤦🏼💆🏻🙆🏼"
-}
-
+# load lib
+. $(dirname $0)/spacebar-lib.sh
 
 arr=(
-"`emoji`"
-#"`shurufa`"
+  "`output_device`"
 )
 
 res=""
@@ -25,6 +12,8 @@ res=""
 arrLength=${#arr[@]}
 for ((i=0;i<${arrLength};i++))
 do
+  [[ $i -eq 0 ]] && res="| "
+
   out=${arr[i]}
   [[ $i != $((arrLength - 1)) ]] && out="${out} | "
   res="$res$out"
