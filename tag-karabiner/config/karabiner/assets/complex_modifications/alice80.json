@@ -1,0 +1,877 @@
+{
+  "title": "alice80键盘配置",
+  "desciprtion": "alice80键盘旋钮分别是音量加减和(play_or_pause)，下面的四个按键依次是delete，page_up，page_down, 简称为r1-r3; 还有两个空格，可以让一个空格长按时触发layer",
+  "rules": [
+    {
+      "description": "alice80键盘配置",
+      "manipulators": [
+        {
+          "description": "r1+r2 进入高级层",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "advanced_layer",
+              "type": "variable_unless",
+              "value": 1
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "simultaneous": [
+              {
+                "key_code": "delete_forward"
+              },
+              {
+                "key_code": "page_up"
+              }
+            ]
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "advanced_layer",
+                "value": 1
+              }
+            },
+            {
+              "set_variable": {
+                "name": "mobile_layer",
+                "value": 0
+              }
+            },
+            {
+              "shell_command": "osascript -e 'display notification \"进入高级层\"'"
+            }
+          ]
+        },
+        {
+          "description": "r2+r3 进入手机层",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "mobile_layer",
+              "type": "variable_unless",
+              "value": 1
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "simultaneous": [
+              {
+                "key_code": "page_up"
+              },
+              {
+                "key_code": "page_down"
+              }
+            ]
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "mobile_layer",
+                "value": 1
+              }
+            },
+            {
+              "set_variable": {
+                "name": "advanced_layer",
+                "value": 0
+              }
+            },
+            {
+              "shell_command": "osascript -e 'display notification \"进入手机层\"'"
+            }
+          ]
+        },
+        {
+          "description": "r1+r2 退出高级层",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "advanced_layer",
+              "type": "variable_unless",
+              "value": 0
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "simultaneous": [
+              {
+                "key_code": "delete_forward"
+              },
+              {
+                "key_code": "page_up"
+              }
+            ]
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "advanced_layer",
+                "value": 0
+              }
+            },
+            {
+              "shell_command": "osascript -e 'display notification \"退出高级层\"'"
+            }
+          ]
+        },
+        {
+          "description": "r2+r3 退出手机层",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "mobile_layer",
+              "type": "variable_unless",
+              "value": 0
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "simultaneous": [
+              {
+                "key_code": "page_up"
+              },
+              {
+                "key_code": "page_down"
+              }
+            ]
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "mobile_layer",
+                "value": 0
+              }
+            },
+            {
+              "shell_command": "osascript -e 'display notification \"退出手机层\"'"
+            }
+          ]
+        },
+        {
+          "description": "left_command => left_command or space",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "left_command",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_command",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "spacebar"
+            }
+          ]
+        },
+        {
+          "description": "旋钮按下 + 蓝牙层 => 手机静音",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "mobile_layer",
+              "value": 1
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "consumer_key_code": "mute"
+          },
+          "to_if_alone": [
+            {
+              "shell_command": "/usr/local/bin/adb shell input keyevent KEYCODE_VOLUME_MUTE"
+            },
+            {
+              "shell_command": "osascript -e 'display notification \"test\"'"
+            }
+          ],
+          "to_if_held_down": [
+            {
+              "set_variable": {
+                "name": "radio_pressed",
+                "value": 1
+              }
+            }
+          ],
+          "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "radio_pressed",
+                "value": 0
+              }
+            }
+          ]
+        },
+        {
+          "description": "旋钮按下 => 静音",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "consumer_key_code": "mute"
+          },
+          "to_if_alone": [
+            {
+              "key_code": "mute"
+            }
+          ],
+          "to": [
+            {
+              "set_variable": {
+                "name": "radio_pressed",
+                "value": 1
+              }
+            }
+          ],
+          "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "radio_pressed",
+                "value": 0
+              }
+            }
+          ]
+        },
+        {
+          "description": "旋钮左 (蓝牙层) => 手机音量减小",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "mobile_layer",
+              "value": 1
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "volume_decrement"
+          },
+          "to": [
+            {
+              "shell_command": "/usr/local/bin/adb shell input keyevent KEYCODE_VOLUME_DOWN"
+            }
+          ]
+        },
+        {
+          "description": "旋钮右 (蓝牙层) => 手机音量增加",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "mobile_layer",
+              "value": 1
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "volume_increment"
+          },
+          "to": [
+            {
+              "shell_command": "/usr/local/bin/adb shell input keyevent KEYCODE_VOLUME_UP"
+            }
+          ]
+        },
+        {
+          "description": "key2 => 运行到鼠标处 (高级层有效)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "advanced_layer",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.jetbrains\\."
+              ]
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "page_up"
+          },
+          "to": [
+            {
+              "key_code": "f9",
+              "modifiers": [
+                "left_option"
+              ]
+            }
+          ]
+        },
+        {
+          "description": "key1 => 继续运行 (高级层有效)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "advanced_layer",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.jetbrains\\."
+              ]
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "delete_forward"
+          },
+          "to": [
+            {
+              "key_code": "r",
+              "modifiers": [
+                "left_option",
+                "left_command"
+              ]
+            }
+          ]
+        },
+        {
+          "description": "旋钮左 (idea) => F7  (高级层有效)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "advanced_layer",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.jetbrains\\."
+              ]
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "volume_decrement"
+          },
+          "to": [
+            {
+              "key_code": "f7"
+            }
+          ]
+        },
+        {
+          "description": "旋钮左 (idea) => F8  (高级层有效)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "advanced_layer",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.jetbrains\\."
+              ]
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "volume_increment"
+          },
+          "to": [
+            {
+              "key_code": "f8"
+            }
+          ]
+        },
+        {
+          "description": "key1 => 关闭标签页 (高级层生效)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "advanced_layer",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.edgemac$",
+                "^com\\.google\\.Chrome$"
+              ]
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "delete_forward"
+          },
+          "to": [
+            {
+              "key_code": "w",
+              "modifiers": [
+                "left_command"
+              ]
+            }
+          ]
+        },
+        {
+          "description": "key2 => 恢复前一页 (高级层生效)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "advanced_layer",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.edgemac$",
+                "^com\\.google\\.Chrome$"
+              ]
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "page_up"
+          },
+          "to": [
+            {
+              "key_code": "t",
+              "modifiers": [
+                "left_command",
+                "left_shift"
+              ]
+            }
+          ]
+        },
+        {
+          "description": "旋钮按下左 => 亮度减小",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "radio_pressed",
+              "type": "variable_if",
+              "value": 1
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "volume_decrement",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "apple_top_case_display_brightness_decrement"
+            }
+          ]
+        },
+        {
+          "description": "旋钮按下右 => 亮度增加",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "radio_pressed",
+              "type": "variable_if",
+              "value": 1
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "volume_increment",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "apple_top_case_display_brightness_increment"
+            }
+          ]
+        },
+        {
+          "description": "旋钮左 (edge) => 前一个标签页  (高级层有效)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "advanced_layer",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.edgemac$",
+                "^com\\.google\\.Chrome$"
+              ]
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "volume_decrement"
+          },
+          "to": [
+            {
+              "key_code": "tab",
+              "modifiers": [
+                "left_control",
+                "left_shift"
+              ]
+            }
+          ]
+        },
+        {
+          "description": "旋钮右 (edge) => 下一个标签页  (高级层有效)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "advanced_layer",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.edgemac$",
+                "^com\\.google\\.Chrome$"
+              ]
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "volume_increment"
+          },
+          "to": [
+            {
+              "key_code": "tab",
+              "modifiers": [
+                "left_control"
+              ]
+            }
+          ]
+        },
+        {
+          "description": "key1 + 蓝牙层 => 手机上一首",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "mobile_layer",
+              "value": 1
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "delete_forward",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "/usr/local/bin/adb shell input keyevent KEYCODE_MEDIA_PREVIOUS"
+            },
+            {
+              "shell_command": "osascript -e 'display notification \"手机播放上一首\"'"
+            }
+          ]
+        },
+        {
+          "description": "key1 => 上一首",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "delete_forward",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "rewind"
+            }
+          ]
+        },
+        {
+          "description": "key2 + 蓝牙层 => 手机下一首",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "mobile_layer",
+              "value": 1
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "page_up",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "/usr/local/bin/adb shell input keyevent KEYCODE_MEDIA_NEXT"
+            },
+            {
+              "shell_command": "osascript -e 'display notification \"手机播放下一首\"'"
+            }
+          ]
+        },
+        {
+          "description": "key2 => 下一首",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "page_up",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "consumer_key_code": "fast_forward"
+            }
+          ]
+        },
+        {
+          "description": "key3 => 播放暂停",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "page_down"
+          },
+          "to": [
+            {
+              "consumer_key_code": "play_or_pause"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
