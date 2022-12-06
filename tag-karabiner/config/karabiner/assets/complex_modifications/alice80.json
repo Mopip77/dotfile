@@ -182,6 +182,37 @@
           ]
         },
         {
+          "description": "fn + left_command => left_command + spacebar (command layer)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "left_command",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "spacebar",
+              "modifiers": [
+                "left_command"
+              ]
+            }
+          ]
+        },
+        {
           "description": "left_command => left_command or space",
           "type": "basic",
           "conditions": [
