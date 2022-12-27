@@ -64,6 +64,7 @@ set nu
 set mouse=a
 set updatetime=100 " 更新时间, 目前用于gitgutter
 set shiftwidth=4
+set scrolloff=8
 " 设置不可见字符样式
 set list
 set listchars=tab:→\ ,nbsp:␣,trail:•,extends:⟩,precedes:⟨
