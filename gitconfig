@@ -7,6 +7,7 @@
     st = status
 	cl = clone
 	lab = "!lab"
+    commit-diff = "!git log --oneline --cherry HEAD...\"$1\"^ \"$1\" #"
 [user]
 	name = mopip77
 	email = mopip77@qq.com
@@ -18,7 +19,7 @@
 [init]
 	defaultBranch = master
 [includeIf "gitdir:~/project/yunying/"]
-	path = ~/.gitconfig.work
+    path = ~/.gitconfig.work
 [push]
 	autoSetupRemote = true
 [core]
