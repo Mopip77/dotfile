@@ -8,6 +8,7 @@
 	cl = clone
 	lab = "!lab"
     commit-diff = "!git log --oneline --cherry HEAD...\"$1\"^ \"$1\" #"
+    patch-to = "!~/.config/my-scripts/git/patch-to-others.sh"
 [user]
 	name = mopip77
 	email = mopip77@qq.com
