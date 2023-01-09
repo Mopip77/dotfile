@@ -13,6 +13,9 @@ output_device() {
     "MOPIP'AirPods")
       output="🎧 pods"
       ;;
+    "OPPO Enco Free2")
+      output="🎧 OPPO"
+      ;;
   esac
   echo "$output"
 }

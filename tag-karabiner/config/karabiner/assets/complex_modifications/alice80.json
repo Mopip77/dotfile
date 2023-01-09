@@ -182,6 +182,37 @@
           ]
         },
         {
+          "description": "fn + left_command => left_command + spacebar (command layer)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "left_command",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "spacebar",
+              "modifiers": [
+                "left_command"
+              ]
+            }
+          ]
+        },
+        {
           "description": "left_command => left_command or space",
           "type": "basic",
           "conditions": [
@@ -868,6 +899,139 @@
           "to": [
             {
               "consumer_key_code": "play_or_pause"
+            }
+          ]
+        },
+        {
+          "description": "fn + 1 => 截图 (cmd + 6)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "1",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ],
+              "optional": [
+                "left_shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "6",
+              "modifiers": [
+                "left_command"
+              ]
+            }
+          ]
+        },
+        {
+          "description": "fn + 2 => 滴答清单创建任务 (cmd + ctrl + option + shift + 2)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "2",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "2",
+              "modifiers": [
+                "left_command",
+                "left_shift",
+                "left_option",
+                "left_control"
+              ]
+            }
+          ]
+        },
+        {
+          "description": "fn + 3 => 滴答清单mini窗口 (cmd + ctrl + option + shift + 3)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "3",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "3",
+              "modifiers": [
+                "left_command",
+                "left_shift",
+                "left_option",
+                "left_control"
+              ]
+            }
+          ]
+        },
+        {
+          "description": "fn + ` => yabai切换bsp <-> float模式 (alt + t)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 33398,
+                  "description": "alice80"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "grave_accent_and_tilde",
+            "modifiers": {
+              "mandatory": [
+                "fn"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "t",
+              "modifiers": [
+                "left_option"
+              ]
             }
           ]
         }
