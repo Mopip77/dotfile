@@ -87,9 +87,13 @@ ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
 # Customize the style that the suggestions are shown with.
 # See https://github.com/zsh-users/zsh-autosuggestions/blob/master/README.md#suggestion-highlight-style
-#ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#A39587,bold,underline,italic"
 
-# zsh-vi-mode 
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+
+ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS=( forward-char )
+
+# zsh-vi-mode
 # 修正C-r为atuin
 zvm_after_init_commands+=("bindkey '^r' _atuin_search_widget")
 # 调整高亮背景色

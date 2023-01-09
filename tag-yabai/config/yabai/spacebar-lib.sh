@@ -4,8 +4,8 @@ output_device() {
   output="`SwitchAudioSource -c`"
 
   case "$output" in
-    "MacBook Pro扬声器")
-      output="🔈 MBP"
+    MacBook*)
+      output="🔈 MAC"
       ;;
     "MOPIP'Airpods Pro")
       output="🎧 pro"
