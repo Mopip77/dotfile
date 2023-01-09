@@ -9,19 +9,19 @@ ZSH_HIGHLIGHT_STYLES[comment]='fg=#626880'
 ## Constants
 ## Entitites
 ## Functions/methods
-ZSH_HIGHLIGHT_STYLES[alias]='fg=#a6d189'
+ZSH_HIGHLIGHT_STYLES[alias]='fg=#a6d189,bold'
 ZSH_HIGHLIGHT_STYLES[suffix-alias]='fg=#a6d189'
 ZSH_HIGHLIGHT_STYLES[global-alias]='fg=#a6d189'
-ZSH_HIGHLIGHT_STYLES[function]='fg=#a6d189'
-ZSH_HIGHLIGHT_STYLES[command]='fg=#a6d189'
-ZSH_HIGHLIGHT_STYLES[precommand]='fg=#a6d189,italic'
+ZSH_HIGHLIGHT_STYLES[function]='fg=#a6d189,bold'
+ZSH_HIGHLIGHT_STYLES[command]='fg=#a6d189,bold,italic'
+ZSH_HIGHLIGHT_STYLES[precommand]='fg=#a6d189,bold,italic'
 ZSH_HIGHLIGHT_STYLES[autodirectory]='fg=#ef9f76,italic'
 ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=#ef9f76'
 ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=#ef9f76'
 ZSH_HIGHLIGHT_STYLES[back-quoted-argument]='fg=#ca9ee6'
 ## Keywords
 ## Built ins
-ZSH_HIGHLIGHT_STYLES[builtin]='fg=#a6d189'
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=#a6d189,bold,italic'
 ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=#a6d189'
 ZSH_HIGHLIGHT_STYLES[hashed-command]='fg=#a6d189'
 ## Punctuation
@@ -52,7 +52,7 @@ ZSH_HIGHLIGHT_STYLES[numeric-fd]='fg=#c6d0f5'
 ## No category relevant in spec
 ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=#ea999c'
 ZSH_HIGHLIGHT_STYLES[path]='fg=#c6d0f5,underline'
-ZSH_HIGHLIGHT_STYLES[path_pathseparator]='fg=#e78284,underline'
+ZSH_HIGHLIGHT_STYLES[path_pathseparator]='fg=#AB99C6,bold,underline'
 ZSH_HIGHLIGHT_STYLES[path_prefix]='fg=#c6d0f5,underline'
 ZSH_HIGHLIGHT_STYLES[path_prefix_pathseparator]='fg=#e78284,underline'
 ZSH_HIGHLIGHT_STYLES[globbing]='fg=#c6d0f5'
