@@ -182,6 +182,8 @@ source ~/.zsh_enhance
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 FZF_DEFAULT_OPTS='--height 40% --layout=reverse --inline-info'
+export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # lessfilter
 export LESSOPEN='|~/.lessfilter %s'
