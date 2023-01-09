@@ -47,12 +47,22 @@ export GREP_COLOR='1;35;40'
 # Zim configuration
 # -----------------
 
+ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
+ZIM_CUSTOM=${ZDOTDIR:-${HOME}}/.zim/custom
+
 # Use degit instead of git as the default tool to install and update modules.
 zstyle ':zim:zmodule' use 'git'
 
 # --------------------
 # Module configuration
 # --------------------
+
+# load custom configuration sets
+if [ -d "${ZIM_CUSTOM}/after/plugin/" ]; then
+    for file in `ls ${ZIM_CUSTOM}/after/plugin/*.zsh`; do
+        source "$file"
+    done
+fi
 
 #
 # git
@@ -77,40 +87,10 @@ zstyle ':zim:git' aliases-prefix 'g'
 # If none is provided, the default '%n@%m: %~' is used.
 #zstyle ':zim:termtitle' format '%1~'
 
-#
-# zsh-autosuggestions
-#
-
-# Disable automatic widget re-binding on each precmd. This can be set when
-# zsh-users/zsh-autosuggestions is the last module in your ~/.zimrc.
-ZSH_AUTOSUGGEST_MANUAL_REBIND=1
-
-# Customize the style that the suggestions are shown with.
-# See https://github.com/zsh-users/zsh-autosuggestions/blob/master/README.md#suggestion-highlight-style
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#A39587,bold,underline,italic"
-
-ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-
-ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS=( forward-char )
-
-# zsh-vi-mode
-# 修正C-r为atuin
-zvm_after_init_commands+=("bindkey '^r' _atuin_search_widget")
-# 调整高亮背景色
-ZVM_VI_HIGHLIGHT_BACKGROUND=#81AFD5
-
-# alias-tip
-# 使用alias时展示expand命令
-export ZSH_PLUGINS_ALIAS_TIPS_REVEAL=1
-# 不需要expand的alias
-export ZSH_PLUGINS_ALIAS_TIPS_REVEAL_EXCLUDES=(_ ls ll vi z fasd_cd curl)
-
 # ------------------
 # Initialize modules
 # ------------------
 
-ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
-ZIM_CUSTOM=${ZDOTDIR:-${HOME}}/.zim/custom
 # Download zimfw plugin manager if missing.
 if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
   if (( ${+commands[curl]} )); then
