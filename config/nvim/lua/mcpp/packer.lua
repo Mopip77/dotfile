@@ -16,6 +16,12 @@ return require('packer').startup(function(use)
 	  -- or                            , branch = '0.1.x',
 	  requires = { {'nvim-lua/plenary.nvim'} }
   }
+  use {
+      'nvim-tree/nvim-tree.lua',
+      requires = {
+          'nvim-tree/nvim-web-devicons', -- optional, for file icons
+      }
+  }
   use({'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'})
   use('mbbill/undotree')
   -- vim with git
@@ -32,6 +38,8 @@ return require('packer').startup(function(use)
           vim.g.matchup_matchparen_offscreen = { method = "popup" }
       end
   }
+  -- buffer line
+  use {'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'}
 
   -------------------- theme ----------------------------------
   use('shaunsingh/nord.nvim')
