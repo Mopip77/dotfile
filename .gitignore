@@ -2,3 +2,4 @@ tmux/resurrect/**
 tmux/plugins/*.log
 node_modules/
 yarn.lock
+**/*.DS_Store
