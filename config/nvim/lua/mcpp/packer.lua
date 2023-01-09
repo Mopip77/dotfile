@@ -7,22 +7,23 @@ return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
+  -------------------- infra ----------------------------------
+  use 'ethanholz/nvim-lastplace'
+  -- file navigator
   use {
 	  'nvim-telescope/telescope.nvim', tag = '0.1.0',
 	  -- or                            , branch = '0.1.x',
 	  requires = { {'nvim-lua/plenary.nvim'} }
   }
-
-  use('shaunsingh/nord.nvim')
-
   use({'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'})
   use('mbbill/undotree')
+  -- vim with git
   use('tpope/vim-fugitive')
-
+  -- pair or cursor
   use('jiangmiao/auto-pairs')
   use('tpope/vim-surround')
   use('terryma/vim-multiple-cursors')
-
+  use('easymotion/vim-easymotion')
   use {
       'andymass/vim-matchup',
       setup = function()
@@ -31,8 +32,10 @@ return require('packer').startup(function(use)
       end
   }
 
-  use('easymotion/vim-easymotion')
+  -------------------- theme ----------------------------------
+  use('shaunsingh/nord.nvim')
 
+  -------------------- lsp ----------------------------------
   use {
 	  'VonHeikemen/lsp-zero.nvim',
 	  requires = {
