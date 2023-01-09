@@ -9,6 +9,7 @@ return require('packer').startup(function(use)
 
   -------------------- infra ----------------------------------
   use 'ethanholz/nvim-lastplace'
+  use 'preservim/nerdcommenter'
   -- file navigator
   use {
 	  'nvim-telescope/telescope.nvim', tag = '0.1.0',
