@@ -1,4 +1,4 @@
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>l", vim.cmd.noh)
 
 -- quick save and close
 vim.keymap.set("n", "<leader>s", vim.cmd.w)
@@ -12,17 +12,10 @@ vim.keymap.set({"n", "v"}, "<C-k>", "<C-w>k")
 vim.keymap.set({"n", "v"}, "<C-l>", "<C-w>l")
 
 -- buffer
-vim.keymap.set("n", "<leader>w", vim.cmd.bdelete)
 vim.keymap.set("n", "<tab>", vim.cmd.bn)
 vim.keymap.set("n", "<S-tab>", vim.cmd.bp)
-vim.keymap.set("n", "<leader>1", "<cmd>b1<CR>")
-vim.keymap.set("n", "<leader>2", "<cmd>b2<CR>")
-vim.keymap.set("n", "<leader>3", "<cmd>b3<CR>")
-vim.keymap.set("n", "<leader>4", "<cmd>b4<CR>")
-vim.keymap.set("n", "<leader>5", "<cmd>b5<CR>")
-vim.keymap.set("n", "<leader>6", "<cmd>b6<CR>")
-vim.keymap.set("n", "<leader>7", "<cmd>b7<CR>")
-vim.keymap.set("n", "<leader>8", "<cmd>b8<CR>")
+vim.keymap.set("n", "<leader><tab>", vim.cmd.bdelete)
+vim.keymap.set("n", "<leader><S-tab>", "<cmd>:bdelete!<CR>")
 
 -- visual模式上下移动选中块
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")

@@ -27,3 +27,7 @@ vim.opt.updatetime = 50
 vim.opt.colorcolumn = "120"
 
 vim.g.mapleader = " "
+
+vim.opt.list = true
+vim.opt.listchars:append "space:⋅"
+vim.opt.listchars:append "eol:↴"

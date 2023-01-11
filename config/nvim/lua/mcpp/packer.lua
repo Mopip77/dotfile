@@ -26,6 +26,7 @@ return require('packer').startup(function(use)
   use('mbbill/undotree')
   -- vim with git
   use('tpope/vim-fugitive')
+  use('lewis6991/gitsigns.nvim')
   -- pair or cursor
   use('jiangmiao/auto-pairs')
   use('tpope/vim-surround')
@@ -38,8 +39,18 @@ return require('packer').startup(function(use)
           vim.g.matchup_matchparen_offscreen = { method = "popup" }
       end
   }
-  -- buffer line
+  use("lukas-reineke/indent-blankline.nvim")
+  -- buffer
   use {'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'}
+  -- info line
+  use {
+      'nvim-lualine/lualine.nvim',
+      requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+  }
+  -- notification
+  use('rcarriga/nvim-notify')
+  -- terminal
+  use("akinsho/toggleterm.nvim")
 
   -------------------- theme ----------------------------------
   use('shaunsingh/nord.nvim')
