@@ -50,6 +50,9 @@ vim.keymap.set("n", "<leader>c", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 -- 快速增加可执行权限
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
+-- 在普通模式下使用<leader> /? 忽略大小写查找
+vim.keymap.set("n", "<leader>/", [[/\c]])
+vim.keymap.set("n", "<leader>?", [[?\c]])
 -- 在visual模式下使用leader /? 快速查找选中内容
 vim.api.nvim_exec(
   [[
