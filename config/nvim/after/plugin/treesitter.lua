@@ -27,3 +27,9 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
+-- treesitter-context
+require'treesitter-context'.setup {
+    max_lines = 1
+}
+
+vim.api.nvim_set_hl(0, 'TreesitterContextBottom', { bg = "#3B4252" })
