@@ -31,6 +31,10 @@ noremap <tab> :bn<cr>
 noremap <S-tab> :bp<cr>
 noremap <leader><tab> :bdelete<cr>
 noremap <leader><S-tab> :bdelete!<cr>
+vnoremap <tab> :bn<cr>
+vnoremap <S-tab> :bp<cr>
+vnoremap <leader><tab> :bdelete<cr>
+vnoremap <leader><S-tab> :bdelete!<cr>
 
 vnoremap J :action MoveLineDown<CR>
 vnoremap K :action MoveLineUp<CR>
@@ -64,9 +68,6 @@ map [c <Action>(VcsShowPrevChangeMarker)
 
 " 重命名
 map <leader>r <Action>(RenameElement)
-
-" 格式化文档
-map Q <Action>(ReformatCode)
 
 " easy motion
 map <leader><leader>w <Plug>(easymotion-bd-w)
