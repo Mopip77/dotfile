@@ -1,0 +1,76 @@
+""" Map leader to space ---------------------
+let mapleader=" "
+
+""" Plugins  --------------------------------
+set surround
+set multiple-cursors
+set easymotion
+
+""" Common settings -------------------------
+set ts=4
+set expandtab
+set autoindent
+set noundofile
+set rnu
+set nu
+set mouse=a
+set.tabstop = 4
+set.softtabstop = 4
+set.shiftwidth = 4
+set scrolloff=10
+set smartindent=true
+set incsearch=true
+set colorcolumn=120
+set list
+set listchars=tab:→\ ,nbsp:␣,trail:•,extends:⟩,precedes:⟨
+
+""" Mappings --------------------------------
+noremap <leader>s :w<CR>
+" buffer
+noremap <tab> :bn<cr>
+noremap <S-tab> :bp<cr>
+noremap <leader><tab> :bdelete<cr>
+noremap <leader><S-tab> :bdelete!<cr>
+
+vnoremap J :action MoveLineDown<CR>
+vnoremap K :action MoveLineUp<CR>
+
+" 翻页和搜索时保持光标在屏幕中间
+noremap <C-d> <C-d>zz
+noremap <C-u> <C-u>zz
+noremap n nzzzv
+noremap N Nzzzv
+
+" 一些删除操作不会进入buffer
+xnoremap <leader>p "_dP
+xnoremap <leader>d, "_d
+xnoremap x, "_x
+xnoremap X, "_X
+
+" 复制进入剪贴板
+xnoremap <leader>y "+y
+noremap <leader>Y "+Y
+
+" 快速替换当前word的snippet
+noremap <leader>c :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
+
+" 在普通模式下使用<leader> /? 忽略大小写查找
+noremap <leader>/ /\c
+noremap <leader>? ?\c
+
+" 跳转到前/后一个变更
+map ]c <Action>(VcsShowNextChangeMarker)
+map [c <Action>(VcsShowPrevChangeMarker)
+
+" 重命名
+map <leader>r <Action>(RenameElement)
+
+" 格式化文档
+map Q <Action>(ReformatCode)
+
+" easy motion
+map <leader><leader>w <Plug>(easymotion-bd-w)
+map <leader><leader>e <Plug>(easymotion-bd-e)
+map <leader><leader>/ <Plug>(easymotion-sn)
+
+
