@@ -69,6 +69,17 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
 end)
 
+-- formatter
+local null_ls = require('null-ls')
+local null_opts = lsp.build_options('null-ls', {})
+
+null_ls.setup({
+  on_attach = null_opts.on_attach,
+  sources = {
+      null_ls.builtins.formatting.prettier
+  }
+})
+
 lsp.setup()
 
 vim.diagnostic.config({
