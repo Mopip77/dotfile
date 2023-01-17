@@ -12,10 +12,10 @@ vim.keymap.set({"n", "v"}, "<C-k>", "<C-w>k")
 vim.keymap.set({"n", "v"}, "<C-l>", "<C-w>l")
 
 -- buffer
-vim.keymap.set("n", "<tab>", vim.cmd.bn)
-vim.keymap.set("n", "<S-tab>", vim.cmd.bp)
-vim.keymap.set("n", "<leader><tab>", vim.cmd.bdelete)
-vim.keymap.set("n", "<leader><S-tab>", "<cmd>:bdelete!<CR>")
+vim.keymap.set({"n", "v"}, "<tab>", vim.cmd.bn)
+vim.keymap.set({"n", "v"}, "<S-tab>", vim.cmd.bp)
+vim.keymap.set({"n", "v"}, "<leader><tab>", vim.cmd.bdelete)
+vim.keymap.set({"n", "v"}, "<leader><S-tab>", "<cmd>:bdelete!<CR>")
 
 -- visual模式上下移动选中块
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
