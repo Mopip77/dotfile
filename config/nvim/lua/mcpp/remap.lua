@@ -1,4 +1,8 @@
 vim.keymap.set("n", "<leader>l", vim.cmd.noh)
+vim.keymap.set("n", "U", "<C-r>")
+
+-- 加强g命令
+vim.keymap.set("n", "gh", "0")
 
 -- quick save and close
 vim.keymap.set("n", "<leader>s", vim.cmd.w)
