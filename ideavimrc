@@ -26,6 +26,10 @@ set listchars=tab:→\ ,nbsp:␣,trail:•,extends:⟩,precedes:⟨
 
 """ Mappings --------------------------------
 noremap <leader>s :w<CR>
+noremap gh 0
+noremap gl $
+noremap U <C-r>
+
 " buffer
 noremap <tab> :bn<cr>
 noremap <S-tab> :bp<cr>
