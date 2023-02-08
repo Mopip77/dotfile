@@ -80,6 +80,8 @@ null_ls.setup({
   }
 })
 
+vim.keymap.set({"n", "v"}, "gq", vim.lsp.buf.format)
+
 lsp.setup()
 
 vim.diagnostic.config({
