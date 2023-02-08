@@ -5,6 +5,7 @@
 
 arr=(
   "`output_device`"
+  "`now_playing`"
 )
 
 res=""
@@ -12,11 +13,10 @@ res=""
 arrLength=${#arr[@]}
 for ((i=0;i<${arrLength};i++))
 do
-  [[ $i -eq 0 ]] && res="| "
-
-  out=${arr[i]}
-  [[ $i != $((arrLength - 1)) ]] && out="${out} | "
-  res="$res$out"
+  out="${arr[i]}"
+  if [[ ! -z "$out" ]]; then
+      res="$res | $out"
+  fi
 done
 
 echo $res
