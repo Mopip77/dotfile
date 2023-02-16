@@ -48,6 +48,7 @@ alias charles_proxy="export https_proxy=http://127.0.0.1:12580 http_proxy=http:/
 alias yabai-startup="killall yabai; nohup yabai &> /dev/null &; killall spacebar; nohup spacebar &> /dev/null &;"
 alias preview="open -a Preview"
 alias dr="direnv allow"
+alias curltime="curl -w \"@$HOME/.myjiaoben/curl/curltime.template\" -s "
 
 ##
 # path
@@ -133,7 +134,7 @@ qr() {
   tmp_qr_path="tmp.png"
   if [ $# -eq 1 ]
   then
-    text=$1 
+    text=$1
   else
     # 默认使用剪贴板
     text=`xclip -o`
@@ -151,7 +152,7 @@ screenshotPath="${HOME}/Pictures/screenshot/"
 
 curPath=$( pwd )
 if [ $# -eq 2 ]
-then 
+then
   if [ "${2:0:1}" = "/" ]
   then
     # 绝对路径
@@ -161,7 +162,7 @@ then
     pic_file="$curPath/$2"
   fi
 
-  if [ $1 = 'cp' ];then 
+  if [ $1 = 'cp' ];then
     pic_file=$(ls -t $screenshotPath | head -1)
     pic_file="$screenshotPath$pic_file"
     cp "${pic_file}" "$2"
@@ -193,7 +194,7 @@ changelog() {
   local help() {
     echo "changelog [-v version] [convertional-changelog args]"
   }
-  
+
   local version=""
   local depthArg=""
 
@@ -240,7 +241,7 @@ encrypt_pwd() {
   rsaKey="${HOME}/.ssh/pwd_rsa"
   PWD_FOLDER="${HOME}/.pwd"
   pwdName="$1"
-  
+
   mkdir -p ${PWD_FOLDER}
   [[ ! -f $rsaKey ]] && openssl genrsa -out $rsaKey 2048
 
