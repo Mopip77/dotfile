@@ -24,6 +24,13 @@ set colorcolumn=120
 set list
 set listchars=tab:→\ ,nbsp:␣,trail:•,extends:⟩,precedes:⟨
 
+""" IdeaVimExtensions -------------------
+" 必须额外安装 IdeaVimExtensions 插件
+" 切回普通模式时保持英文输入法
+" set keep-english-in-normal
+" 切换到插入模式时恢复之前的输入法
+set keep-english-in-normal-and-restore-in-insert
+
 """ Mappings --------------------------------
 noremap <leader>s :w<CR>
 noremap gh 0
@@ -69,6 +76,10 @@ noremap <leader>? ?\c
 " 跳转到前/后一个变更
 map ]c <Action>(VcsShowNextChangeMarker)
 map [c <Action>(VcsShowPrevChangeMarker)
+
+" 跳转到前/后一个error
+map ]e <Action>(GotoNextError)
+map [e <Action>(GotoPreviousError)
 
 " 重命名
 map <leader>r <Action>(RenameElement)

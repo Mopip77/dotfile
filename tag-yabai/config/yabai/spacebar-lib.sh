@@ -46,7 +46,7 @@ shurufa() {
 
 now_playing() {
     IFS=$'\n' read -r -d$'\1' isPlaying title <<< "$(nowplaying-cli get playbackRate title)"
-    if [ "0" != "$isPlaying" ]; then
+    if [ "1" = "$isPlaying" ]; then
         echo "📻 [$title]"
     fi
 }
