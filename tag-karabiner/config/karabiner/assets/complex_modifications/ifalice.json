@@ -30,7 +30,7 @@
                 "key_code": "f13"
               },
               {
-                "key_code": "f15"
+                "key_code": "f14"
               }
             ]
           },
@@ -631,7 +631,7 @@
             }
           ]
         },
-        
+
         {
           "description": "r4 => 下一首",
           "type": "basic",
@@ -655,8 +655,8 @@
             }
           ]
         },
-        
-        
+
+
         {
           "description": "fn + 1 => 截图 (cmd + 6)",
           "type": "basic",
