@@ -1,0 +1,806 @@
+{
+  "title": "ifalice键盘配置",
+  "desciprtion": "ifalice左侧的四个按键分别是F13-F16，从上到下简称r1-r4; 左侧空格键设置为f20; 右侧空格旁边的键设置为f21 简称fn",
+  "rules": [
+    {
+      "description": "ifalice键盘配置",
+      "manipulators": [
+        {
+          "description": "r1+r2 进入高级层",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "advanced_layer",
+              "type": "variable_unless",
+              "value": 1
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "simultaneous": [
+              {
+                "key_code": "f13"
+              },
+              {
+                "key_code": "f15"
+              }
+            ]
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "advanced_layer",
+                "value": 1
+              }
+            },
+            {
+              "set_variable": {
+                "name": "mobile_layer",
+                "value": 0
+              }
+            },
+            {
+              "shell_command": "osascript -e 'display notification \"进入高级层\"'"
+            }
+          ]
+        },
+        {
+          "description": "r2+r3 进入手机层",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "mobile_layer",
+              "type": "variable_unless",
+              "value": 1
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "simultaneous": [
+              {
+                "key_code": "f14"
+              },
+              {
+                "key_code": "f15"
+              }
+            ]
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "mobile_layer",
+                "value": 1
+              }
+            },
+            {
+              "set_variable": {
+                "name": "advanced_layer",
+                "value": 0
+              }
+            },
+            {
+              "shell_command": "osascript -e 'display notification \"进入手机层\"'"
+            }
+          ]
+        },
+        {
+          "description": "r1+r2 退出高级层",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "advanced_layer",
+              "type": "variable_unless",
+              "value": 0
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "simultaneous": [
+              {
+                "key_code": "f13"
+              },
+              {
+                "key_code": "f14"
+              }
+            ]
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "advanced_layer",
+                "value": 0
+              }
+            },
+            {
+              "shell_command": "osascript -e 'display notification \"退出高级层\"'"
+            }
+          ]
+        },
+        {
+          "description": "r2+r3 退出手机层",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "mobile_layer",
+              "type": "variable_unless",
+              "value": 0
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "simultaneous": [
+              {
+                "key_code": "f14"
+              },
+              {
+                "key_code": "f15"
+              }
+            ]
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "mobile_layer",
+                "value": 0
+              }
+            },
+            {
+              "shell_command": "osascript -e 'display notification \"退出手机层\"'"
+            }
+          ]
+        },
+        {
+          "description": "左侧空格单独按下是空格; 如果组合键则是cmd",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "f20",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_command",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "spacebar"
+            }
+          ]
+        },
+        {
+          "description": "r1 (蓝牙层) => 手机音量增加",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "mobile_layer",
+              "value": 1
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "f13"
+          },
+          "to": [
+            {
+              "shell_command": "/usr/local/bin/adb shell input keyevent KEYCODE_VOLUME_UP"
+            }
+          ]
+        },
+        {
+          "description": "r2 (蓝牙层) => 手机音量减小",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "mobile_layer",
+              "value": 1
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "f14"
+          },
+          "to": [
+            {
+              "shell_command": "/usr/local/bin/adb shell input keyevent KEYCODE_VOLUME_DOWN"
+            }
+          ]
+        },
+        {
+          "description": "r3 + 蓝牙层 => 手机上一首",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "mobile_layer",
+              "value": 1
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "f15"
+          },
+          "to": [
+            {
+              "shell_command": "/usr/local/bin/adb shell input keyevent KEYCODE_MEDIA_PREVIOUS"
+            },
+            {
+              "shell_command": "osascript -e 'display notification \"手机播放上一首\"'"
+            }
+          ]
+        },
+        {
+          "description": "r4 + 蓝牙层 => 手机下一首",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "mobile_layer",
+              "value": 1
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "f16"
+          },
+          "to": [
+            {
+              "shell_command": "/usr/local/bin/adb shell input keyevent KEYCODE_MEDIA_NEXT"
+            },
+            {
+              "shell_command": "osascript -e 'display notification \"手机播放下一首\"'"
+            }
+          ]
+        },
+        {
+          "description": "r1 => 单步执行 (高级层有效)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "advanced_layer",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.jetbrains\\."
+              ]
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "f13"
+          },
+          "to": [
+            {
+              "key_code": "f8"
+            }
+          ]
+        },
+        {
+          "description": "r2 => 单步进入 (高级层有效)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "advanced_layer",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.jetbrains\\."
+              ]
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "f14"
+          },
+          "to": [
+            {
+              "key_code": "f7"
+            }
+          ]
+        },
+        {
+          "description": "r3 => 继续运行 (高级层有效)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "advanced_layer",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.jetbrains\\."
+              ]
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "f15"
+          },
+          "to": [
+            {
+              "key_code": "r",
+              "modifiers": [
+                "left_option",
+                "left_command"
+              ]
+            }
+          ]
+        },
+        {
+          "description": "r4 => 运行到鼠标处 (高级层有效)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "advanced_layer",
+              "value": 1
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.jetbrains\\."
+              ]
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "f16"
+          },
+          "to": [
+            {
+              "key_code": "f9",
+              "modifiers": [
+                "left_option"
+              ]
+            }
+          ]
+        },
+        {
+          "description": "shift + r2 => 亮度减小",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "f14",
+            "modifiers": {
+              "mandatory": [
+                "left_shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "apple_top_case_display_brightness_decrement"
+            }
+          ]
+        },
+        {
+          "description": "shift + r1 => 亮度增加",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "f13",
+            "modifiers": {
+              "mandatory": [
+                "left_shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "apple_top_case_display_brightness_increment"
+            }
+          ]
+        },
+        {
+          "description": "r2 => 音量减小",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "f14"
+          },
+          "to": [
+            {
+              "consumer_key_code": "volume_decrement"
+            }
+          ]
+        },
+        {
+          "description": "r1 => 音量增加",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "f13"
+          },
+          "to": [
+            {
+              "consumer_key_code": "volume_increment"
+            }
+          ]
+        },
+        {
+          "description": "r3+r4 => 播放暂停",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "simultaneous": [
+              {
+                "key_code": "f15"
+              },
+              {
+                "key_code": "f16"
+              }
+            ]
+          },
+          "to": [
+            {
+              "consumer_key_code": "play_or_pause"
+            }
+          ]
+        },
+        {
+          "description": "r3 => 上一首",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "f15"
+          },
+          "to": [
+            {
+              "key_code": "rewind"
+            }
+          ]
+        },
+        
+        {
+          "description": "r4 => 下一首",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "f16"
+          },
+          "to": [
+            {
+              "consumer_key_code": "fast_forward"
+            }
+          ]
+        },
+        
+        
+        {
+          "description": "fn + 1 => 截图 (cmd + 6)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "simultaneous": [
+              {
+                "key_code": "f21"
+              },
+              {
+                "key_code": "1"
+              }
+            ],
+            "modifiers": {
+              "optional": [
+                "left_shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "6",
+              "modifiers": [
+                "left_command"
+              ]
+            }
+          ]
+        },
+        {
+          "description": "fn + 2 => 滴答清单创建任务 (cmd + ctrl + option + shift + 2)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "simultaneous": [
+              {
+                "key_code": "f21"
+              },
+              {
+                "key_code": "1"
+              }
+            ]
+          },
+          "to": [
+            {
+              "key_code": "2",
+              "modifiers": [
+                "left_command",
+                "left_shift",
+                "left_option",
+                "left_control"
+              ]
+            }
+          ]
+        },
+        {
+          "description": "fn + 3 => 滴答清单mini窗口 (cmd + ctrl + option + shift + 3)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "simultaneous": [
+              {
+                "key_code": "f21"
+              },
+              {
+                "key_code": "1"
+              }
+            ]
+          },
+          "to": [
+            {
+              "key_code": "3",
+              "modifiers": [
+                "left_command",
+                "left_shift",
+                "left_option",
+                "left_control"
+              ]
+            }
+          ]
+        },
+        {
+          "description": "fn + ` => yabai切换bsp <-> float模式 (alt + t)",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "simultaneous": [
+              {
+                "key_code": "f21"
+              },
+              {
+                "key_code": "grave_accent_and_tilde"
+              }
+            ]
+          },
+          "to": [
+            {
+              "key_code": "t",
+              "modifiers": [
+                "left_option"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
