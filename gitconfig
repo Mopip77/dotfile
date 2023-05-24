@@ -13,10 +13,10 @@
 	name = mopip77
 	email = mopip77@qq.com
 [core]
-	autocrlf = input
+	autocrlf = false
 	safecrlf = true
 [pull]
-	rebase = false
+	rebase = true
 [init]
 	defaultBranch = master
 [includeIf "gitdir:~/project/yunying/"]
@@ -59,3 +59,8 @@
     conflictstyle = diff3
 [diff]
     colorMoved = default
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
