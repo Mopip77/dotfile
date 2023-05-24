@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -euo pipefail
+
+if [[ -p /dev/stdin ]]; then
+    text=$(cat -)
+else
+    text="$1"
+fi
+
+text="${text//$'\n'/\\n}"
+text="${text//\"/\\\"}"
+
+osascript <<EOF
+tell application "TextEdit"
+    activate
+    set theDoc to make new document with properties {text:"${text}"}
+    tell theDoc
+        set size to 24
+    end tell
+end tell
+EOF
+
