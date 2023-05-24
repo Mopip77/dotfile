@@ -182,6 +182,40 @@
           ]
         },
         {
+          "description": "f21开启pn层",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+              "key_code": "f21"
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "pn_layer",
+                "value": 1
+              }
+            }
+          ],
+          "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "pn_layer",
+                "value": 0
+              }
+            }
+          ]
+        },
+        {
           "description": "左侧空格单独按下是空格; 如果组合键则是cmd",
           "type": "basic",
           "conditions": [
@@ -655,8 +689,6 @@
             }
           ]
         },
-
-
         {
           "description": "fn + 1 => 截图 (cmd + 6)",
           "type": "basic",
@@ -669,22 +701,20 @@
                   "description": "ifalice"
                 }
               ]
+            },
+            {
+                "type": "variable_if",
+                "name": "pn_layer",
+                "value": 1
             }
           ],
           "from": {
-            "simultaneous": [
-              {
-                "key_code": "f21"
-              },
-              {
-                "key_code": "1"
+              "key_code": "1",
+              "modifiers": {
+                  "optional": [
+                      "left_shift"
+                  ]
               }
-            ],
-            "modifiers": {
-              "optional": [
-                "left_shift"
-              ]
-            }
           },
           "to": [
             {
@@ -707,17 +737,15 @@
                   "description": "ifalice"
                 }
               ]
+            },
+            {
+                "type": "variable_if",
+                "name": "pn_layer",
+                "value": 1
             }
           ],
           "from": {
-            "simultaneous": [
-              {
-                "key_code": "f21"
-              },
-              {
-                "key_code": "1"
-              }
-            ]
+              "key_code": "2"
           },
           "to": [
             {
@@ -743,17 +771,15 @@
                   "description": "ifalice"
                 }
               ]
+            },
+            {
+                "type": "variable_if",
+                "name": "pn_layer",
+                "value": 1
             }
           ],
           "from": {
-            "simultaneous": [
-              {
-                "key_code": "f21"
-              },
-              {
-                "key_code": "1"
-              }
-            ]
+              "key_code": "3"
           },
           "to": [
             {
@@ -779,17 +805,15 @@
                   "description": "ifalice"
                 }
               ]
+            },
+            {
+                "type": "variable_if",
+                "name": "pn_layer",
+                "value": 1
             }
           ],
           "from": {
-            "simultaneous": [
-              {
-                "key_code": "f21"
-              },
-              {
-                "key_code": "grave_accent_and_tilde"
-              }
-            ]
+              "key_code": "grave_accent_and_tilde"
           },
           "to": [
             {
