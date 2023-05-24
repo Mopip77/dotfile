@@ -118,6 +118,12 @@ goto() {
 	cd "$(dirname $1)"
 }
 
+gmp() {
+    git merge "$1" && git push
+}
+
+quickedit() (  trap 'rm /tmp/$$' exit; vim /tmp/$$ >/dev/tty; cat /tmp/$$ )
+
 note() {
   NOTE_PATH="${HOME}/Documents/note"
   [[ ! -d $PATH ]] && mkdir -p $NOTE_PATH
@@ -277,3 +283,35 @@ enable_zerotier_redirect() {
 fakeTimeWhen() {
   DYLD_FORCE_FLAT_NAMESPACE=1 DYLD_INSERT_LIBRARIES=/usr/local/lib/faketime/libfaketime.1.dylib FAKETIME=$1 ${@:2:100}
 }
+
+tscript() {
+    # test script 快速测试脚本
+    # 形式: 在 tmux 中打开左右两个窗口，左边是脚本，右边是测试，脚本修改后自动执行
+
+    # 0. 判断是否安装 fswatch
+    if ! command -v fswatch &> /dev/null
+    then
+        echo -e "\033[32mfswatch\033[0m should be installed first."
+        return
+    fi
+
+    # 1. 判断是否在 tmux 中
+    if [ -z "$TMUX" ]; then
+        tmux new-session -s tscript
+    fi
+
+    # 2. 创建临时文件, 并打开编辑器
+    tmp_file="/tmp/$(uuidgen).sh"
+    pbpaste > $tmp_file
+
+    # 3. 在右侧创建窗口
+    tmux split-window -h
+
+    # 4. 在右侧监控文件变化，变化后执行脚本
+    tmux send-keys "fswatch -o $tmp_file | xargs -n1 -I{} sh -c \"clear; echo '====================='; echo 'Running script'; echo '====================='; sh $tmp_file\"" C-m
+
+    # 5. 在左侧打开编辑器
+    tmux select-pane -L
+    tmux send-keys "$EDITOR $tmp_file" C-m
+}
+
