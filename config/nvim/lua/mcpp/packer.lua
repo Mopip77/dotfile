@@ -53,6 +53,7 @@ return require('packer').startup(function(use)
   use('rcarriga/nvim-notify')
   -- terminal
   use("akinsho/toggleterm.nvim")
+  use("github/copilot.vim")
 
   -------------------- theme ----------------------------------
   use('shaunsingh/nord.nvim')
