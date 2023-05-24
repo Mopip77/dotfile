@@ -16,6 +16,9 @@ output_device() {
     "OPPO Enco Free2")
       output="🎧 OPPO"
       ;;
+    "OpenRun by Shokz")
+      output="Shokz"
+      ;;
   esac
   echo "$output"
 }
