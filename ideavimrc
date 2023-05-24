@@ -50,6 +50,9 @@ vnoremap <leader><S-tab> :bdelete!<cr>
 vnoremap J :action MoveLineDown<CR>
 vnoremap K :action MoveLineUp<CR>
 
+" J 反义词，在当前位置换行
+nnoremap K i<CR><Esc>^
+
 " 翻页和搜索时保持光标在屏幕中间
 noremap <C-d> <C-d>zz
 noremap <C-u> <C-u>zz
