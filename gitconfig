@@ -25,6 +25,7 @@
 	autoSetupRemote = true
 [core]
     pager = delta
+	quotepath = false
 [interactive]
     diffFilter = delta --color-only
 [delta]
