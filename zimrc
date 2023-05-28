@@ -40,7 +40,8 @@ zmodule Mopip77/alias-tips
 # Exposes git repository status information to prompts, used by asciiship.
 zmodule romkatv/gitstatus
 # my custom theme
-zmodule ${ZIM_HOME}/custom/modules/mcpp
+# zmodule ${ZIM_HOME}/custom/modules/mcpp
+zmodule agkozak/agkozak-zsh-prompt
 # fzf-tab
 zmodule Aloxaf/fzf-tab
 
