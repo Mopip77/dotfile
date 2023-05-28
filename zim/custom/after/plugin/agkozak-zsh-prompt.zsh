@@ -9,15 +9,25 @@ AGKOZAK_PROMPT_DIRTRIM=4
 AGKOZAK_COLORS_PATH='cyan'
 AGKOZAK_MULTILINE=0
 AGKOZAK_PROMPT_CHAR=( ❯ ❯ ❮ )
-#AGKOZAK_COLORS_PROMPT_CHAR='magenta'
 AGKOZAK_COLORS_PROMPT_CHAR='#F68C58'
 AGKOZAK_USER_HOST_DISPLAY=0
 
 # git 信息
-# AGKOZAK_COLORS_BRANCH_STATUS='#E9F5CE'
+AGKOZAK_LEFT_PROMPT_ONLY=1
 AGKOZAK_COLORS_BRANCH_STATUS=243
 AGKOZAK_CUSTOM_SYMBOLS=( '⇣⇡' '⇣' '⇡' '+' 'x' '!' '>' '?' 'S')
 
 # python 虚拟环境
 AGKOZAK_COLORS_VIRTUALENV='#F2F89D'
 AGKOZAK_VIRTUALENV_CHARS=( ' ' '' )
+
+
+# proxy status
+function agkozak_proxy_status() {
+    if [[ -n "$http_proxy" || -n "$https_proxy" ]]; then
+        echo -n "✈️ "
+    fi
+}
+
+# 右侧提示符
+AGKOZAK_CUSTOM_RPROMPT='$(agkozak_proxy_status)'
