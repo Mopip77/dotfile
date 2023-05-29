@@ -296,23 +296,35 @@ tscript() {
     fi
 
     # 1. 判断是否在 tmux 中
+    local session_name
     if [ -z "$TMUX" ]; then
-        tmux new-session -s tscript
+        tmux new -s tscript -d
+        session_name="tscript"
+    else
+        session_name=$(tmux display-message -p '#S')
     fi
 
-    # 2. 创建临时文件, 并打开编辑器
-    tmp_file="/tmp/$(uuidgen).sh"
-    pbpaste > $tmp_file
+    # 2. 如果指定了文件，就使用指定的文件，否则使用剪贴板中的内容
+    local script_file
+    if [ -z "$1" ]; then
+        script_file="/tmp/$(uuidgen).sh"
+        pbpaste > $script_file
+    else
+        script_file=$1
+    fi
 
     # 3. 在右侧创建窗口
-    tmux split-window -h
+    tmux split-window -h -t $session_name
 
     # 4. 在右侧监控文件变化，变化后执行脚本
-    tmux send-keys "fswatch -o $tmp_file | xargs -n1 -I{} sh -c \"clear; echo '====================='; echo 'Running script'; echo '====================='; sh $tmp_file\"" C-m
+    tmux send-keys -t "$session_name" "fswatch -o $script_file | xargs -n1 -I{} sh -c \"echo '\n\n\n'; clear; echo '====================='; echo '\$(date -u +'%Y-%m-%d %H:%M:%S') ==> Running script'; echo '====================='; sh $script_file\"" C-m
 
     # 5. 在左侧打开编辑器
-    tmux select-pane -L
-    tmux send-keys "$EDITOR $tmp_file" C-m
+    tmux select-pane -L -t $session_name
+    tmux send-keys -t "$session_name" "$EDITOR $script_file" C-m
+
+    # 6. 如果不在 tmux 里，attach到 tmux
+    [[ -z "$TMUX" ]] && tmux a -t $session_name
 }
 
 # 快速切换 env 文件
