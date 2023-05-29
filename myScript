@@ -315,3 +315,34 @@ tscript() {
     tmux send-keys "$EDITOR $tmp_file" C-m
 }
 
+# 快速切换 env 文件
+envuse() {
+    ## Usage
+    # envuse <environment>
+    #
+    # Eg: envuse dev
+    #
+    ##
+
+    if [ -z "$1" ]; then
+        echo "Usage: envuse <environment>"
+        return
+    fi
+    local environment=$1
+
+    # 判断.env.${environment} 是否存在
+    if [ ! -f ".env.${environment}" ]; then
+        echo "$(ansi --cyan .env.${environment}) not exist."
+        return
+    fi
+
+    # 判断 .env 是否存在，并且是文件
+    if [ -f ".env" ]; then
+        echo "$(ansi --cyan .env) exists, and it's a file, please remove it first."
+        return
+    fi
+
+
+    local env_file=".env.${environment}"
+    ln -sf $env_file .env
+}
