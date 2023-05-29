@@ -41,7 +41,7 @@ zmodule Mopip77/alias-tips
 zmodule romkatv/gitstatus
 # my custom theme
 # zmodule ${ZIM_HOME}/custom/modules/mcpp
-zmodule agkozak/agkozak-zsh-prompt
+zmodule Mopip77/agkozak-zsh-prompt
 # fzf-tab
 zmodule Aloxaf/fzf-tab
 
