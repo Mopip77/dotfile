@@ -317,7 +317,7 @@ tscript() {
     tmux split-window -h -t $session_name
 
     # 4. 在右侧监控文件变化，变化后执行脚本
-    tmux send-keys -t "$session_name" "fswatch -o $script_file | xargs -n1 -I{} sh -c \"echo '\n\n\n'; clear; echo '====================='; echo '\$(date -u +'%Y-%m-%d %H:%M:%S') ==> Running script'; echo '====================='; sh $script_file\"" C-m
+    tmux send-keys -t "$session_name" "fswatch -o $script_file | xargs -n1 -I{} sh -c \"clear; echo '====================='; echo '\$(date +'%Y-%m-%d %H:%M:%S') ==> Running script'; echo '====================='; sh $script_file\"" C-m
 
     # 5. 在左侧打开编辑器
     tmux select-pane -L -t $session_name
