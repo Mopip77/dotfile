@@ -337,7 +337,7 @@ envuse() {
     fi
 
     # 判断 .env 是否存在，并且是文件
-    if [ -f ".env" ]; then
+    if [[ -f ".env" && ! -L ".env" ]]; then
         echo "$(ansi --cyan .env) exists, and it's a file, please remove it first."
         return
     fi

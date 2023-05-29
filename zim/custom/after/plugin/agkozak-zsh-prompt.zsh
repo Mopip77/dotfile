@@ -29,5 +29,21 @@ function agkozak_proxy_status() {
     fi
 }
 
+# env status
+function get_env_status() {
+    # .env is symbol link
+    if [[ ! -L .env ]]; then
+        return
+    fi
+
+    local enviroment
+    enviroment=$(readlink .env | cut -d '.' -f 3)
+
+    if [[ -n "$enviroment" ]]; then
+        echo -n "($enviroment)"
+    fi
+}
+
 # 右侧提示符
 AGKOZAK_CUSTOM_RPROMPT='$(agkozak_proxy_status)'
+AGKOZAK_CUSTOM_RPROMPT+='$(get_env_status)'
