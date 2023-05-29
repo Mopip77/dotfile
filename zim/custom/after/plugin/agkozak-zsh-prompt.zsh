@@ -1,5 +1,5 @@
 # 命令执行时间和格式
-AGKOZAK_CMD_EXEC_TIME=1
+AGKOZAK_CMD_EXEC_TIME=3
 AGKOZAK_CMD_EXEC_TIME_CHARS=( '~' '' )
 
 # 最后展示的目录层级，超过的部分用...代替
