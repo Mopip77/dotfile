@@ -250,6 +250,87 @@
           ]
         },
         {
+          "description": "右侧空格单独按下是退格，组合键才是空格，但是由于软件限制，这种配置方式的每个组合键都需要显式写出，这里是 cmd + space",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "f22",
+            "modifiers": {
+              "mandatory": [
+                "left_command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "spacebar",
+              "modifiers": ["left_command"]
+           }
+          ]
+        },
+        {
+          "description": "右侧空格单独按下是退格，组合键才是空格，但是由于软件限制，这种配置方式的每个组合键都需要显式写出，这里是 option + space",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "f22",
+            "modifiers": {
+              "mandatory": [
+                "left_option"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "spacebar",
+              "modifiers": ["left_option"]
+           }
+          ]
+        },
+        {
+          "description": "右侧空格单独按下是退格，组合键才是空格（这里配置的是退格）",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "f22"
+          },
+          "to": [
+            {
+              "key_code": "delete_or_backspace"
+           }
+          ]
+        },
+        {
           "description": "r1 (蓝牙层) => 手机音量增加",
           "type": "basic",
           "conditions": [
