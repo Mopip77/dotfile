@@ -17,6 +17,7 @@ alias gcl="git clone"
 alias gcom="git checkout master"
 alias gbnm="git checkout master && git checkout -b"
 alias gd="git diff"
+alias gtt="autotag -s conventional"
 alias gdhh="git diff HEAD HEAD^"
 
 alias ls="exa"
@@ -313,15 +314,13 @@ tscript() {
         script_file=$1
     fi
 
-    # 3. 在右侧创建窗口
+    # 3. 在左边面板打开编辑器
+    tmux send-keys -t 1 "$EDITOR $script_file" C-m
+
+    # 4. 在右侧创建窗口
     tmux split-window -h -t $session_name
-
-    # 4. 在右侧监控文件变化，变化后执行脚本
-    tmux send-keys -t "$session_name" "fswatch -o $script_file | xargs -n1 -I{} sh -c 'clear; echo \"=====================\"; echo \"\$(date +\"%Y-%m-%d %H:%M:%S\") ==> Running script\"; echo \"=====================\"; sh $script_file'" C-m
-
-    # 5. 在左侧打开编辑器
-    tmux select-pane -L -t $session_name
-    tmux send-keys -t "$session_name" "$EDITOR $script_file" C-m
+    # 5. 在右侧监控文件变化，变化后执行脚本
+    tmux send-keys -t 2 "fswatch -o $script_file | xargs -n1 -I{} sh -c 'clear; echo \"=====================\"; echo \"\$(date +\"%Y-%m-%d %H:%M:%S\") ==> Running script\"; echo \"=====================\"; sh $script_file'" C-m
 
     # 6. 如果不在 tmux 里，attach到 tmux
     [[ -z "$TMUX" ]] && tmux a -t $session_name
