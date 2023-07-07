@@ -460,7 +460,8 @@
             {
               "type": "frontmost_application_if",
               "bundle_identifiers": [
-                "^com\\.jetbrains\\."
+                "^com\\.jetbrains\\.",
+                "^com\\.microsoft\\.VSCode"
               ]
             },
             {
@@ -494,7 +495,8 @@
             {
               "type": "frontmost_application_if",
               "bundle_identifiers": [
-                "^com\\.jetbrains\\."
+                "^com\\.jetbrains\\.",
+                "^com\\.microsoft\\.VSCode"
               ]
             },
             {
@@ -528,7 +530,8 @@
             {
               "type": "frontmost_application_if",
               "bundle_identifiers": [
-                "^com\\.jetbrains\\."
+                "^com\\.jetbrains\\.",
+                "^com\\.microsoft\\.VSCode"
               ]
             },
             {
@@ -566,7 +569,8 @@
             {
               "type": "frontmost_application_if",
               "bundle_identifiers": [
-                "^com\\.jetbrains\\."
+                "^com\\.jetbrains\\.",
+                "^com\\.microsoft\\.VSCode"
               ]
             },
             {
