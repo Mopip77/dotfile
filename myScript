@@ -15,6 +15,7 @@ alias gpu='git push --set-upstream $(git remote) $(git branch --show-current)'
 alias gcmsg="git commit -m"
 alias gcl="git clone"
 alias gcom="git checkout master"
+alias gcod="git checkout develop"
 alias gbnm="git checkout master && git checkout -b"
 alias gd="git diff"
 alias gtt="autotag -s conventional"
@@ -88,7 +89,7 @@ export PATH="/opt/metasploit-framework/bin:$PATH"
 # brew 禁止自动更新
 export HOMEBREW_NO_AUTO_UPDATE=1
 # kubectl
-export KUBE_EDITOR="/usr/local/bin/nvim"
+export KUBE_EDITOR="/opt/homebrew/bin/nvim"
 
 switch_java() {
   if [ $# = 0 ]; then
@@ -356,4 +357,46 @@ envuse() {
 
     local env_file=".env.${environment}"
     ln -sf $env_file .env
+}
+
+# 本地端口转发
+portforward() {
+    if ! command -v socat &> /dev/null
+    then
+        echo -e "\033[32msocat\033[0m should be installed first."
+        return
+    fi
+
+    if [ -z "$1" ]; then
+        echo "Usage: portforward <target-port> <source-port>"
+        return
+    fi
+
+    echo "socat TCP4-LISTEN:${1},reuseaddr,fork TCP4:127.0.0.1:${2}"
+    socat TCP4-LISTEN:${1},reuseaddr,fork TCP4:127.0.0.1:${2}
+}
+
+function pngpaste() {
+    local name="${1}"
+
+    [[ "$name" =~ '\.png$' ]] || name+=.png
+
+    osascript -e "tell application \"System Events\" to ¬
+                  write (the clipboard as «class PNGf») to ¬
+                          (make new file at folder \"$(pwd)\" with properties ¬
+                                  {name:\"${name}\"})"
+}
+
+function jpgpaste() {
+    local name="${1}"
+    ensure-args name @MRET
+    ensure isDarwin @MRET
+
+
+    [[ "$name" =~ '\.jpg$' ]] || name+=.jpg
+
+    osascript -e "tell application \"System Events\" to ¬
+                  write (the clipboard as JPEG picture) to ¬
+                          (make new file at folder \"$(pwd)\" with properties ¬
+                                  {name:\"${name}\"})"
 }
