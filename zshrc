@@ -163,6 +163,9 @@ alias v="fasd -a -e $EDITOR"
 source ${HOME}/.myScript
 source ~/.zsh_enhance
 
+# brew
+_evalcache brew shellenv
+
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 FZF_DEFAULT_OPTS='--height 40% --layout=reverse --inline-info'
@@ -221,14 +224,14 @@ export PATH=/Users/bjhl/.tiup/bin:$PATH
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 function __init_conda() {
-	local __conda_setup="$('/usr/local/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+	local __conda_setup="$('/opt/homebrew/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 	if [ $? -eq 0 ]; then
 		eval "$__conda_setup"
 	else
-		if [ -f "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
-			. "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+		if [ -f "/opt/homebrew/etc/profile.d/conda.sh" ]; then
+			. "/opt/homebrew/etc/profile.d/conda.sh"
 		else
-			export PATH="/usr/local/Caskroom/miniconda/base/bin:$PATH"
+			export PATH="/opt/homebrew/bin:$PATH"
 		fi
 	fi
 }
