@@ -10,13 +10,14 @@ do
   sketchybar --add space space.$sid left                                 \
              --set space.$sid associated_space=$sid                      \
                               icon=${SPACE_ICONS[i]}                     \
+                              label.font="sketchybar-app-font:Regular:12.0" \
                               background.corner_radius=5                 \
                               background.height=20                       \
                               background.color=0x30ffffff               \
                               background.drawing=off                     \
-                              label.drawing=off                          \
                               script="$PLUGIN_DIR/space.sh"              \
-                              click_script="yabai -m space --focus $sid"
+                              click_script="yabai -m space --focus $sid" \
+                              --subscribe space.$sid front_app_switched
 done
 
 
