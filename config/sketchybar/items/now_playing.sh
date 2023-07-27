@@ -1,6 +1,6 @@
 #/bin/bash
 
-sketchybar --add item now_playing center                              \
+sketchybar --add item now_playing left                              \
            --set now_playing     update_freq=3                        \
                                  script="$PLUGIN_DIR/now_playing.sh"   \
                                  background.drawing=off        \

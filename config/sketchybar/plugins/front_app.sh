@@ -5,4 +5,6 @@
 # focused application in the $INFO variable:
 # https://felixkratz.github.io/SketchyBar/config/events#events-and-scripting
 
-sketchybar --set $NAME label="$INFO"
+app_title=$(yabai -m query --windows --window | jq -r '.title')
+
+sketchybar --set $NAME label="$app_title"
