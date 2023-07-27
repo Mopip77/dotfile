@@ -47,7 +47,7 @@ alias p="export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:78
 alias psocks="export https_proxy=socks5h://127.0.0.1:7890 http_proxy=socks5h://127.0.0.1:7890 no_proxy=127.0.0.1,localhost,local,.local,10.10.0.0/16,192.168.60.245/16"
 alias rp="export https_proxy= http_proxy= no_proxy="
 alias charles_proxy="export https_proxy=http://127.0.0.1:12580 http_proxy=http://127.0.0.1:12580"
-alias yabai-startup="killall yabai; nohup yabai &> /dev/null &; killall spacebar; nohup spacebar &> /dev/null &;"
+alias yabai-startup="killall yabai; nohup yabai &> /dev/null &; killall sketchybar; nohup sketchybar &> /dev/null &;"
 alias preview="open -a Preview"
 alias dr="direnv allow"
 alias curltime="curl -w \"@$HOME/.myjiaoben/curl/curltime.template\" -s "

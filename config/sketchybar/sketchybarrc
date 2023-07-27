@@ -1,0 +1,67 @@
+#! /usr/bin/env sh
+
+source "$HOME/.config/sketchybar/colors.sh" # Loads all defined colors
+source "$HOME/.config/sketchybar/fonts.sh" # Loads all defined fonts
+source "$HOME/.config/sketchybar/icons.sh" # Loads all defined icons
+
+ITEM_DIR="$HOME/.config/sketchybar/items" # Directory where the items are configured
+PLUGIN_DIR="$HOME/.config/sketchybar/plugins" # Directory where all the plugin scripts are stored
+
+PADDINGS=4
+
+# Setting up the general bar appearance of the bar
+bar=(
+  height=24
+  color=$BAR_COLOR
+  position=bottom
+  margin=20
+  corner_radius=8
+  sticky=on
+  padding_right=10
+  padding_left=10
+  y_offset=2
+  color=$BACKGROUND
+  shadow=on
+  blur_radius=4
+)
+
+sketchybar --bar "${bar[@]}"
+
+
+# Setting up default values
+defaults=(
+  updates=when_shown
+  icon.font="$ICON_FONT:Bold:14.0"
+  icon.color=$ICON_COLOR
+  icon.padding_left=$PADDINGS
+  icon.padding_right=$PADDINGS
+  label.font="$FONT:Bold:14.0"
+  label.color=$LABEL_COLOR
+  label.padding_left=$PADDINGS
+  label.padding_right=$PADDINGS
+  padding_right=$PADDINGS
+  padding_left=$PADDINGS
+  background.color=$BACKGOUND
+)
+
+sketchybar --default "${defaults[@]}"
+
+
+# Left
+source "$ITEM_DIR/spaces.sh"
+
+# Center
+source "$ITEM_DIR/now_playing.sh"
+
+# Right
+source "$ITEM_DIR/clock.sh"
+source "$ITEM_DIR/battery.sh"
+source "$ITEM_DIR/volume.sh"
+source "$ITEM_DIR/output_devices.sh"
+source "$ITEM_DIR/ip.sh"
+
+
+# Forcing all item scripts to run (never do this outside of sketchybarrc)
+sketchybar --update
+
+echo "sketchybar configuation loaded.."

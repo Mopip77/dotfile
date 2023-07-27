@@ -34,7 +34,7 @@ yabai -m config window_border                on
 yabai -m config window_border_placement      inset
 yabai -m config window_border_blur           off
 yabai -m config window_border_hidpi          off
-yabai -m config window_border_width          2.4
+yabai -m config window_border_width          2
 yabai -m config window_border_radius         12
 yabai -m config active_window_border_topmost off
 yabai -m config active_window_border_color   0xfcFFEE58
