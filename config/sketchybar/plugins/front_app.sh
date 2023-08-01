@@ -7,4 +7,4 @@
 
 app_title=$(yabai -m query --windows --window | jq -r '.title')
 
-sketchybar --set $NAME label="$app_title"
+sketchybar --set $NAME label="${app_title:0:60}"
