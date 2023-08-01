@@ -361,19 +361,13 @@ envuse() {
 
 # 本地端口转发
 portforward() {
-    if ! command -v socat &> /dev/null
-    then
-        echo -e "\033[32msocat\033[0m should be installed first."
+    if [[  $# -ne 3 ]]; then
+        echo "Usage: portforward <source-port> <remote-port> <remote-ssh-server>"
         return
     fi
 
-    if [ -z "$1" ]; then
-        echo "Usage: portforward <target-port> <source-port>"
-        return
-    fi
-
-    echo "socat TCP4-LISTEN:${1},reuseaddr,fork TCP4:127.0.0.1:${2}"
-    socat TCP4-LISTEN:${1},reuseaddr,fork TCP4:127.0.0.1:${2}
+    echo "ssh -L ${1}:localhost:${2} ${3} -N"
+    ssh -L ${1}:localhost:${2} ${3} -N
 }
 
 function pngpaste() {
