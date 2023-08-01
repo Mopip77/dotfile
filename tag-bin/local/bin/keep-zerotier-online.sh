@@ -7,7 +7,7 @@ help() {
 }
 
 main() {
-    if ! ping -c 1 -t 2 $1 &> /dev/null; then
+    if ! ping -c 5  $1 &> /dev/null; then
         echo "failed to ping $1, re-join $2"
         sudo zerotier-cli leave $2
         sudo zerotier-cli join $2
