@@ -10,6 +10,9 @@ output_device() {
     MacBook*)
       output="🔈 MAC"
       ;;
+    "MCPP的AirPods Pro")
+      output="🎧 pro"
+      ;;
     "MOPIP'Airpods Pro")
       output="🎧 pro"
       ;;
