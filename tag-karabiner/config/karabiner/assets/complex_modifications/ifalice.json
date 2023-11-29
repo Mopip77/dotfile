@@ -326,8 +326,43 @@
           },
           "to": [
             {
-              "key_code": "delete_or_backspace"
+              "key_code": "escape"
            }
+          ]
+        },
+        {
+          "description": "r3 + r4 + 蓝牙层 => 息屏",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "mobile_layer",
+              "value": 1
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "simultaneous": [
+              {
+                "key_code": "f15"
+              },
+              {
+                "key_code": "f16"
+              }
+            ]
+          },
+          "to": [
+            {
+              "shell_command": "/usr/local/bin/adb shell input keyevent 26 "
+            }
           ]
         },
         {
@@ -387,7 +422,7 @@
           ]
         },
         {
-          "description": "r3 + 蓝牙层 => 手机上一首",
+          "description": "r3 + 蓝牙层 => 小说翻页前一页",
           "type": "basic",
           "conditions": [
             {
@@ -410,15 +445,12 @@
           },
           "to": [
             {
-              "shell_command": "/usr/local/bin/adb shell input keyevent KEYCODE_MEDIA_PREVIOUS"
-            },
-            {
-              "shell_command": "osascript -e 'display notification \"手机播放上一首\"'"
+              "shell_command": "/usr/local/bin/adb shell input swipe 150 450 700 450 100 "
             }
           ]
         },
         {
-          "description": "r4 + 蓝牙层 => 手机下一首",
+          "description": "r4 + 蓝牙层 => 小说翻页后一页",
           "type": "basic",
           "conditions": [
             {
@@ -441,10 +473,7 @@
           },
           "to": [
             {
-              "shell_command": "/usr/local/bin/adb shell input keyevent KEYCODE_MEDIA_NEXT"
-            },
-            {
-              "shell_command": "osascript -e 'display notification \"手机播放下一首\"'"
+              "shell_command": "/usr/local/bin/adb shell input swipe 700 450 50 450 100 "
             }
           ]
         },
