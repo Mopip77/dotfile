@@ -51,6 +51,8 @@ alias yabai-startup="killall yabai; nohup yabai &> /dev/null &; killall sketchyb
 alias preview="open -a Preview"
 alias dr="direnv allow"
 alias curltime="curl -w \"@$HOME/.myjiaoben/curl/curltime.template\" -s "
+alias grepi="grep --ignore-case"
+alias tmux-init="rm ~/.tmux/resurrect/*; tmux"
 
 ##
 # path
@@ -90,6 +92,9 @@ export PATH="/opt/metasploit-framework/bin:$PATH"
 export HOMEBREW_NO_AUTO_UPDATE=1
 # kubectl
 export KUBE_EDITOR="/opt/homebrew/bin/nvim"
+
+# LS_COLOR
+export LS_COLORS="$(vivid generate one-dark)"
 
 switch_java() {
   if [ $# = 0 ]; then
@@ -232,7 +237,7 @@ ch() {
 }
 
 # latest file
-lt() {
+latest_file() {
   local targetFolder=${1:-$PWD}
   local fileName=$(ls -t $targetFolder | head -n 1)
   echo ${targetFolder%%/}/${fileName}
@@ -393,4 +398,13 @@ function jpgpaste() {
                   write (the clipboard as JPEG picture) to ¬
                           (make new file at folder \"$(pwd)\" with properties ¬
                                   {name:\"${name}\"})"
+}
+
+dtrace_stdout() {
+    sudo dtrace -p "$1" -qn '
+        syscall::write*:entry
+        /pid == $target && arg0 == 1/ {
+            printf("%s", copyinstr(arg1, arg2));
+        }
+    '
 }
