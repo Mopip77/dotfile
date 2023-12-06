@@ -44,6 +44,14 @@ function get_env_status() {
     fi
 }
 
+# private mode
+function is_private_mode() {
+    if [[ -z "$HISTFILE" ]]; then
+        echo -n "🫣"
+    fi
+}
+
 # 右侧提示符
-AGKOZAK_CUSTOM_RPROMPT='$(agkozak_proxy_status)'
 AGKOZAK_CUSTOM_RPROMPT+='$(get_env_status)'
+AGKOZAK_CUSTOM_RPROMPT+='$(agkozak_proxy_status)'
+AGKOZAK_CUSTOM_RPROMPT+='$(is_private_mode)'
