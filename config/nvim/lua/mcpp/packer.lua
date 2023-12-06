@@ -10,10 +10,13 @@ return require('packer').startup(function(use)
   -------------------- infra ----------------------------------
   use 'ethanholz/nvim-lastplace'
   use 'preservim/nerdcommenter'
-  use 'glepnir/dashboard-nvim'
+  use {
+      'nvimdev/dashboard-nvim',
+      requires = {'nvim-tree/nvim-web-devicons'}
+  }
   -- file navigator
   use {
-	  'nvim-telescope/telescope.nvim', tag = '0.1.0',
+	  'nvim-telescope/telescope.nvim',
 	  -- or                            , branch = '0.1.x',
 	  requires = { {'nvim-lua/plenary.nvim'} }
   }

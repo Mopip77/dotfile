@@ -9,7 +9,8 @@ require("bufferline").setup{
             end
 
             return ''
-        end
+        end,
+        buffer_close_icon = '',
     }
 }
 
