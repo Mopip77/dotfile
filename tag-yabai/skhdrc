@@ -154,8 +154,12 @@ alt - t : ~/.config/yabai/toggle-window-floating-tiling.sh \
 shift + alt - t : ~/.config/yabai/toggle-window-floating-tiling.sh forceCenter \
           && ~/.config/yabai/change-window-border-color-when-window-focused.sh
 # float / unfloat 到鼠标所在space
-alt - g : ~/.config/yabai/toggle-display-center-floating-tiling.sh \
-          && ~/.config/yabai/change-window-border-color-when-window-focused.sh
+#alt - g : ~/.config/yabai/toggle-display-center-floating-tiling.sh \
+          #&& ~/.config/yabai/change-window-border-color-when-window-focused.sh
+# 将当前layer调整为below
+alt - g : yabai -m window --layer below
+# 将当前layer调整为normal
+shift + alt - g : yabai -m window --layer normal
 
 # toggle sticky(+float), topmost, border and picture-in-picture
 alt - o : ~/.config/yabai/toggle-window-sticking-tiling.sh \
