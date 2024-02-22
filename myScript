@@ -176,7 +176,7 @@ then
   fi
 
   if [ $1 = 'cp' ];then
-    pic_file=$(ls -t $screenshotPath | head -1)
+    pic_file=$(command ls -t $screenshotPath | head -1)
     pic_file="$screenshotPath$pic_file"
     cp "${pic_file}" "$2"
     return 0
