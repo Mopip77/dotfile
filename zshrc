@@ -206,6 +206,9 @@ source ${ZIM_CUSTOM}/scripts/fzf-google-chrome.zsh
 # direnv
 _evalcache direnv hook $SHELL
 
+# docker
+_evalcache docker completion zsh
+
 # atuin
 export ATUIN_NOBIND="true"
 _evalcache atuin init zsh
