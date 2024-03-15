@@ -14,8 +14,7 @@ if [[ $SENDER == "front_app_switched" ]]; then
         arr=()
         icons=""
 
-        # 特殊处理，Bob 在每个 space 都会被查询出来，直接过滤
-        QUERY=$(yabai -m query --windows --space $sid | jq '.[] | select(.app != "Bob") | .app')
+        QUERY=$(yabai -m query --windows --space $sid | jq '.[] | select(."is-sticky" == false) | .app')
 
         if grep -q "\"" <<< $QUERY; then
 
