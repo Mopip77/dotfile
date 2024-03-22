@@ -59,7 +59,7 @@ yabai -m config right_padding                6
 yabai -m config window_gap                   6
 
 # 3rd part border
-borders active_color=0xfcfeee58 inactive_color=0x00494d64 width=5.0 &
+borders blacklist="Min" active_color=0xfcfeee58 inactive_color=0x00494d64 width=5.0 &
 
 # animation
 #yabai -m config window_animation_duration    0.30
