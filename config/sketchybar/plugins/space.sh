@@ -3,6 +3,9 @@
 # The $SELECTED variable is available for space components and indicates if
 # the space invoking this script (with name: $NAME) is currently selected:
 # https://felixkratz.github.io/SketchyBar/config/components#space----associate-mission-control-spaces-with-an-item
+
+BLACKLIST_APP=("Shottr")
+
 sketchybar --set $NAME background.drawing=$SELECTED
 
 if [[ $SENDER == "front_app_switched" ]]; then
@@ -23,6 +26,12 @@ if [[ $SENDER == "front_app_switched" ]]; then
                 for i in "${!arr[@]}"
                 do
                     icon=$(echo ${arr[i]} | sed 's/"//g')
+
+                    # custom app filter
+                    if [[ "${BLACKLIST_APP[@]}" =~ "$icon" ]]; then
+                        continue
+                    fi
+
                     icon=$($HOME/.config/sketchybar/icons.sh $icon)
                     icons+="$icon  "
                 done
