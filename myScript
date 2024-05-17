@@ -408,3 +408,8 @@ dtrace_stdout() {
         }
     '
 }
+
+function zerotier-init() {
+    sudo sysctl -w net.inet.ip.forwarding=1
+    sudo pfctl -e -f /etc/pf.zerotier.conf
+}
