@@ -21,6 +21,8 @@
 	rebase = true
 [init]
 	defaultBranch = master
+[includeIf "gitdir:~/project/mine/"]
+    path = ~/.gitconfig.mine
 [includeIf "gitdir:~/project/yunying/"]
     path = ~/.gitconfig.work
 [push]
