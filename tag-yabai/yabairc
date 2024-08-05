@@ -8,6 +8,8 @@ yabai -m signal --add event=dock_did_restart action="arch -arm64e sudo yabai --l
 
 source ~/.config/yabai/initialization.sh
 
+~/.config/yabai/recent-window-helper.sh init
+
 # ====
 # Signals
 # ====
@@ -19,6 +21,7 @@ yabai -m signal --add event=window_focused action="~/.config/yabai/change-window
 yabai -m signal --add event=window_destroyed action="~/.config/yabai/auto-focus-to-new-one-when-window-destroyed.sh 2> /dev/null"
 yabai -m signal --add event=application_hidden action="~/.config/yabai/auto-focus-to-new-one-when-window-destroyed.sh 2> /dev/null"
 yabai -m signal --add event=window_minimized action="~/.config/yabai/auto-focus-to-new-one-when-window-destroyed.sh 2> /dev/null"
+yabai -m signal --add event=window_focused action="~/.config/yabai/recent-window-helper.sh record"
 
 # ====
 # Settings
@@ -44,8 +47,7 @@ yabai -m config insert_window_border_color   0xffd75f5f
 yabai -m config window_opacity               off
 yabai -m config window_opacity_duration      96
 yabai -m config active_window_opacity        1.0
-yabai -m config normal_window_opacity        1.0
-yabai -m config split_ratio                  0.50
+yabai -m config normal_window_opacity        1.0 yabai -m config split_ratio                  0.50
 yabai -m config auto_balance                 off
 yabai -m config mouse_modifier               fn
 yabai -m config mouse_action1                move
@@ -59,7 +61,7 @@ yabai -m config right_padding                6
 yabai -m config window_gap                   6
 
 # 3rd part border
-borders blacklist="Min" active_color=0xfcfeee58 inactive_color=0x00494d64 width=5.0 &
+borders blacklist="Min,weread" active_color=0xfcfeee58 inactive_color=0x00494d64 width=5.0 &
 
 # animation
 #yabai -m config window_animation_duration    0.30
@@ -68,12 +70,16 @@ borders blacklist="Min" active_color=0xfcfeee58 inactive_color=0x00494d64 width=
 # Rules
 # ====
 
-otherApp='^(IINA|访达|Calendar|日历|System Preferences|系统偏好设置|Mail|微信|WeChat|QQ|印象笔记|灵犀|网易云音乐|Tencent Lemon|企业微信|Todoist|Input Source Pro|Enpass|预览|scrcpy|文本编辑|Kap|Shottr)$'
-yabai -m rule --add app="${otherApp}" manage=off
+otherApp='^(IINA|访达|Calendar|日历|System Preferences|系统偏好设置|Mail|微信|WeChat|QQ|印象笔记|灵犀|网易云音乐|Tencent Lemon|企业微信|Todoist|Input Source Pro|Enpass|预览|scrcpy|文本编辑|Kap|Shottr|chatgpt|kimi|lobeChat|ChatGPT|Min|Kando|weread)$'
+yabai -m rule --add app="${otherApp}" manage=off sub-layer=below
+
+yabai -m rule --add app=".*" layer=normal
 
 ## specific rule
 
 yabai -m rule --add app="^IntelliJ IDEA$" manage=off
 yabai -m rule --add app="^IntelliJ IDEA$" title="( – )" manage=on
+
+yabai -m rule --apply
 
 echo "yabai configuration loaded.."
