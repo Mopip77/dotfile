@@ -1,0 +1,65 @@
+{
+  "title": "enhance control with other keys",
+  "rules": [
+    {
+      "description": "control enhance",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "left_control"
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "control_arrow_mode",
+                "value": 1
+              }
+            }
+          ],
+          "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "control_arrow_mode",
+                "value": 0
+              }
+            }
+          ],
+          "to_if_alone": [
+            {
+              "shell_command": "/Applications/Kando.app/Contents/MacOS/Kando --menu \"menu\""
+            }
+          ],
+          "to": [
+              {
+                  "key_code": "left_control"
+              }
+          ]
+        },
+        {
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "control_arrow_mode",
+              "type": "variable_if",
+              "value": 1
+            }
+          ],
+          "from": {
+            "key_code": "j",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "down_arrow"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
