@@ -141,6 +141,46 @@
           ]
         },
         {
+          "description": "r2+r3 (shift) 暂停",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "mobile_layer",
+              "type": "variable_unless",
+              "value": 0
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 24679,
+                  "description": "ifalice"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "modifiers": {
+              "mandatory": [
+                "left_shift"
+              ]
+            },
+            "simultaneous": [
+              {
+                "key_code": "f14"
+              },
+              {
+                "key_code": "f15"
+              }
+            ]
+          },
+          "to": [
+            {
+              "shell_command": "/usr/local/bin/adb shell input keyevent KEYCODE_MEDIA_PLAY_PAUSE"
+            }
+          ]
+        },
+        {
           "description": "r2+r3 退出手机层",
           "type": "basic",
           "conditions": [
