@@ -18,5 +18,5 @@ if [[ "true" != $hasFocused ]]; then
 fi
 
 if [[ "true" != $hasFocused ]]; then
-  yabai -m window --focus $(yabai -m query --windows --space | jq .[0].id)
+    yabai -m window --focus $(yabai -m query --windows --space | jq '.[] | | select(."is-visible") | .[0].id')
 fi

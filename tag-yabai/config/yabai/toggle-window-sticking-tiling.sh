@@ -17,10 +17,10 @@ if [ $spaceType = '"bsp"' ]; then
     [ -e $tmpfile ] && rm $tmpfile
     echo $(yabai -m query --windows --window | jq .frame) >> $tmpfile
     yabai -m window --toggle sticky \
-    && yabai -m window --toggle topmost
+    && yabai -m window --sub-layer below
   else
     yabai -m window --toggle sticky \
-    && yabai -m window --toggle topmost
+    && yabai -m window --sub-layer normal
     if [ -e $tmpfile ]
     then
       read -r x y w h <<< $(echo $(cat $tmpfile | jq '.x, .y, .w, .h'))
