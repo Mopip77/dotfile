@@ -20,6 +20,7 @@ alias gbnm="git checkout master && git checkout -b"
 alias gd="git diff"
 alias gtt="autotag -s conventional"
 alias gdhh="git diff HEAD HEAD^"
+alias gtc="git tag --sort=v:refname"
 
 alias ls="exa"
 alias mv="mv -i" # overwrite prompt
