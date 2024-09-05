@@ -14,7 +14,7 @@ if [[ $SENDER == "front_app_switched" ]]; then
         arr=()
         icons=""
 
-        QUERY=$(yabai -m query --windows --space $sid | jq '.[] | select(."is-sticky" == false and ."is-hidden" == false) | .app')
+        QUERY=$(yabai -m query --windows --space $sid | jq '.[] | select(."is-sticky" == false and ."is-hidden" == false and ."role" != "") | .app')
 
         if grep -q "\"" <<< $QUERY; then
 
