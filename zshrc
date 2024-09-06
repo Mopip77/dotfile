@@ -121,6 +121,11 @@ zstyle ':completion::complete:*' cache-path ${HOME}/.cache/zsh/completions
 # custom configuration
 # ------------------------------
 
+# 默认情况下，输出的最后一行如果没有 EOL 最后一行可能会被隐藏
+# https://github.com/agkozak/agkozak-zsh-prompt/issues/46
+setopt PROMPT_CR
+# 最后一行如果没有 EOL 的自定义 PROMPT
+export PROMPT_EOL_MARK="%S[NO EOL]%s"
 
 ### ------------------------ execution time --------------------------------
 
