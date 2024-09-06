@@ -365,7 +365,6 @@
               "modifiers": [
                 "left_command",
                 "left_option",
-                "left_control",
                 "left_shift"
               ]
             }
