@@ -538,7 +538,7 @@
           ]
         },
         {
-          "description": "打开Chrome",
+          "description": "打开常驻Cursor",
           "type": "basic",
           "conditions": [
             {
@@ -552,13 +552,7 @@
           },
           "to": [
             {
-              "key_code": "o",
-              "modifiers": [
-                "left_command",
-                "left_control",
-                "left_option",
-                "left_shift"
-              ]
+              "shell_command": "PATH=$PATH:/usr/local/bin:/opt/homebrew/bin:/bin:/sbin:/usr/sbin:/usr/local/sbin ~/.config/yabai/docked-cursor.sh"
             }
           ]
         },
