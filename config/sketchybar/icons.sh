@@ -1,4 +1,10 @@
 case $@ in
+"Proxyman")
+    icon_result=":wifi:"
+    ;;
+"豆包")
+    icon_result=":firefox:"
+    ;;
 "Brave Browser")
   icon_result=":brave_browser:"
   ;;
@@ -326,7 +332,7 @@ case $@ in
 "1Password 7")
   icon_result=":one_password:"
   ;;
-"Code" | "Code - Insiders")
+"Code" | "Code - Insiders" | "Cursor" | "cursor")
   icon_result=":code:"
   ;;
 "VSCodium")
