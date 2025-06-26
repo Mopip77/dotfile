@@ -6,7 +6,7 @@ window_id=$(yabai -m query --windows --window | jq '.id')
 window_config_file=/tmp/yabai-window-config-opacity-$window_id
 
 # 定义透明度数组
-opacities=(0.8 0.1 0.01 1.0)
+opacities=(0.1 0.01 1.0)
 
 # 读取当前窗口的透明度（如果存在的话）
 if [ -e "$window_config_file" ]; then
