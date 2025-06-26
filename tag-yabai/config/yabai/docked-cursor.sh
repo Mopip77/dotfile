@@ -7,8 +7,6 @@ SCRATCHPAD_DIR="$HOME/.docked-cursor"
 # 查询目标窗口的信息
 TARGET_WINDOW=$(yabai -m query --windows | jq --arg title "$WINDOW_TITLE" '.[] | select(.app == "Cursor" and .title == $title)')
 
-echo $TARGET_WINDOW
-
 if [ -z "$TARGET_WINDOW" ]; then
     # --- 窗口不存在：初始化并开启 ---
     echo "Cursor scratchpad window not found. Initializing..."
@@ -19,8 +17,8 @@ if [ -z "$TARGET_WINDOW" ]; then
         mkdir -p "$SCRATCHPAD_DIR"
     fi
 
-    # 2. 启动 VS Code 打开该目录 (在后台运行)
-    # 这将启动VS Code（如果它没在运行），或打开一个新窗口（如果已在运行）
+    # 2. 启动 Cursor 打开该目录 (在后台运行)
+    # 这将启动Cursor（如果它没在运行），或打开一个新窗口（如果已在运行）
     code "$SCRATCHPAD_DIR" &
 
     # 3. 等待窗口出现并获取其ID
@@ -56,21 +54,14 @@ if [ -z "$TARGET_WINDOW" ]; then
 else
     # --- 窗口已存在：切换显示/隐藏 ---
     WINDOW_ID=$(echo $TARGET_WINDOW | jq -r '.id')
-    IS_MINIMIZED=$(echo $TARGET_WINDOW | jq -r '."is-minimized"')
+    IS_VISIBLE=$(echo $TARGET_WINDOW | jq -r '."is-visible"')
 
-    echo "WINDOW_ID: $WINDOW_ID"
-    echo "IS_MINIMIZED: $IS_MINIMIZED"
-
-    if [ "$IS_MINIMIZED" = "true" ]; then
-        # 如果窗口已最小化，则恢复它
-        # yabai -m window "$WINDOW_ID" --space recent  # 确保窗口在当前空间
-        # yabai -m window "$WINDOW_ID" --layer topmost # 确保它在最顶层
-        # yabai -m window "$WINDOW_ID" --toggle sticky \
-        #     && yabai -m window "$WINDOW_ID" --sub-layer below
-        yabai -m window "$WINDOW_ID" --focus        # 给予焦点使其恢复
-    else
-        # 如果窗口是可见的，则将其最小化
+    if [ "$IS_VISIBLE" = "true" ]; then
+        # 如果窗口在当前空间可见，则将其最小化
         yabai -m window "$WINDOW_ID" --minimize
+    else
+        # 取消最小化(会直接在当前空间显示)
+        yabai -m window --deminimize "$WINDOW_ID"
     fi
 fi
 
