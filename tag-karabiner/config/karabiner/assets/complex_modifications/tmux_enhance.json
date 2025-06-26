@@ -212,6 +212,36 @@
           ]
         },
         {
+          "description": "swap pre window",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "tmux_mode",
+              "type": "variable_if",
+              "value": 1
+            }
+          ],
+          "from": {
+              "key_code": "n",
+              "modifiers": {
+                  "mandatory": [
+                      "left_shift"
+                  ]
+              }
+          },
+          "to": [
+            {
+              "key_code": "e",
+              "modifiers": [
+                "left_control"
+              ]
+            },
+            {
+              "key_code": "P"
+            }
+          ]
+        },
+        {
           "description": "pre window",
           "type": "basic",
           "conditions": [
@@ -238,6 +268,36 @@
             },
             {
               "key_code": "p"
+            }
+          ]
+        },
+        {
+          "description": "swap next window",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "tmux_mode",
+              "type": "variable_if",
+              "value": 1
+            }
+          ],
+          "from": {
+            "key_code": "m",
+            "modifiers": {
+              "mandatory": [
+                "left_shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "e",
+              "modifiers": [
+                "left_control"
+              ]
+            },
+            {
+              "key_code": "N"
             }
           ]
         },
