@@ -10,7 +10,7 @@
     commit-diff = "!git log --oneline --cherry HEAD...\"$1\"^ \"$1\" #"
     patch-to = "!~/.config/my-scripts/git/patch-to-others.sh"
     list-merged = "!git branch --merged | grep -v '\\*\\|master\\|main\\|develop'"
-    cleanup = "!git branch --merged | grep -v '\\*\\|master\\|main\\|develop' | xargs -n 1 git branch -d"
+    cleanup = "!git branch --merged | grep -v '\\*\\|master\\|main\\|develop\\|release' | xargs -n 1 git branch -d"
 [user]
 	name = mopip77
 	email = mopip77@qq.com
