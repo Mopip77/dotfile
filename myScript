@@ -15,6 +15,7 @@ alias gpu='git push --set-upstream $(git remote) $(git branch --show-current)'
 alias gcmsg="git commit -m"
 alias gcl="git clone"
 alias gcom="git checkout master"
+alias gcor="git checkout release"
 alias gcod="git checkout develop"
 alias gbnm="git checkout master && git checkout -b"
 alias gd="git diff"
@@ -58,7 +59,7 @@ alias tmux-init="rm ~/.tmux/resurrect/*; tmux"
 ##
 # path
 ##
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home"
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/zulu_jdk8_arm/zulu-8.jdk/Contents/Home"
 export PATH=${PATH}:${JAVA_HOME}/bin
 
 export GRADLE_USER_HOME="${HOME}/.m2/repository/"
@@ -95,6 +96,9 @@ export KUBE_EDITOR="/opt/homebrew/bin/nvim"
 
 # LS_COLOR
 export LS_COLORS="$(vivid generate one-dark)"
+
+# CLAUDE CODE
+export ANTHROPIC_BASE_URL=http://localhost:8082
 
 switch_java() {
   if [ $# = 0 ]; then
@@ -412,4 +416,64 @@ dtrace_stdout() {
 function zerotier-init() {
     sudo sysctl -w net.inet.ip.forwarding=1
     sudo pfctl -e -f /etc/pf.zerotier.conf
+}
+
+function concat_audio() {
+  set -x
+  local help() {
+    echo "Usage: concat_audio <output> <audio1> <audio2> ..."
+  }
+
+  while getopts 'h' OPT; do
+    case $OPT in
+      h) help; return;;
+    esac
+  done
+
+  local output=$1
+  shift
+
+  local files=()
+  for file in "$@"; do
+    abs_file=$(realpath "$file")
+    files+=($abs_file)
+    if [ ! -f "$abs_file" ]; then
+      echo "File $abs_file not found"
+      return 1
+    fi
+  done
+
+  # mktemp -d | ffmpeg -f concat -safe 0 -i <(for f in "$@"; do echo "file '$f'"; done) -c copy "$output"
+  local tmp_file=$(mktemp)
+  for file in "${files[@]}"; do
+    echo "file '$file'" >> $tmp_file
+  done
+  ffmpeg -f concat -safe 0 -i $tmp_file -c copy $output
+  rm $tmp_file
+}
+
+function adb_proxy() {
+
+    if [ "$1" = "set" ]; then
+        # 自动获取本机（电脑）当前的局域网 IP（以 en0 为例，可改成 wlan0/eth0）
+        MY_IP=$(ipconfig getifaddr en0) # macOS
+        # MY_IP=$(hostname -I | awk '{print $1}') # Linux 示例
+
+        PROXY_PORT=29091  # 你代理服务运行的端口
+
+        echo "Setting Android proxy to ${MY_IP}:${PROXY_PORT}"
+
+        # 设置全局 HTTP 代理
+        adb shell settings put global http_proxy "${MY_IP}:${PROXY_PORT}"
+        adb shell settings put global global_http_proxy_host "${MY_IP}"
+        adb shell settings put global global_http_proxy_port "${PROXY_PORT}"
+        # adb shell settings put global global_http_proxy_exclusion_list ""
+
+        echo "Proxy set successfully"
+    elif [ "$1" = "clear" ]; then
+        adb shell settings put global http_proxy :0
+        adb shell settings delete global global_http_proxy_host
+        adb shell settings delete global global_http_proxy_port
+        adb shell settings delete global global_http_proxy_exclusion_list
+    fi
 }
