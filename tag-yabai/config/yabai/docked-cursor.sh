@@ -4,8 +4,11 @@
 WINDOW_TITLE=".docked-cursor"
 SCRATCHPAD_DIR="$HOME/.docked-cursor"
 
+EDITOR_COMMAND="code"
+EDITOR_APP="Cursor"
+
 # 查询目标窗口的信息
-TARGET_WINDOW=$(yabai -m query --windows | jq --arg title "$WINDOW_TITLE" '.[] | select(.app == "Cursor" and .title == $title)')
+TARGET_WINDOW=$(yabai -m query --windows | jq --arg title "$WINDOW_TITLE" '.[] | select(.app == "'$EDITOR_APP'" and .title == $title)')
 
 if [ -z "$TARGET_WINDOW" ]; then
     # --- 窗口不存在：初始化并开启 ---
@@ -19,7 +22,7 @@ if [ -z "$TARGET_WINDOW" ]; then
 
     # 2. 启动 Cursor 打开该目录 (在后台运行)
     # 这将启动Cursor（如果它没在运行），或打开一个新窗口（如果已在运行）
-    code "$SCRATCHPAD_DIR" &
+    $EDITOR_COMMAND "$SCRATCHPAD_DIR" &
 
     # 3. 等待窗口出现并获取其ID
     # 我们会轮询几次来等待yabai识别到新窗口
@@ -27,7 +30,7 @@ if [ -z "$TARGET_WINDOW" ]; then
     for i in {1..20}; do # 等待最多 5 秒 (20 * 0.25s)
         sleep 0.25
         # 2>/dev/null 用于抑制jq在找不到窗口时的错误输出
-        WINDOW_ID=$(yabai -m query --windows | jq --arg title "$WINDOW_TITLE" '.[] | select(.app == "Cursor" and .title == $title) | .id' 2>/dev/null)
+        WINDOW_ID=$(yabai -m query --windows | jq --arg title "$WINDOW_TITLE" '.[] | select(.app == "'$EDITOR_APP'" and .title == $title) | .id' 2>/dev/null)
         if [ -n "$WINDOW_ID" ]; then
             break
         fi
