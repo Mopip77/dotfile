@@ -4,7 +4,7 @@
 WINDOW_TITLE=".docked-cursor"
 SCRATCHPAD_DIR="$HOME/.docked-cursor"
 
-EDITOR_COMMAND="code"
+EDITOR_COMMAND="cursor"
 EDITOR_APP="Cursor"
 
 # 查询目标窗口的信息
