@@ -10,6 +10,16 @@ EDITOR_APP="Cursor"
 # 确保目录存在
 mkdir -p "$SCRATCHPAD_DIR"
 
+# --- 函数 ---
+function configure_and_focus_window() {
+    local window_id=$1
+    echo "Configuring and focusing window $window_id..."
+    yabai -m window "$window_id" --toggle sticky --sub-layer normal
+    yabai -m window "$window_id" --resize abs:680:384
+    yabai -m window "$window_id" --move abs:1055:144
+    yabai -m window "$window_id" --focus
+}
+
 # --- 主逻辑 ---
 
 # 首先，尝试找到目标窗口
@@ -65,21 +75,21 @@ if [ "$1" == "edit" ]; then
             done
             
             if [ -n "$WINDOW_ID" ]; then
-                echo "Window created. Configuring."
-                yabai -m window "$WINDOW_ID" --toggle sticky --sub-layer normal
-                yabai -m window "$WINDOW_ID" --resize abs:680:384
-                yabai -m window "$WINDOW_ID" --move abs:1055:144
+                configure_and_focus_window "$WINDOW_ID"
             else
                 echo "Error: Could not create the Cursor scratchpad window."
                 exit 1
             fi
         else
-            # 确保窗口可见
+            # 确保窗口可见并强制恢复 sticky 状态
             yabai -m window --deminimize "$WINDOW_ID"
+            IS_STICKY_NOW=$(yabai -m query --windows --window "$WINDOW_ID" | jq -r '."is-sticky"')
+            if [ "$IS_STICKY_NOW" = "false" ]; then
+                yabai -m window "$WINDOW_ID" --toggle sticky
+            fi
+            yabai -m window "$WINDOW_ID" --focus
         fi
         
-        # 聚焦窗口
-        yabai -m window "$WINDOW_ID" --focus
         sleep 0.2
 
         # 4. 将剪贴板内容粘贴到编辑器窗口
@@ -101,11 +111,7 @@ else
         done
 
         if [ -n "$WINDOW_ID" ]; then
-            echo "Window found with ID: $WINDOW_ID. Configuring and focusing."
-            yabai -m window "$WINDOW_ID" --toggle sticky --sub-layer normal
-            yabai -m window "$WINDOW_ID" --resize abs:680:384
-            yabai -m window "$WINDOW_ID" --move abs:1055:144
-            yabai -m window "$WINDOW_ID" --focus
+            configure_and_focus_window "$WINDOW_ID"
         else
             echo "Error: Could not find the Cursor scratchpad window after launching."
             exit 1
@@ -116,7 +122,12 @@ else
         if [ "$IS_VISIBLE" = "true" ]; then
             yabai -m window "$WINDOW_ID" --minimize
         else
+            # 取消最小化并强制恢复 sticky 状态
             yabai -m window --deminimize "$WINDOW_ID"
+            IS_STICKY_NOW=$(yabai -m query --windows --window "$WINDOW_ID" | jq -r '."is-sticky"')
+            if [ "$IS_STICKY_NOW" = "false" ]; then
+                yabai -m window "$WINDOW_ID" --toggle sticky
+            fi
             yabai -m window "$WINDOW_ID" --focus
         fi
     fi
