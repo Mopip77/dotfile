@@ -538,6 +538,30 @@
           ]
         },
         {
+          "description": "打开常驻Cursor(edit)",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "caps_arrow_mode",
+              "type": "variable_if",
+              "value": 1
+            }
+          ],
+          "from": {
+            "key_code": "o",
+            "modifiers": {
+              "mandatory": [
+                "left_command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "PATH=$PATH:/usr/local/bin:/opt/homebrew/bin:/bin:/sbin:/usr/sbin:/usr/local/sbin:~/.local/bin ~/.config/yabai/docked-cursor.sh edit &> /tmp/cursor-edit.log"
+            }
+          ]
+        },
+        {
           "description": "打开常驻Cursor",
           "type": "basic",
           "conditions": [
@@ -552,7 +576,7 @@
           },
           "to": [
             {
-              "shell_command": "PATH=$PATH:/usr/local/bin:/opt/homebrew/bin:/bin:/sbin:/usr/sbin:/usr/local/sbin ~/.config/yabai/docked-cursor.sh"
+              "shell_command": "PATH=$PATH:/usr/local/bin:/opt/homebrew/bin:/bin:/sbin:/usr/sbin:/usr/local/sbin:~/.local/bin ~/.config/yabai/docked-cursor.sh"
             }
           ]
         },
