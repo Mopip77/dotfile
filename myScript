@@ -23,10 +23,10 @@ alias gtt="autotag -s conventional"
 alias gdhh="git diff HEAD HEAD^"
 alias gtc="git tag --sort=v:refname"
 
-alias ls="exa"
+alias ls="eza"
 alias mv="mv -i" # overwrite prompt
 alias rm="rip"
-alias cp="xcp -n"
+# alias cp="xcp -n"
 alias tnew="tmux new -s"
 alias ssm="ssh-manager"
 alias o="open"

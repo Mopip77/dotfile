@@ -33,7 +33,7 @@ zmodule qoomon/zsh-lazyload
 # alias reminder
 zmodule Mopip77/alias-tips
 # bd 回到祖先路径
-zmodule Tarrasch/zsh-bd --source bd.zsh
+# zmodule Tarrasch/zsh-bd --source bd.zsh
 
 #
 # Prompt
