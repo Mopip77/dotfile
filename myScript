@@ -98,7 +98,7 @@ export KUBE_EDITOR="/opt/homebrew/bin/nvim"
 export LS_COLORS="$(vivid generate one-dark)"
 
 # CLAUDE CODE
-export ANTHROPIC_BASE_URL=http://localhost:8082
+unset ANTHROPIC_BASE_URL
 
 switch_java() {
   if [ $# = 0 ]; then
@@ -477,3 +477,7 @@ function adb_proxy() {
         adb shell settings delete global global_http_proxy_exclusion_list
     fi
 }
+
+############### execute command #####################
+# 默认开启代理
+p
