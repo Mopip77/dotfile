@@ -1,6 +1,7 @@
 require("config.set")
-require("config.remap")
 require("config.lazy")
+require("config.remap")
+require("config.remap-vscode")
 
 local augroup = vim.api.nvim_create_augroup
 local ThePrimeagenGroup = augroup('ThePrimeagen', {})
