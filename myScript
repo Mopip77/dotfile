@@ -1,7 +1,5 @@
 #!/bin/bash
 
-[[ -f ${HOME}/.myScript.private.sh ]] && source ${HOME}/.myScript.private.sh
-
 ##
 # alias
 ##
@@ -481,3 +479,8 @@ function adb_proxy() {
 ############### execute command #####################
 # 默认开启代理
 p
+
+
+############## 覆盖私有配置 #########################
+
+[[ -f ${HOME}/.myScript.private.sh ]] && source ${HOME}/.myScript.private.sh
