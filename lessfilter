@@ -8,7 +8,7 @@ mime=$(file -bL --mime-type "$1")
 category=${mime%%/*}
 kind=${mime##*/}
 if [ -d "$1" ]; then
-	exa --git -hl --color=always --icons "$1"
+	eza --git -hl --color=always --icons "$1"
 elif [ "$category" = image ]; then
 	chafa "$1"
 	exiftool "$1"
