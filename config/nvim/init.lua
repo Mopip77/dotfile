@@ -1,1 +1,1 @@
-require("mcpp")
+require("config")

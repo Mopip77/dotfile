@@ -67,7 +67,12 @@ local function on_attach(bufnr)
     vim.keymap.set("n", "<S-Tab>", api.tree.change_root_to_parent,        opts('Up'))
 end
 
-require("nvim-tree").setup({
+local ok, nvim_tree = pcall(require, "nvim-tree")
+if not ok then
+    return
+end
+
+nvim_tree.setup({
     on_attach = on_attach,
     actions = {
         open_file = {

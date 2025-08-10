@@ -1,5 +1,6 @@
-require("mcpp.set")
-require("mcpp.remap")
+require("config.set")
+require("config.remap")
+require("config.lazy")
 
 local augroup = vim.api.nvim_create_augroup
 local ThePrimeagenGroup = augroup('ThePrimeagen', {})
