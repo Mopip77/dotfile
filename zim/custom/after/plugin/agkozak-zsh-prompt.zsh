@@ -25,7 +25,7 @@ AGKOZAK_VIRTUALENV_CHARS=( ' ' '' )
 # proxy status
 function agkozak_proxy_status() {
     if [[ -n "$http_proxy" || -n "$https_proxy" ]]; then
-        echo -n "✈️ "
+        echo -n "%F{227}%B⚡%b%f"  # 浅黄色 + 加粗
     fi
 }
 
