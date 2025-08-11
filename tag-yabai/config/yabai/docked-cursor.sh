@@ -38,7 +38,7 @@ if [ "$1" == "edit" ]; then
         sleep 0.1
         osascript -e 'tell application "System Events" to tell process "'$EDITOR_APP'" to keystroke "c" using {command down}'
         sleep 0.1
-        
+
         # 2. 最小化光标窗口
         yabai -m window "$WINDOW_ID" --minimize
 
@@ -64,16 +64,18 @@ if [ "$1" == "edit" ]; then
         osascript -e 'tell application "System Events" to keystroke "c" using {command down}'
         sleep 0.1
 
+        #echo "copied."
+
         # 3. 显示并聚焦窗口 (如果不存在则创建)
         if [ -z "$WINDOW_ID" ]; then
             # 启动并等待
-            $EDITOR_COMMAND "$SCRATCHPAD_DIR" & 
+            $EDITOR_COMMAND "$SCRATCHPAD_DIR" &
             for i in {1..20}; do
                 sleep 0.25
                 WINDOW_ID=$(yabai -m query --windows | jq --arg title "$WINDOW_TITLE" '.[] | select(.app == "'$EDITOR_APP'" and (.title | contains($title))) | .id' 2>/dev/null)
                 if [ -n "$WINDOW_ID" ]; then break; fi
             done
-            
+
             if [ -n "$WINDOW_ID" ]; then
                 configure_and_focus_window "$WINDOW_ID"
             else
@@ -89,7 +91,7 @@ if [ "$1" == "edit" ]; then
             fi
             yabai -m window "$WINDOW_ID" --focus
         fi
-        
+
         sleep 0.2
 
         # 4. 将剪贴板内容粘贴到编辑器窗口
