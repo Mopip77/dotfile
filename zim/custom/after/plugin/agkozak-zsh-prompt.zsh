@@ -25,7 +25,12 @@ AGKOZAK_VIRTUALENV_CHARS=( ' ' '' )
 # proxy status
 function agkozak_proxy_status() {
     if [[ -n "$http_proxy" || -n "$https_proxy" ]]; then
-        echo -n "%F{227}%B⚡%b%f"  # 浅黄色 + 加粗
+        # 在一些特殊场景下，比如在 IDEA 中，用普通的文本展示，避免兼容问题
+        if [[ -n "$IN_IDEA" ]]; then
+            echo "[P]"
+        else
+            echo -n "%F{227}%B⚡%b%f"  # 浅黄色 + 加粗
+        fi
     fi
 }
 
