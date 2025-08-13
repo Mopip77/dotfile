@@ -15,15 +15,18 @@ return {
     },
     {
         'nvim-treesitter/nvim-treesitter',
-        build = ':TSUpdate',
+        branch = 'master',
+        build = ":TSUpdate",
+        lazy = false,
         cond = not vim.g.vscode,
     },
-    {
-        'nvim-treesitter/nvim-treesitter-context',
-        cond = not vim.g.vscode,
-    },
+    -- {
+    --     'nvim-treesitter/nvim-treesitter-context',
+    --     cond = not vim.g.vscode,
+    -- },
     {
         'mbbill/undotree',
         cond = not vim.g.vscode,
-    },    
+    },
 }
+

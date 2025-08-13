@@ -3,6 +3,11 @@ if not ok then
     return
 end
 
+-- 确保在非 git 仓库中也能正常加载
+if vim.fn.finddir('.git', vim.fn.expand('%:p:h') .. ';') == '' then
+    return
+end
+
 gitsigns.setup({
     on_attach = function(bufnr)
         local gs = package.loaded.gitsigns
