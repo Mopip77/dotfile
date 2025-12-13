@@ -1,8 +1,14 @@
 case $@ in
+"Apifox")
+    icon_result=":reeder5:"
+    ;;
 "Proxyman")
     icon_result=":wifi:"
     ;;
 "豆包")
+    icon_result=":firefox:"
+    ;;
+"ChatGPT Atlas")
     icon_result=":firefox:"
     ;;
 "Brave Browser")
