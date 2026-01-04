@@ -1,6 +1,12 @@
 case $@ in
+"灵犀")
+    icon_result=':feishu:'
+    ;;
+"Enpass")
+    icon_result=':enpass:'
+    ;;
 "Alma")
-    icon_result=':claude:'
+    icon_result=':coze:'
     ;;
 "Apifox")
     icon_result=":apifox:"
@@ -9,7 +15,7 @@ case $@ in
     icon_result=":proxyman:"
     ;;
 "豆包")
-    icon_result=":doubao:"
+    icon_result=":google_chrome:"
     ;;
 "Brave Browser")
   icon_result=":brave_browser:"
