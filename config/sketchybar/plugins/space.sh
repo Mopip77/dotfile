@@ -24,7 +24,7 @@ if [[ $SENDER == "front_app_switched" ]]; then
                 do
                     icon=$(echo ${arr[i]} | sed 's/"//g')
                     icon=$($HOME/.config/sketchybar/icons.sh $icon)
-                    icons+="$icon  "
+                    icons+="$icon "
                 done
 
         fi

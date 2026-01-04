@@ -10,7 +10,8 @@ do
   sketchybar --add space space.$sid left                                 \
              --set space.$sid associated_space=$sid                      \
                               icon=${SPACE_ICONS[i]}                     \
-                              label.font="sketchybar-app-font:Regular:12.0" \
+                              icon.font="${FONT}:Bold:14.0" \
+                              label.font="${ICON_FONT}:Regular:12.0" \
                               background.corner_radius=5                 \
                               background.height=20                       \
                               background.color=0x30ffffff               \
