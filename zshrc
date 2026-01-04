@@ -35,6 +35,8 @@ setopt CORRECT
 
 # Remove path separator from WORDCHARS.
 WORDCHARS=${WORDCHARS//[\/]}
+# Remove =
+WORDCHARS=${WORDCHARS//[=]}
 
 # Color Settings
 export CLICOLOR=1
