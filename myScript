@@ -28,7 +28,9 @@ alias rm="rip"
 alias tnew="tmux new -s"
 alias ssm="ssh-manager"
 alias o="open"
-alias c="pbcopy"
+alias c="init_yabai_env && claude --permission-mode acceptEdits"
+alias claude="init_yabai_env && claude --permission-mode acceptEdits"
+alias copy="pbcopy"
 alias nvi="nvim"
 alias vim="nvim"
 alias vi="nvim"
@@ -43,25 +45,24 @@ alias sch="screenshot-handler"
 alias agf="ag -l -g"
 alias tt="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 alias localFirst="PATH=${HOME}/.local/bin:$PATH"
-alias p="export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 no_proxy=127.0.0.1,localhost,local,.local,10.10.0.0/16,192.168.60.245/16"
-alias psocks="export https_proxy=socks5h://127.0.0.1:7890 http_proxy=socks5h://127.0.0.1:7890 no_proxy=127.0.0.1,localhost,local,.local,10.10.0.0/16,192.168.60.245/16"
-alias rp="export https_proxy= http_proxy= no_proxy="
-alias charles_proxy="export https_proxy=http://127.0.0.1:12580 http_proxy=http://127.0.0.1:12580"
 alias yabai-init="killall yabai; nohup yabai &> /dev/null &; killall sketchybar; nohup sketchybar &> /dev/null &;"
 alias preview="open -a Preview"
 alias dr="direnv allow"
 alias curltime="curl -w \"@$HOME/.myjiaoben/curl/curltime.template\" -s "
 alias grepi="grep --ignore-case"
-alias tmux-init="rm ~/.tmux/resurrect/*; tmux"
+alias tmux-init="rm ~/.tmux/resurrect/*; tm"
+
+alias mcpp_convert_md_2_html="node ~/.myjiaoben/md-convert.js"
 
 ##
 # path
 ##
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/zulu_jdk8_arm/zulu-8.jdk/Contents/Home"
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home"
 export PATH=${PATH}:${JAVA_HOME}/bin
 
 export GRADLE_USER_HOME="${HOME}/.m2/repository/"
 
+export PATH=${PATH}:${HOME}/.cargo/bin
 export PATH=${PATH}:${HOME}/.local/bin
 export PATH=${PATH}:${HOME}/grampro/jmeter/bin
 
@@ -296,42 +297,50 @@ fakeTimeWhen() {
 tscript() {
     # test script 快速测试脚本
     # 形式: 在 tmux 中打开左右两个窗口，左边是脚本，右边是测试，脚本修改后自动执行
-
-    # 0. 判断是否安装 fswatch
-    if ! command -v fswatch &> /dev/null
-    then
+    if ! command -v fswatch &> /dev/null; then
         echo -e "\033[32mfswatch\033[0m should be installed first."
         return
     fi
 
-    # 1. 判断是否在 tmux 中
     local session_name
+    local editor_pane
+    local fswatch_pane
+
     if [ -z "$TMUX" ]; then
-        tmux new -s tscript -d
+        # 不在 tmux 里：新建一个 session
         session_name="tscript"
+        tmux new-session -s "$session_name" -d
+        # 取这个 session 里的第一个 pane 作为编辑 pane
+        editor_pane="$(tmux list-panes -t "$session_name" -F '#{pane_id}' | head -n1)"
     else
-        session_name=$(tmux display-message -p '#S')
+        # 在 tmux 里：使用当前 session & 当前 pane
+        session_name="$(tmux display-message -p '#S')"
+        editor_pane="$(tmux display-message -p '#{pane_id}')"
     fi
 
-    # 2. 如果指定了文件，就使用指定的文件，否则使用剪贴板中的内容
     local script_file
     if [ -z "$1" ]; then
         script_file="/tmp/$(uuidgen).sh"
-        pbpaste > $script_file
+        pbpaste > "$script_file"
     else
-        script_file=$1
+        script_file="$1"
     fi
 
-    # 3. 在左边面板打开编辑器
-    tmux send-keys -t 1 "$EDITOR $script_file" C-m
+    # 在编辑 pane 里打开文件
+    tmux send-keys -t "$editor_pane" "$EDITOR \"$script_file\"" C-m
 
-    # 4. 在右侧创建窗口
-    tmux split-window -h -t $session_name
-    # 5. 在右侧监控文件变化，变化后执行脚本
-    tmux send-keys -t 2 "fswatch -o $script_file | xargs -n1 -I{} sh -c 'clear; echo \"=====================\"; echo \"\$(date +\"%Y-%m-%d %H:%M:%S\") ==> Running script\"; echo \"=====================\"; sh $script_file'" C-m
+    # 以编辑 pane 为目标水平分屏，拿到新 pane 的 id 作为 fswatch pane
+    fswatch_pane="$(tmux split-window -h -t "$editor_pane" -P -F '#{pane_id}')"
 
-    # 6. 如果不在 tmux 里，attach到 tmux
-    [[ -z "$TMUX" ]] && tmux a -t $session_name
+    # 在 fswatch pane 里跑自动执行脚本
+    tmux send-keys -t "$fswatch_pane" \
+        "fswatch -o \"$script_file\" | xargs -n1 -I{} sh -c 'clear; echo \"=====================\"; echo \"\$(date +\"%Y-%m-%d %H:%M:%S\") ==> Running script\"; echo \"=====================\"; sh \"$script_file\"'" \
+        C-m
+
+    # 如果一开始不在 tmux，就 attach 上去
+    if [ -z "$TMUX" ]; then
+        tmux attach -t "$session_name"
+    fi
 }
 
 # 快速切换 env 文件
@@ -474,6 +483,64 @@ function adb_proxy() {
         adb shell settings delete global global_http_proxy_port
         adb shell settings delete global global_http_proxy_exclusion_list
     fi
+}
+
+function runin() {
+  local dir=$1
+  shift
+  (cd "$dir" && "$@")
+}
+
+# 设置代理
+function p() {
+    local port=${1:-7890}
+    export https_proxy=http://127.0.0.1:$port http_proxy=http://127.0.0.1:$port no_proxy=127.0.0.1,localhost,local,.local,10.10.0.0/16,192.168.60.245/16
+    export HTTPS_PROXY=http://127.0.0.1:$port HTTP_PROXY=http://127.0.0.1:$port NO_PROXY=127.0.0.1,localhost,local,.local,10.10.0.0/16,192.168.60.245/16
+}
+
+# 设置 socks 代理
+function psocks() {
+    local port=${1:-7890}
+    export https_proxy=socks5h://127.0.0.1:$port http_proxy=socks5h://127.0.0.1:$port no_proxy=127.0.0.1,localhost,local,.local,10.10.0.0/16,192.168.60.245/16
+    export HTTPS_PROXY=socks5h://127.0.0.1:$port HTTP_PROXY=socks5h://127.0.0.1:$port NO_PROXY=127.0.0.1,localhost,local,.local,10.10.0.0/16,192.168.60.245/16
+}
+
+# 清除代理
+function rp() {
+    export https_proxy= http_proxy= no_proxy=
+    export HTTPS_PROXY= HTTP_PROXY= NO_PROXY=
+}
+
+function init_yabai_env() {
+    export YABAI_SPACE_INDEX="$(yabai -m query --spaces --space | jq '.index')"
+}
+
+# 智能连接 tmux
+function tm() {
+  local session_name="${1:-main}"
+
+  # 检查 session 是否存在
+  if tmux has-session -t "$session_name" 2>/dev/null; then
+      # 存在则创建新的关联会话
+      tmux new-session -t "$session_name"
+  else
+      # 不存在则创建新 session
+      tmux new-session -s "$session_name"
+  fi
+}
+
+# 智能连接 tmux，使用当前文件夹名作为 session 名
+function tf() {
+  local session_name="$(basename "$PWD")"
+
+  # 检查 session 是否存在
+  if tmux has-session -t "$session_name" 2>/dev/null; then
+      # 存在则创建新的关联会话
+      tmux new-session -t "$session_name"
+  else
+      # 不存在则创建新 session
+      tmux new-session -s "$session_name"
+  fi
 }
 
 ############### execute command #####################
