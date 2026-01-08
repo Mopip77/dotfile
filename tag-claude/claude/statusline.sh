@@ -121,6 +121,8 @@
   venv_info=$(get_virtualenv)
   custom_indicators=$(get_custom_indicators)
 
+  MODEL_DISPLAY=$(echo "$input" | jq -r '.model.display_name')
+
   # Construct the final status line
   status_line=""
 
@@ -141,6 +143,8 @@
   if [ -n "$custom_indicators" ]; then
       status_line+="$custom_indicators"
   fi
+
+  status_line+=" <$MODEL_DISPLAY>"
 
   # Output the final status line
   printf "$status_line"
