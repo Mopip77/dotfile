@@ -5,5 +5,6 @@ sketchybar --add item ip right                             \
                          script="$PLUGIN_DIR/ip.sh"        \
                          background.color="$BACKGROUND"        \
                          background.corner_radius=5            \
-                         icon.drawing=off
+                         icon.drawing=off \
+                         click_script="ipconfig getifaddr en0 | tr -d '\n' | pbcopy && osascript -e 'display notification \"IP copied to clipboard\" with title \"IP Address\"'"
 

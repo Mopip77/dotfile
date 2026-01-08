@@ -4,6 +4,7 @@ sketchybar --add item volume right                             \
            --set volume  script="$PLUGIN_DIR/volume.sh"        \
                          background.color="$BACKGROUND"        \
                          background.corner_radius=5            \
+                         click_script="osascript -e 'set volume output muted not (output muted of (get volume settings))'" \
            --subscribe volume volume_change                    \
                                                                \
            --add item volume.separator right                   \

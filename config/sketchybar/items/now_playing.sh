@@ -7,4 +7,5 @@ sketchybar --add item now_playing left                              \
                                  background.drawing=off        \
                                  background.color="$BACKGROUND"        \
                                  background.corner_radius=5            \
+                                 click_script="nowplaying-cli togglePlayPause"            \
 
