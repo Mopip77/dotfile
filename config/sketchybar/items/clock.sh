@@ -7,6 +7,7 @@ sketchybar --add item clock right                              \
                          script="$PLUGIN_DIR/clock.sh"         \
                          background.color="$BACKGROUND"        \
                          background.corner_radius=5            \
+                         click_script="open -a Calendar"          \
                                                                \
            --add item clock.separator right                    \
            --set clock.separator label="$SEPARATOR_R"          \
