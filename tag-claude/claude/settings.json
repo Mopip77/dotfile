@@ -1,25 +1,60 @@
 {
   "env": {},
-  "statusLine": {
-    "type": "command",
-    "command": "~/.claude/statusline.sh",
-    "padding": 0
+  "permissions": {
+    "allow": [
+      "Bash(mvn:*)",
+      "Bash(curl:*)",
+      "Bash(mkdir:*)",
+      "Web Search"
+    ],
+    "deny": []
   },
   "hooks": {
     "Notification": [
       {
-        "matcher": "",
         "hooks": [
           {
             "type": "command",
-            "command": "terminal-notifier -title 'Claude Code' -message 'Awaiting your input' -sound Glass"
+            "command": "terminal-notifier -title 'Claude Code' -message \"Awaiting your input from $CLAUDE_PROJECT_DIR\" -sound Glass -sender com.anthropic.claudefordesktop -execute \"YABAI_SPACE_INDEX=${YABAI_SPACE_INDEX} ~/.claude/custom-scripts/notification-click-hook.sh\""
+          },
+          {
+            "type": "command",
+            "command": "open raycast://confetti"
+          },
+          {
+            "type": "command",
+            "command": "~/.myjiaoben/send_ntfy.sh \"Claude Code\" \"Awaiting your input from $CLAUDE_PROJECT_DIR\" \"https://i.gsxcdn.com/3347504880_bgbu4jyu.png\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "terminal-notifier -title 'Claude Code' -message \"Awaiting your input from $CLAUDE_PROJECT_DIR\" -sound Glass -sender com.anthropic.claudefordesktop -execute \"YABAI_SPACE_INDEX=${YABAI_SPACE_INDEX} ~/.claude/custom-scripts/notification-click-hook.sh\""
+          },
+          {
+            "type": "command",
+            "command": "open raycast://confetti"
+          },
+          {
+            "type": "command",
+            "command": "~/.myjiaoben/send_ntfy.sh \"Claude Code\" \"Awaiting your input from $CLAUDE_PROJECT_DIR\" \"https://i.gsxcdn.com/3347504880_bgbu4jyu.png\""
           }
         ]
       }
     ]
   },
-  "permissions": {
-    "allow": [],
-    "deny": []
-  }
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh",
+    "padding": 0
+  },
+  "enabledPlugins": {
+    "typescript-lsp@claude-plugins-official": true,
+    "sql@gaotu-tools": true
+  },
+  "alwaysThinkingEnabled": false
 }
