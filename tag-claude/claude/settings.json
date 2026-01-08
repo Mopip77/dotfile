@@ -15,15 +15,15 @@
         "hooks": [
           {
             "type": "command",
-            "command": "terminal-notifier -title 'Claude Code' -message \"Awaiting your input from $CLAUDE_PROJECT_DIR\" -sound Glass -sender com.anthropic.claudefordesktop -execute \"YABAI_SPACE_INDEX=${YABAI_SPACE_INDEX} ~/.claude/custom-scripts/notification-click-hook.sh\""
+            "command": "terminal-notifier -title 'Claude Code' -message \"Awaiting your input from $CLAUDE_PROJECT_DIR\" -sound Glass -sender com.anthropic.claudefordesktop -execute \"YABAI_SPACE_INDEX=${YABAI_SPACE_INDEX} ~/.claude/custom-scripts/notification-click-hook.sh\" > /dev/null 2>&1 &"
           },
           {
             "type": "command",
-            "command": "open raycast://confetti"
+            "command": "open raycast://confetti > /dev/null 2>&1 &"
           },
           {
             "type": "command",
-            "command": "~/.myjiaoben/send_ntfy.sh \"Claude Code\" \"Awaiting your input from $CLAUDE_PROJECT_DIR\" \"https://i.gsxcdn.com/3347504880_bgbu4jyu.png\""
+            "command": "~/.myjiaoben/send_ntfy.sh \"Claude Code\" \"Awaiting your input from $CLAUDE_PROJECT_DIR\" \"https://i.gsxcdn.com/3347504880_bgbu4jyu.png\" > /dev/null 2>&1 &"
           }
         ]
       }
@@ -33,15 +33,15 @@
         "hooks": [
           {
             "type": "command",
-            "command": "terminal-notifier -title 'Claude Code' -message \"Awaiting your input from $CLAUDE_PROJECT_DIR\" -sound Glass -sender com.anthropic.claudefordesktop -execute \"YABAI_SPACE_INDEX=${YABAI_SPACE_INDEX} ~/.claude/custom-scripts/notification-click-hook.sh\""
+            "command": "terminal-notifier -title 'Claude Code' -message \"Awaiting your input from $CLAUDE_PROJECT_DIR\" -sound Glass -sender com.anthropic.claudefordesktop -execute \"YABAI_SPACE_INDEX=${YABAI_SPACE_INDEX} ~/.claude/custom-scripts/notification-click-hook.sh\" > /dev/null 2>&1 &"
           },
           {
             "type": "command",
-            "command": "open raycast://confetti"
+            "command": "open raycast://confetti > /dev/null 2>&1 &"
           },
           {
             "type": "command",
-            "command": "~/.myjiaoben/send_ntfy.sh \"Claude Code\" \"Awaiting your input from $CLAUDE_PROJECT_DIR\" \"https://i.gsxcdn.com/3347504880_bgbu4jyu.png\""
+            "command": "~/.myjiaoben/send_ntfy.sh \"Claude Code\" \"Awaiting your input from $CLAUDE_PROJECT_DIR\" \"https://i.gsxcdn.com/3347504880_bgbu4jyu.png\" > /dev/null 2>&1 &"
           }
         ]
       }
