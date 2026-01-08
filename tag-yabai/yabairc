@@ -62,7 +62,7 @@ yabai -m config right_padding                6
 yabai -m config window_gap                   6
 
 # 3rd part border
-borders blacklist="Min,weread,pasteV,paste-v,scrcpy,WeChat" active_color=0xfcfeee58 inactive_color=0x00494d64 width=5.0 &
+borders blacklist="Min,weread,pasteV,paste-v,scrcpy,WeChat,Alma" active_color=0xfcfeee58 inactive_color=0x00494d64 width=5.0 &
 
 # animation
 yabai -m config window_animation_duration    1.5
@@ -72,7 +72,7 @@ yabai -m config window_animation_easing      ease_in_sine
 # Rules
 # ====
 
-otherApp='^(IINA|访达|Calendar|日历|System Preferences|系统偏好设置|Mail|微信|WeChat|QQ|印象笔记|灵犀|网易云音乐|Tencent Lemon|企业微信|Todoist|Input Source Pro|Enpass|预览|scrcpy|文本编辑|Kap|Shottr|chatgpt|kimi|lobeChat|ChatGPT|Min|Kando|weread|pasteV|paste-v|Inoreader.*|飞书|fakeee)$'
+otherApp='^(IINA|访达|Calendar|日历|System Preferences|系统偏好设置|Mail|微信|WeChat|QQ|印象笔记|灵犀|网易云音乐|Tencent Lemon|企业微信|Todoist|Input Source Pro|Enpass|预览|scrcpy|文本编辑|Kap|Shottr|chatgpt|kimi|lobeChat|ChatGPT|Min|Kando|weread|pasteV|paste-v|Inoreader.*|飞书|Telegram|Gemini|Safari浏览器|Alma|fakeee)$'
 yabai -m rule --add app="${otherApp}" manage=off sub-layer=below
 
 yabai -m rule --add app=".*" layer=normal
