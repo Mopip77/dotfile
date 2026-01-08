@@ -96,9 +96,6 @@ export KUBE_EDITOR="/opt/homebrew/bin/nvim"
 # LS_COLOR
 export LS_COLORS="$(vivid generate one-dark)"
 
-# CLAUDE CODE
-unset ANTHROPIC_BASE_URL
-
 switch_java() {
   if [ $# = 0 ]; then
     echo "switch_java <version>  version: 8, 11, 14"
