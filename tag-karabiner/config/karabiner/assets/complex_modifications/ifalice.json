@@ -161,9 +161,7 @@
           ],
           "from": {
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ]
+              "mandatory": ["left_shift"]
             },
             "simultaneous": [
               {
@@ -272,9 +270,7 @@
           "from": {
             "key_code": "f20",
             "modifiers": {
-              "optional": [
-                "any"
-              ]
+              "optional": ["any"]
             }
           },
           "to": [
@@ -306,10 +302,7 @@
           "from": {
             "key_code": "f22",
             "modifiers": {
-              "mandatory": [
-                "left_command",
-                "left_control"
-              ]
+              "mandatory": ["left_command", "left_control"]
             }
           },
           "to": [
@@ -341,17 +334,13 @@
           "from": {
             "key_code": "f22",
             "modifiers": {
-              "mandatory": [
-                "left_command"
-              ]
+              "mandatory": ["left_command"]
             }
           },
           "to": [
             {
               "key_code": "spacebar",
-              "modifiers": [
-                "left_command"
-              ]
+              "modifiers": ["left_command"]
             }
           ]
         },
@@ -372,22 +361,18 @@
           "from": {
             "key_code": "f22",
             "modifiers": {
-              "mandatory": [
-                "left_option"
-              ]
+              "mandatory": ["left_option"]
             }
           },
           "to": [
             {
               "key_code": "spacebar",
-              "modifiers": [
-                "left_option"
-              ]
+              "modifiers": ["left_option"]
             }
           ]
         },
         {
-          "description": "右侧空格单独按下是退格，组合键才是空格（这里配置的是退格）",
+          "description": "右侧空格单独按下是回车，组合键才是空格（这里配置的是回车）",
           "type": "basic",
           "conditions": [
             {
@@ -405,7 +390,7 @@
           },
           "to": [
             {
-              "key_code": "escape"
+              "key_code": "return_or_enter"
             }
           ]
         },
@@ -661,10 +646,7 @@
           "to": [
             {
               "key_code": "r",
-              "modifiers": [
-                "left_option",
-                "left_command"
-              ]
+              "modifiers": ["left_option", "left_command"]
             }
           ]
         },
@@ -701,9 +683,7 @@
           "to": [
             {
               "key_code": "f9",
-              "modifiers": [
-                "left_option"
-              ]
+              "modifiers": ["left_option"]
             }
           ]
         },
@@ -724,9 +704,7 @@
           "from": {
             "key_code": "f14",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ]
+              "mandatory": ["left_shift"]
             }
           },
           "to": [
@@ -752,9 +730,7 @@
           "from": {
             "key_code": "f13",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ]
+              "mandatory": ["left_shift"]
             }
           },
           "to": [
@@ -907,17 +883,13 @@
           "from": {
             "key_code": "1",
             "modifiers": {
-              "optional": [
-                "left_shift"
-              ]
+              "optional": ["left_shift"]
             }
           },
           "to": [
             {
               "key_code": "6",
-              "modifiers": [
-                "left_command"
-              ]
+              "modifiers": ["left_command"]
             }
           ]
         },
@@ -1014,9 +986,7 @@
           "to": [
             {
               "key_code": "t",
-              "modifiers": [
-                "left_option"
-              ]
+              "modifiers": ["left_option"]
             }
           ]
         }
@@ -1024,3 +994,4 @@
     }
   ]
 }
+
