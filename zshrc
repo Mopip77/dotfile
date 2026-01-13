@@ -260,3 +260,28 @@ export NVM_DIR="$HOME/.nvm"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+
+# pnpm
+export PNPM_HOME="${HOME}/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+alias claude-mem='bun "/Users/bjhl/.claude/plugins/marketplaces/thedotmack/plugin/scripts/worker-service.cjs"'
+
+# === env-provider auto-generated ===
+# DO NOT EDIT THIS SECTION MANUALLY
+if [ -d "$HOME/.config/env-provider/enabled" ]; then
+  ENV_PROVIDER_ERROR_LOG="$HOME/.config/env-provider/error.log"
+
+  # 遍历所有已启用的配置文件并 source（排除 .DS_Store 等系统文件）
+  while IFS= read -r -d '' conf_file; do
+    if ! source "$conf_file" 2>>"$ENV_PROVIDER_ERROR_LOG"; then
+      echo "[$(date '+%Y-%m-%d %H:%M:%S')] Failed to source: $conf_file" >> "$ENV_PROVIDER_ERROR_LOG"
+    fi
+  done < <(find "$HOME/.config/env-provider/enabled" \( -type f -o -type l \) ! -name ".DS_Store" ! -name ".gitkeep" ! -name "Thumbs.db" 2>/dev/null | sort | tr '\n' '\0')
+fi
+# === end env-provider ===
