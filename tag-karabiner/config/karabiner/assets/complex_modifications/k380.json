@@ -1,0 +1,67 @@
+{
+  "title": "k380配置",
+  "desciprtion": "",
+  "rules": [
+    {
+      "description": "k380键盘配置",
+      "manipulators": [
+        {
+          "description": "shift + volume down -> brightness decrement",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 45890,
+                  "description": "k380"
+                }
+              ]
+            }
+          ],
+          "from": {
+              "consumer_key_code": "volume_decrement",
+              "modifiers": {
+                  "mandatory": [
+                      "shift"
+                  ]
+              }
+          },
+          "to": [
+            {
+              "consumer_key_code": "display_brightness_decrement"
+            }
+          ]
+        },
+        {
+          "description": "shift + volume up -> brightness increment",
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 45890,
+                  "description": "k380"
+                }
+              ]
+            }
+          ],
+          "from": {
+              "consumer_key_code": "volume_increment",
+              "modifiers": {
+                  "mandatory": [
+                      "shift"
+                  ]
+              }
+          },
+          "to": [
+            {
+              "consumer_key_code": "display_brightness_increment"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
