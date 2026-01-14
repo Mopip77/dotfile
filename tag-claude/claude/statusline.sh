@@ -79,9 +79,9 @@
   get_virtualenv() {
       if [ -n "$VIRTUAL_ENV" ]; then
           local venv_name=$(basename "$VIRTUAL_ENV")
-          printf "\033[36m(%s)\033[0m" "$venv_name"
-      elif [ -n "$CONDA_DEFAULT_ENV" ] && [ "$CONDA_DEFAULT_ENV" != "base" ]; then
-          printf "\033[36m(%s)\033[0m" "$CONDA_DEFAULT_ENV"
+          printf "\033[1;33m(%s)\033[0m" "$venv_name"
+      elif [ -n "$CONDA_DEFAULT_ENV" ]; then
+          printf "\033[1;33m(%s)\033[0m" "$CONDA_DEFAULT_ENV"
       fi
   }
 
@@ -126,13 +126,13 @@
   # Construct the final status line
   status_line=""
 
-  # Add virtual environment if present
-  if [ -n "$venv_info" ]; then
-      status_line+="$venv_info "
-  fi
-
   # Add directory
   status_line+="\033[34m$trimmed_dir\033[0m"
+
+  # Add virtual environment if present
+  if [ -n "$venv_info" ]; then
+      status_line+=" $venv_info"
+  fi
 
   # Add git status if in a git repository
   if [ -n "$git_status" ]; then
