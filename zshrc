@@ -8,6 +8,14 @@
 # -----------------
 
 #
+# Character width fix for emoji and wide characters
+#
+# 修复双宽度字符（emoji）在命令行编辑时的显示问题
+# zh_CN.UTF-8 的 wcwidth 数据库对某些 emoji 判断不准确
+# 使用 en_US.UTF-8 的字符类型判断，确保 zsh 和终端对字符宽度的理解一致
+export LC_CTYPE=en_US.UTF-8
+
+#
 # History
 #
 
