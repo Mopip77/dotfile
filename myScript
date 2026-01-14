@@ -25,10 +25,13 @@ alias ls="eza"
 alias mv="mv -i" # overwrite prompt
 alias rm="rip"
 # alias cp="xcp -n"
+alias cc="conda activate"
 alias tnew="tmux new -s"
 alias ssm="ssh-manager"
 alias o="open"
-alias c="init_yabai_env && claude --permission-mode acceptEdits"
+alias c="init_yabai_env && command claude --permission-mode acceptEdits"
+alias cs="init_yabai_env && command claude --permission-mode acceptEdits --dangerously-skip-permissions"
+alias co="init_yabai_env && command claude --permission-mode acceptEdits --model opus"
 alias claude="init_yabai_env && claude --permission-mode acceptEdits"
 alias copy="pbcopy"
 alias nvi="nvim"
@@ -76,10 +79,6 @@ PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
 
 # GO config
 export GO111MODULE="on"
-
-# node path
-export NODE_PATH=/usr/local/lib/node_modules
-export PATH=$PATH:$NODE_PATH
 
 # krew
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
@@ -509,7 +508,9 @@ function rp() {
 }
 
 function init_yabai_env() {
-    export YABAI_SPACE_INDEX="$(yabai -m query --spaces --space | jq '.index')"
+    if command -v yabai &> /dev/null; then
+        export YABAI_SPACE_INDEX="$(yabai -m query --spaces --space | jq '.index')"
+    fi
 }
 
 # 智能连接 tmux
