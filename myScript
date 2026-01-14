@@ -507,6 +507,50 @@ function rp() {
     export HTTPS_PROXY= HTTP_PROXY= NO_PROXY=
 }
 
+# Claude Code Open - 快速在浏览器中打开当前 session
+function ccoo() {
+    local SESSION_DIR="/tmp/claude-session-open"
+    local BASE_URL="http://localhost:4123/session"
+
+    # 查找当前 shell 的 session ID
+    local find_session_id() {
+        local current_pid=$$
+        local parent_pid=$PPID
+
+        # 尝试当前 PID
+        [[ -f "$SESSION_DIR/$current_pid" ]] && cat "$SESSION_DIR/$current_pid" && return 0
+
+        # 尝试父 PID
+        [[ -f "$SESSION_DIR/$parent_pid" ]] && cat "$SESSION_DIR/$parent_pid" && return 0
+
+        # 尝试祖父 PID（处理 tmux/screen）
+        local grandparent_pid=$(ps -o ppid= -p $parent_pid | tr -d ' ')
+        [[ -f "$SESSION_DIR/$grandparent_pid" ]] && cat "$SESSION_DIR/$grandparent_pid" && return 0
+
+        # 最近修改的 session 文件
+        local latest_session=$(ls -t "$SESSION_DIR" 2>/dev/null | head -n 1)
+        [[ -n "$latest_session" ]] && cat "$SESSION_DIR/$latest_session" && return 0
+
+        return 1
+    }
+
+    local session_id=$(find_session_id)
+
+    if [[ -z "$session_id" ]]; then
+        echo "❌ 未找到 Claude Code session ID"
+        echo "💡 请确保："
+        echo "   1. 已在 Claude Code 中运行此命令"
+        echo "   2. SessionStart hook 已正确配置"
+        return 1
+    fi
+
+    local url="$BASE_URL/$session_id"
+    echo "🚀 正在打开 session: $session_id"
+    echo "🔗 URL: $url"
+
+    open "$url"
+}
+
 function init_yabai_env() {
     if command -v yabai &> /dev/null; then
         export YABAI_SPACE_INDEX="$(yabai -m query --spaces --space | jq '.index')"
