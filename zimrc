@@ -30,6 +30,8 @@ zmodule jeffreytse/zsh-vi-mode
 zmodule mroth/evalcache
 # 懒加载
 zmodule qoomon/zsh-lazyload
+# 延迟异步执行
+zmodule romkatv/zsh-defer
 # alias reminder
 zmodule Mopip77/alias-tips
 # bd 回到祖先路径

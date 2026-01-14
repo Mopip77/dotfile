@@ -230,6 +230,9 @@ _evalcache atuin init zsh
 # bind C-r to atuin
 bindkey '^r' _atuin_search_widget
 
+# unalias gh(git help)
+unalias gh
+
 ### ----------------------- Configuration ----------------------------------------
 
 # php configuration
@@ -255,6 +258,9 @@ function __init_conda() {
 }
 # <<< conda initialize <<<
 lazyload conda -- __init_conda
+
+# Auto-activate conda base environment asynchronously
+zsh-defer conda activate base
 
 # }}} End configuration added by Zim install
 
@@ -293,3 +299,6 @@ if [ -d "$HOME/.config/env-provider/enabled" ]; then
   done < <(find "$HOME/.config/env-provider/enabled" \( -type f -o -type l \) ! -name ".DS_Store" ! -name ".gitkeep" ! -name "Thumbs.db" 2>/dev/null | sort | tr '\n' '\0')
 fi
 # === end env-provider ===
+
+# Added by Antigravity
+export PATH="${HOME}/.antigravity/antigravity/bin:$PATH"
