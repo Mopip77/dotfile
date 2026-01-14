@@ -27,9 +27,9 @@ function agkozak_proxy_status() {
     if [[ -n "$http_proxy" || -n "$https_proxy" ]]; then
         # 在一些特殊场景下，比如在 IDEA 中，用普通的文本展示，避免兼容问题
         if [[ -n "$IN_IDEA" ]]; then
-            echo "[P]"
+            printf '%s' "[P]"
         else
-            echo -n "%F{227}%B⚡%b%f"  # 浅黄色 + 加粗
+            printf '%s' "%F{227}%B⚡%b%f"  # 浅黄色 + 加粗
         fi
     fi
 }
@@ -45,14 +45,14 @@ function get_env_status() {
     enviroment=$(readlink .env | cut -d '.' -f 3)
 
     if [[ -n "$enviroment" ]]; then
-        echo -n "($enviroment)"
+        printf '%s' "($enviroment)"
     fi
 }
 
 # private mode
 function is_private_mode() {
     if [[ -z "$HISTFILE" ]]; then
-        echo -n "🫣"
+        printf '%s' "🫣"
     fi
 }
 
