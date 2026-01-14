@@ -3,6 +3,9 @@
   # Claude Code StatusLine Script
   # Includes: directory trimming, git status, virtualenv, and custom indicators
 
+  # Configuration
+  SHOW_PROGRESS_BAR=false  # Set to true to show progress bar, false to show only percentage
+
   # Read JSON input from stdin
   input=$(cat)
 
@@ -112,6 +115,86 @@
       echo "$indicators"
   }
 
+  # Function to create a progress bar
+  create_progress_bar() {
+      local used=$1
+      local limit=$2
+      local width=10  # Progress bar width in characters
+
+      if [ -z "$used" ] || [ -z "$limit" ] || [ "$limit" -eq 0 ]; then
+          echo ""
+          return
+      fi
+
+      local percentage=$((used * 100 / limit))
+      local filled=$((width * used / limit))
+      [ $filled -gt $width ] && filled=$width
+
+      local empty=$((width - filled))
+
+      # Choose color based on percentage
+      local color="\033[32m"  # Green
+      if [ $percentage -ge 90 ]; then
+          color="\033[31m"  # Red
+      elif [ $percentage -ge 70 ]; then
+          color="\033[33m"  # Yellow
+      fi
+
+      # Build progress bar
+      local bar="["
+      for ((i=0; i<filled; i++)); do
+          bar+="█"
+      done
+      for ((i=0; i<empty; i++)); do
+          bar+="░"
+      done
+      bar+="]"
+
+      printf "${color}%s %d%%\033[0m" "$bar" "$percentage"
+  }
+
+  # Function to format large numbers with K/M suffix
+  format_number() {
+      local num=$1
+      if [ $num -ge 1000000 ]; then
+          printf "%.1fM" $(awk "BEGIN {printf \"%.1f\", $num/1000000}")
+      elif [ $num -ge 1000 ]; then
+          printf "%.1fK" $(awk "BEGIN {printf \"%.1f\", $num/1000}")
+      else
+          echo "$num"
+      fi
+  }
+
+  # Function to get session usage information
+  get_session_usage() {
+      local used=$(echo "$input" | jq -r '.context_window.total_input_tokens // 0')
+      local limit=$(echo "$input" | jq -r '.context_window.context_window_size // 200000')
+
+      if [ "$limit" -gt 0 ] && [ "$used" -gt 0 ]; then
+          local used_fmt=$(format_number $used)
+          local limit_fmt=$(format_number $limit)
+          local percentage=$((used * 100 / limit))
+
+          # Choose color based on percentage
+          local color="\033[32m"  # Green
+          if [ $percentage -ge 90 ]; then
+              color="\033[31m"  # Red
+          elif [ $percentage -ge 70 ]; then
+              color="\033[33m"  # Yellow
+          fi
+
+          if [ "$SHOW_PROGRESS_BAR" = true ]; then
+              # Show with progress bar
+              local progress=$(create_progress_bar $used $limit)
+              printf " \033[36m[%s/%s %s]\033[0m" "$used_fmt" "$limit_fmt" "$progress"
+          else
+              # Show without progress bar, just percentage with color
+              local pct_display=$(printf "${color}%d%%\033[0m" "$percentage")
+              printf " \033[36m[%s/%s %s]\033[0m" "$used_fmt" "$limit_fmt" "$pct_display"
+          fi
+      fi
+  }
+
   # Change to the current directory for git operations
   cd "$current_dir" 2>/dev/null || true
 
@@ -120,6 +203,7 @@
   git_status=$(get_git_status)
   venv_info=$(get_virtualenv)
   custom_indicators=$(get_custom_indicators)
+  session_usage=$(get_session_usage)
 
   MODEL_DISPLAY=$(echo "$input" | jq -r '.model.display_name')
 
@@ -146,6 +230,11 @@
 
   status_line+=" <$MODEL_DISPLAY>"
 
+  # Add session usage information
+  if [ -n "$session_usage" ]; then
+      status_line+="$session_usage"
+  fi
+
   # Output the final status line
-  printf "$status_line"
+  printf '%b\n' "$status_line"
 
