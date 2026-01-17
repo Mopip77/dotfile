@@ -54,7 +54,8 @@
   },
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": true,
-    "sql@gaotu-tools": true
+    "sql@gaotu-tools": true,
+    "superpowers@claude-plugins-official": false
   },
   "alwaysThinkingEnabled": false
 }
