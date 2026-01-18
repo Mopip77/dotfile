@@ -5,7 +5,8 @@
       "Bash(mvn:*)",
       "Bash(curl:*)",
       "Bash(mkdir:*)",
-      "Web Search"
+      "WebFetch",
+      "WebSearch"
     ],
     "deny": []
   },
