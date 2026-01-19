@@ -95,6 +95,22 @@ export KUBE_EDITOR="/opt/homebrew/bin/nvim"
 # LS_COLOR
 export LS_COLORS="$(vivid generate one-dark)"
 
+# tmux
+# 最小环境变量启动，防止环境变量污染
+tmux() {
+    env -i \
+        HOME="$HOME" \
+        TERM="${TERM:-xterm-256color}" \
+        USER="$USER" \
+        PATH="$PATH" \
+        SHELL="$SHELL" \
+        LANG="${LANG:-en_US.UTF-8}" \
+        ${SSH_AUTH_SOCK:+SSH_AUTH_SOCK="$SSH_AUTH_SOCK"} \
+        ${SSH_CONNECTION:+SSH_CONNECTION="$SSH_CONNECTION"} \
+        command tmux "$@"
+}
+
+
 switch_java() {
   if [ $# = 0 ]; then
     echo "switch_java <version>  version: 8, 11, 14"
@@ -455,30 +471,30 @@ function concat_audio() {
   rm $tmp_file
 }
 
-function adb_proxy() {
+adb_proxy() {
+  # 检查当前代理配置
+  CURRENT_PROXY=$(adb shell settings get global http_proxy)
 
-    if [ "$1" = "set" ]; then
-        # 自动获取本机（电脑）当前的局域网 IP（以 en0 为例，可改成 wlan0/eth0）
-        MY_IP=$(ipconfig getifaddr en0) # macOS
-        # MY_IP=$(hostname -I | awk '{print $1}') # Linux 示例
-
-        PROXY_PORT=29091  # 你代理服务运行的端口
-
-        echo "Setting Android proxy to ${MY_IP}:${PROXY_PORT}"
-
-        # 设置全局 HTTP 代理
-        adb shell settings put global http_proxy "${MY_IP}:${PROXY_PORT}"
-        adb shell settings put global global_http_proxy_host "${MY_IP}"
-        adb shell settings put global global_http_proxy_port "${PROXY_PORT}"
-        # adb shell settings put global global_http_proxy_exclusion_list ""
-
-        echo "Proxy set successfully"
-    elif [ "$1" = "clear" ]; then
-        adb shell settings put global http_proxy :0
-        adb shell settings delete global global_http_proxy_host
-        adb shell settings delete global global_http_proxy_port
-        adb shell settings delete global global_http_proxy_exclusion_list
-    fi
+  if [ -z "$CURRENT_PROXY" ] || [ "$CURRENT_PROXY" = ":0" ] || [ "$CURRENT_PROXY" = "null" ]; then
+    # 未设置代理，执行设置操作
+    MY_IP=$(ipconfig getifaddr en0)
+    PROXY_PORT=29091
+    echo "未检测到代理配置，正在设置代理..."
+    echo "目标代理: ${MY_IP}:${PROXY_PORT}"
+    adb shell settings put global http_proxy "${MY_IP}:${PROXY_PORT}"
+    adb shell settings put global global_http_proxy_host "${MY_IP}"
+    adb shell settings put global global_http_proxy_port "${PROXY_PORT}"
+    echo "✓ 代理设置成功: ${MY_IP}:${PROXY_PORT}"
+  else
+    # 已设置代理，执行清除操作
+    echo "检测到现有代理配置: ${CURRENT_PROXY}"
+    echo "正在清除代理..."
+    adb shell settings put global http_proxy :0
+    adb shell settings delete global global_http_proxy_host
+    adb shell settings delete global global_http_proxy_port
+    adb shell settings delete global global_http_proxy_exclusion_list
+    echo "✓ 代理已清除"
+  fi
 }
 
 function runin() {
@@ -510,7 +526,7 @@ function rp() {
 # Claude Code Open - 快速在浏览器中打开当前 session
 function ccoo() {
     local SESSION_DIR="/tmp/claude-session-open"
-    local BASE_URL="http://localhost:4123/session"
+    local BASE_URL="http://ccu.localhost/session"
 
     # 查找当前 shell 的 session ID
     local find_session_id() {
