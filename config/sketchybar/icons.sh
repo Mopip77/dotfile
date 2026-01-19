@@ -1,4 +1,7 @@
 case $@ in
+"Antigravity")
+    icon_result=':antigravity:'
+    ;;
 "灵犀")
     icon_result=':feishu:'
     ;;
