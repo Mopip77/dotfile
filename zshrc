@@ -258,8 +258,8 @@ function __init_conda() {
 
 lazyload conda -- __init_conda
 
-zsh-defer conda deactivate &> /dev/null
-zsh-defer conda activate base &> /dev/null
+zsh-defer -c 'printenv CONDA_DEFAULT_ENV && conda deactivate &> /dev/null'
+zsh-defer -c 'conda activate base &> /dev/null'
 
 # }}} End configuration added by Zim install
 
