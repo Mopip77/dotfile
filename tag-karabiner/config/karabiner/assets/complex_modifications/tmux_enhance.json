@@ -222,12 +222,12 @@
             }
           ],
           "from": {
-              "key_code": "n",
-              "modifiers": {
-                  "mandatory": [
-                      "left_shift"
-                  ]
-              }
+            "key_code": "n",
+            "modifiers": {
+              "mandatory": [
+                "left_shift"
+              ]
+            }
           },
           "to": [
             {
@@ -882,6 +882,36 @@
         },
         {
           "description": "troggle tmux fzf",
+          "type": "basic",
+          "conditions": [
+            {
+              "name": "tmux_mode",
+              "type": "variable_if",
+              "value": 1
+            }
+          ],
+          "from": {
+            "key_code": "g",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "e",
+              "modifiers": [
+                "left_control"
+              ]
+            },
+            {
+              "key_code": "g"
+            }
+          ]
+        },
+        {
+          "description": "troggle tmux popup",
           "type": "basic",
           "conditions": [
             {
