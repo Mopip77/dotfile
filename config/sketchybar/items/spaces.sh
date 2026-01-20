@@ -18,5 +18,5 @@ do
                               background.drawing=off                     \
                               script="$PLUGIN_DIR/space.sh"              \
                               click_script="yabai -m space --focus $sid" \
-                              --subscribe space.$sid front_app_switched
+                              --subscribe space.$sid front_app_switched space_change
 done
