@@ -20,6 +20,8 @@ zmodule completion
 
 # Sets sane Zsh built-in environment options.
 zmodule environment
+# zsh-autoenv allow load scripts when entering or leaving folder
+zmodule Tarrasch/zsh-autoenv
 # Provides handy git aliases and functions.
 zmodule git
 # Applies correct bindkeys for input events.
