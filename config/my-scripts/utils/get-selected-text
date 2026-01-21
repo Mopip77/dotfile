@@ -1,0 +1,48 @@
+#!/usr/bin/osascript
+
+-- 使用 System Events 获取选中文本 (Accessibility API)
+-- 完全不触碰剪贴板
+-- 注意：部分应用可能不支持，此时返回空字符串
+
+use framework "AppKit"
+use scripting additions
+
+on run
+    try
+        tell application "System Events"
+            set frontApp to first application process whose frontmost is true
+            
+            -- 尝试获取选中文本
+            try
+                tell frontApp
+                    set focusedElement to value of attribute "AXFocusedUIElement"
+                    set selectedText to value of attribute "AXSelectedText" of focusedElement
+                    if selectedText is not missing value and selectedText is not "" then
+                        return selectedText
+                    end if
+                end tell
+            end try
+            
+            -- 备选：尝试从 AXSelectedTextRange 获取
+            try
+                tell frontApp
+                    set focusedElement to value of attribute "AXFocusedUIElement"
+                    set textValue to value of attribute "AXValue" of focusedElement
+                    set selectedRange to value of attribute "AXSelectedTextRange" of focusedElement
+                    if selectedRange is not missing value and textValue is not missing value then
+                        -- selectedRange 是 {location, length} 格式
+                        set startPos to (item 1 of selectedRange) + 1
+                        set textLen to item 2 of selectedRange
+                        if textLen > 0 then
+                            return text startPos thru (startPos + textLen - 1) of textValue
+                        end if
+                    end if
+                end tell
+            end try
+        end tell
+        
+        return ""
+    on error errMsg
+        return ""
+    end try
+end run

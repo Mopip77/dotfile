@@ -566,6 +566,72 @@ function ccoo() {
     open "$url"
 }
 
+# 按优先级获取文本: 选中文本 -> 剪贴板 -> 空字符串
+# 使用 Accessibility API 获取选中文本，完全不触碰剪贴板
+# 用法: get_prefer_text [--allow-clipboard-fallback]
+#   --allow-clipboard-fallback: 如果 Accessibility API 失败，允许使用 Cmd+C 方式（会临时使用剪贴板但会恢复）
+function get_prefer_text() {
+    local text=""
+    local allow_fallback=false
+    
+    # 解析参数
+    [[ "$1" == "--allow-clipboard-fallback" ]] && allow_fallback=true
+    
+    # 1. 尝试通过 Accessibility API 获取选中文本 (不影响剪贴板)
+    if [[ -x "${HOME}/.config/my-scripts/utils/get-selected-text" ]]; then
+        text=$("${HOME}/.config/my-scripts/utils/get-selected-text" 2>/dev/null)
+    fi
+    
+    # 2. 如果没有选中文本且允许回退，使用剪贴板方式
+    if [[ -z "$text" && "$allow_fallback" == true ]]; then
+        local clipboard_backup=$(pbpaste 2>/dev/null)
+        osascript -e 'tell application "System Events" to keystroke "c" using command down' 2>/dev/null
+        sleep 0.05  # 快速获取，类似 PopClip
+        text=$(pbpaste 2>/dev/null)
+        # 恢复剪贴板（如果获取到了新内容）
+        if [[ "$text" != "$clipboard_backup" ]]; then
+            printf "%s" "$clipboard_backup" | pbcopy 2>/dev/null
+        else
+            text=""  # 没有选中新内容
+        fi
+    fi
+    
+    # 3. 如果还是没有选中文本，使用剪贴板
+    if [[ -z "$text" ]]; then
+        text=$(pbpaste 2>/dev/null)
+    fi
+    
+    # 4. 返回结果
+    echo "$text"
+}
+
+# 快捷打开 Gemini 网址,附带 prompt 参数
+function open_gemini_with_prompt() {
+    local gemini_base_url=${GEMINI_BASE_URL:-"https://gemini.google.com/app"}
+    local text=$(get_prefer_text --allow-clipboard-fallback)
+    
+    # URL 编码 prompt 参数
+    local encoded_text=$(python3 -c "import sys; from urllib.parse import quote; print(quote(sys.argv[1]))" "$text" 2>/dev/null)
+    
+    # 如果 python3 不可用，使用 perl 作为备选
+    if [[ -z "$encoded_text" ]]; then
+        encoded_text=$(perl -MURI::Escape -e "print uri_escape('$text');" 2>/dev/null)
+    fi
+    
+    # 构建完整 URL
+    local url="${gemini_base_url}?prompt=${encoded_text}"
+    
+    echo "🚀 正在打开 Gemini..."
+    if [[ -n "$text" ]]; then
+        echo "📝 Prompt: ${text:0:100}$([ ${#text} -gt 100 ] && echo '...')"
+    else
+        echo "ℹ️  无内容"
+    fi
+    
+    # 打开浏览器
+    open "$url"
+}
+
 function init_yabai_env() {
     if command -v yabai &> /dev/null; then
         export YABAI_SPACE_INDEX="$(yabai -m query --spaces --space | jq '.index')"
