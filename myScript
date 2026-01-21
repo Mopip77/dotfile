@@ -17,17 +17,11 @@ alias gcor="git checkout release"
 alias gcod="git checkout develop"
 alias gbnm="git checkout master && git checkout -b"
 alias gd="git diff"
-alias gtt="autotag -s conventional"
-alias gdhh="git diff HEAD HEAD^"
-alias gtc="git tag --sort=v:refname"
 
 alias ls="eza"
 alias mv="mv -i" # overwrite prompt
 alias rm="rip"
-# alias cp="xcp -n"
 alias cc="conda activate"
-alias tnew="tmux new -s"
-alias ssm="ssh-manager"
 alias o="open"
 alias c="init_yabai_env && command claude --permission-mode acceptEdits --dangerously-skip-permissions"
 alias co="init_yabai_env && command claude --permission-mode acceptEdits --model opus --dangerously-skip-permissions"
@@ -43,10 +37,8 @@ alias ll="ls -alh"
 alias k="kubectl"
 alias T="([ ! -e /tmp/T ] && mkdir /tmp/T); cd /tmp/T"
 alias sch="screenshot-handler"
-#alias changelog="conventional-changelog -p conventionalcommits -i CHANGELOG.md -s"
 alias agf="ag -l -g"
 alias tt="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
-alias localFirst="PATH=${HOME}/.local/bin:$PATH"
 alias yabai-init="killall yabai; nohup yabai &> /dev/null &; killall sketchybar; nohup sketchybar &> /dev/null &;"
 alias preview="open -a Preview"
 alias dr="direnv allow"
@@ -67,14 +59,6 @@ export GRADLE_USER_HOME="${HOME}/.m2/repository/"
 export PATH=${PATH}:${HOME}/.cargo/bin
 export PATH=${PATH}:${HOME}/.local/bin
 export PATH=${PATH}:${HOME}/grampro/jmeter/bin
-
-# GNU paths
-# install GNU tools in place of mac by `brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt grep`
-export PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
-PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
-PATH="/usr/local/opt/gnu-indent/libexec/gnubin:$PATH"
-PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
-PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
 
 # GO config
 export GO111MODULE="on"
@@ -109,140 +93,8 @@ tmux() {
         command tmux "$@"
 }
 
-
-switch_java() {
-  if [ $# = 0 ]; then
-    echo "switch_java <version>  version: 8, 11, 14"
-  else
-    case "$1" in
-      "8")
-        export JAVA_HOME="/Library/Java/JavaVirtualMachines/zulu_jdk8_arm/zulu-8.jdk/Contents/Home"
-        export PATH=${PATH}:${JAVA_HOME}/bin
-        ;;
-      "11")
-        export JAVA_HOME="/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home/"
-        export PATH=${PATH}:${JAVA_HOME}/bin
-        ;;
-      "14")
-        export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk-14.0.1.jdk/Contents/Home/"
-        export PATH=${PATH}:${JAVA_HOME}/bin
-        ;;
-      "17")
-        export JAVA_HOME="/Library/Java/JavaVirtualMachines/amazon-corretto-17.jdk/Contents/Home/"
-        export PATH=${PATH}:${JAVA_HOME}/bin
-        ;;
-    esac
- fi
-}
-
 goto() {
 	cd "$(dirname $1)"
-}
-
-gmp() {
-    git merge "$1" && git push
-}
-
-quickedit() (  trap 'rm /tmp/$$' exit; vim /tmp/$$ >/dev/tty; cat /tmp/$$ )
-
-note() {
-  NOTE_PATH="${HOME}/Documents/note"
-  [[ ! -d $PATH ]] && mkdir -p $NOTE_PATH
-  dt=$(date +"%Y-%m-%d_%H:%M:%S")
-  fileName="$dt.md"
-  if [ "$1" = "-a" ]; then
-    recentFile=$(ls -t $NOTE_PATH | head -n1)
-    [[ ! -z $recentFile ]] && fileName=$recentFile
-  fi
-  nvim $NOTE_PATH/$fileName
-}
-
-qr() {
-  tmp_qr_path="tmp.png"
-  if [ $# -eq 1 ]
-  then
-    text=$1
-  else
-    # 默认使用剪贴板
-    text=`xclip -o`
-  fi
-  qrencode $text -o $tmp_qr_path -s 7
-  xviewer $tmp_qr_path
-  rm $tmp_qr_path
-}
-
-# photoscaner
-# 为了快捷，默认读取pictures文件夹下的最新的图片
-# 只接收 o(ocr) b(base64) u(upload)
-pho() {
-screenshotPath="${HOME}/Pictures/screenshot/"
-
-curPath=$( pwd )
-if [ $# -eq 2 ]
-then
-  if [ "${2:0:1}" = "/" ]
-  then
-    # 绝对路径
-    pic_file="$2"
-  else
-    # 默认当前路径,有../类似的相对路径就不处理了
-    pic_file="$curPath/$2"
-  fi
-
-  if [ $1 = 'cp' ];then
-    pic_file=$(command ls -t $screenshotPath | head -1)
-    pic_file="$screenshotPath$pic_file"
-    cp "${pic_file}" "$2"
-    return 0
-  fi
-elif [ $# -eq 1 ]
-then
-  pic_file=$(ls -t $screenshotPath | head -1)
-  pic_file="$screenshotPath$pic_file"
-fi
-python3 ${HOME}/.myjiaoben/pho/photoscaner.py $1 ${pic_file}
-cd $curPath
-}
-
-gnb() {
-if [ -z "`git br | grep -E "\btest/authority\b"`" ]
-then
-	git checkout -b ${1} && git push -u origin ${1}:${1}
-else
-	git checkout ${1} && git push -u origin ${1}:${1}
-fi
-}
-
-# changelog
-changelog() {
-  local base_command() {
-    conventional-changelog -p conventionalcommits -i CHANGELOG.md -s $*
-  }
-  local help() {
-    echo "changelog [-v version] [convertional-changelog args]"
-  }
-
-  local version=""
-  local depthArg=""
-
-  while getopts 'hv:r:' OPT; do
-    case $OPT in
-      h) help; return;;
-      v) version="$OPTARG";;
-      r) depthArg="-r $OPTARG";;
-    esac
-  done
-
-  [[ ! -z $depthArg ]] && echo "depth: ${depthArg:3}"
-  echo "version is:$version"
-
-  if [[ ! -z $version ]]; then
-    tmp_file="/tmp/$(uuidgen).json"
-    echo "{\"version\": \"${version}\"}" > $tmp_file
-    base_command ${depthArg} -c $tmp_file
-  else
-    base_command ${depthArg}
-  fi
 }
 
 # navi shortcuts
@@ -262,43 +114,8 @@ take() {
   mkdir -p "$1" && cd "$1"
 }
 
-# 使用rsa加密文本，加密内容存储在 ${HOME}/.pwd/$1 中
-encrypt_pwd() {
-  mkdir -p ${HOME}/.pwd
-  rsaKey="${HOME}/.ssh/pwd_rsa"
-  PWD_FOLDER="${HOME}/.pwd"
-  pwdName="$1"
-
-  mkdir -p ${PWD_FOLDER}
-  [[ ! -f $rsaKey ]] && openssl genrsa -out $rsaKey 2048
-
-  read -s "plainText?Your password: "
-  echo "$plainText" | openssl rsautl -inkey $rsaKey -encrypt > $PWD_FOLDER/$pwdName
-  echo "\nYour encrypted password have been store in ${PWD_FOLDER}/${pwdName}."
-  echo "Use \033[36mdecrypt_pwd $pwdName\033[0m to fetch plain password."
-}
-
-# 使用rsa解密文本，解密 ${HOME}/.pwd/$1 文件中的文本
-decrypt_pwd() {
-  rsaSecretKey="${HOME}/.ssh/pwd_rsa"
-  PWD_FOLDER="${HOME}/.pwd"
-  pwdPath="$PWD_FOLDER/$1"
-
-  if [ ! -f $pwdPath ]; then
-    echo "Password file not exist.\n\nAvaliable password:"
-    ls "$PWD_FOLDER" | xargs -I{} echo "  * {}"
-  else
-    openssl rsautl -inkey $rsaSecretKey -decrypt < $pwdPath
-  fi
-}
-
 flush_dns() {
   sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder
-}
-
-enable_zerotier_redirect() {
-  sudo sysctl -w net.inet.ip.forwarding=1
-  sudo pfctl -e -f /etc/pf.conf
 }
 
 fakeTimeWhen() {
@@ -420,15 +237,6 @@ function jpgpaste() {
                   write (the clipboard as JPEG picture) to ¬
                           (make new file at folder \"$(pwd)\" with properties ¬
                                   {name:\"${name}\"})"
-}
-
-dtrace_stdout() {
-    sudo dtrace -p "$1" -qn '
-        syscall::write*:entry
-        /pid == $target && arg0 == 1/ {
-            printf("%s", copyinstr(arg1, arg2));
-        }
-    '
 }
 
 function zerotier-init() {
@@ -638,20 +446,6 @@ function init_yabai_env() {
     fi
 }
 
-# 智能连接 tmux
-function tm() {
-  local session_name="${1:-main}"
-
-  # 检查 session 是否存在
-  if tmux has-session -t "$session_name" 2>/dev/null; then
-      # 存在则创建新的关联会话
-      tmux new-session -t "$session_name"
-  else
-      # 不存在则创建新 session
-      tmux new-session -s "$session_name"
-  fi
-}
-
 # 智能连接 tmux，使用当前文件夹名作为 session 名
 function tf() {
   local session_name="$(basename "$PWD")"
@@ -669,7 +463,6 @@ function tf() {
 ############### execute command #####################
 # 默认开启代理
 p
-
 
 ############## 覆盖私有配置 #########################
 
