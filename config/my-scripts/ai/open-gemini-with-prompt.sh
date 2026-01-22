@@ -13,7 +13,7 @@ fi
 url="${gemini_base_url}?prompt=${encoded_text}"
 
 echo "🚀 正在打开 Gemini..."
-${HOME}/.config/my-scripts/lib/toast --position B --time 1 "使用 Gemini✨ 打开"
+${HOME}/.config/my-scripts/lib/toast --position B --time 1 "使用 Gemini✨ 打开" &
 
 if [[ -n "$text" ]]; then
     echo "📝 Prompt: ${text:0:100}$([ ${#text} -gt 100 ] && echo '...')"
