@@ -161,7 +161,9 @@
           ],
           "from": {
             "modifiers": {
-              "mandatory": ["left_shift"]
+              "mandatory": [
+                "left_shift"
+              ]
             },
             "simultaneous": [
               {
@@ -270,7 +272,9 @@
           "from": {
             "key_code": "f20",
             "modifiers": {
-              "optional": ["any"]
+              "optional": [
+                "any"
+              ]
             }
           },
           "to": [
@@ -302,7 +306,10 @@
           "from": {
             "key_code": "f22",
             "modifiers": {
-              "mandatory": ["left_command", "left_control"]
+              "mandatory": [
+                "left_command",
+                "left_control"
+              ]
             }
           },
           "to": [
@@ -334,13 +341,17 @@
           "from": {
             "key_code": "f22",
             "modifiers": {
-              "mandatory": ["left_command"]
+              "mandatory": [
+                "left_command"
+              ]
             }
           },
           "to": [
             {
               "key_code": "spacebar",
-              "modifiers": ["left_command"]
+              "modifiers": [
+                "left_command"
+              ]
             }
           ]
         },
@@ -361,13 +372,17 @@
           "from": {
             "key_code": "f22",
             "modifiers": {
-              "mandatory": ["left_option"]
+              "mandatory": [
+                "left_option"
+              ]
             }
           },
           "to": [
             {
               "key_code": "spacebar",
-              "modifiers": ["left_option"]
+              "modifiers": [
+                "left_option"
+              ]
             }
           ]
         },
@@ -646,7 +661,10 @@
           "to": [
             {
               "key_code": "r",
-              "modifiers": ["left_option", "left_command"]
+              "modifiers": [
+                "left_option",
+                "left_command"
+              ]
             }
           ]
         },
@@ -683,7 +701,9 @@
           "to": [
             {
               "key_code": "f9",
-              "modifiers": ["left_option"]
+              "modifiers": [
+                "left_option"
+              ]
             }
           ]
         },
@@ -704,7 +724,9 @@
           "from": {
             "key_code": "f14",
             "modifiers": {
-              "mandatory": ["left_shift"]
+              "mandatory": [
+                "left_shift"
+              ]
             }
           },
           "to": [
@@ -730,7 +752,9 @@
           "from": {
             "key_code": "f13",
             "modifiers": {
-              "mandatory": ["left_shift"]
+              "mandatory": [
+                "left_shift"
+              ]
             }
           },
           "to": [
@@ -839,7 +863,7 @@
           ]
         },
         {
-          "description": "r4 => 下一首",
+          "description": "r4 => gemini 快捷打开",
           "type": "basic",
           "conditions": [
             {
@@ -857,7 +881,7 @@
           },
           "to": [
             {
-              "consumer_key_code": "fast_forward"
+              "shell_command": "${HOME}/.config/my-scripts/ai/open-gemini-with-prompt.sh"
             }
           ]
         },
@@ -883,110 +907,17 @@
           "from": {
             "key_code": "1",
             "modifiers": {
-              "optional": ["left_shift"]
+              "optional": [
+                "left_shift"
+              ]
             }
           },
           "to": [
             {
               "key_code": "6",
-              "modifiers": ["left_command"]
-            }
-          ]
-        },
-        {
-          "description": "fn + 2 => 滴答清单创建任务 (cmd + ctrl + option + shift + 2)",
-          "type": "basic",
-          "conditions": [
-            {
-              "type": "device_if",
-              "identifiers": [
-                {
-                  "product_id": 24679,
-                  "description": "ifalice"
-                }
-              ]
-            },
-            {
-              "type": "variable_if",
-              "name": "pn_layer",
-              "value": 1
-            }
-          ],
-          "from": {
-            "key_code": "2"
-          },
-          "to": [
-            {
-              "key_code": "2",
               "modifiers": [
-                "left_command",
-                "left_shift",
-                "left_option",
-                "left_control"
+                "left_command"
               ]
-            }
-          ]
-        },
-        {
-          "description": "fn + 3 => 滴答清单mini窗口 (cmd + ctrl + option + shift + 3)",
-          "type": "basic",
-          "conditions": [
-            {
-              "type": "device_if",
-              "identifiers": [
-                {
-                  "product_id": 24679,
-                  "description": "ifalice"
-                }
-              ]
-            },
-            {
-              "type": "variable_if",
-              "name": "pn_layer",
-              "value": 1
-            }
-          ],
-          "from": {
-            "key_code": "3"
-          },
-          "to": [
-            {
-              "key_code": "3",
-              "modifiers": [
-                "left_command",
-                "left_shift",
-                "left_option",
-                "left_control"
-              ]
-            }
-          ]
-        },
-        {
-          "description": "fn + ` => yabai切换bsp <-> float模式 (alt + t)",
-          "type": "basic",
-          "conditions": [
-            {
-              "type": "device_if",
-              "identifiers": [
-                {
-                  "product_id": 24679,
-                  "description": "ifalice"
-                }
-              ]
-            },
-            {
-              "type": "variable_if",
-              "name": "pn_layer",
-              "value": 1
-            }
-          ],
-          "from": {
-            "key_code": "grave_accent_and_tilde"
-          },
-          "to": [
-            {
-              "key_code": "t",
-              "modifiers": ["left_option"]
             }
           ]
         }
@@ -994,4 +925,3 @@
     }
   ]
 }
-
