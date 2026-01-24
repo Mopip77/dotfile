@@ -16,7 +16,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "terminal-notifier -title 'Claude Code' -message \"Awaiting your input from $CLAUDE_PROJECT_DIR\" -sound Glass -sender com.anthropic.claudefordesktop -execute \"YABAI_SPACE_INDEX=${YABAI_SPACE_INDEX} ~/.claude/custom-scripts/notification-click-hook.sh\" > /dev/null 2>&1 &"
+            "command": "toast-cli -t \"等待输入！\" -p B -d 1 -i ~/.dotfiles/config/my-scripts/assets/claude-color.svg"
           },
           {
             "type": "command",
@@ -34,7 +34,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "terminal-notifier -title 'Claude Code' -message \"Awaiting your input from $CLAUDE_PROJECT_DIR\" -sound Glass -sender com.anthropic.claudefordesktop -execute \"YABAI_SPACE_INDEX=${YABAI_SPACE_INDEX} ~/.claude/custom-scripts/notification-click-hook.sh\" > /dev/null 2>&1 &"
+            "command": "toast-cli -t \"执行完成！\" -p B -d 1 -i ~/.dotfiles/config/my-scripts/assets/claude-color.svg"
           },
           {
             "type": "command",
