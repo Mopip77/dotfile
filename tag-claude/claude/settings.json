@@ -11,7 +11,7 @@
     "deny": []
   },
   "hooks": {
-    "Notification": [
+    "PermissionRequest": [
       {
         "hooks": [
           {
@@ -24,7 +24,7 @@
           },
           {
             "type": "command",
-            "command": "~/.myjiaoben/send_ntfy.sh \"Claude Code\" \"Awaiting your input from $CLAUDE_PROJECT_DIR\" \"https://i.gsxcdn.com/3347504880_bgbu4jyu.png\" > /dev/null 2>&1 &"
+            "command": "~/.myjiaoben/send_ntfy.sh \"Claude Code\" \"等待输入 $CLAUDE_PROJECT_DIR\" \"https://i.gsxcdn.com/3347504880_bgbu4jyu.png\" > /dev/null 2>&1 &"
           }
         ]
       }
@@ -42,7 +42,7 @@
           },
           {
             "type": "command",
-            "command": "~/.myjiaoben/send_ntfy.sh \"Claude Code\" \"Awaiting your input from $CLAUDE_PROJECT_DIR\" \"https://i.gsxcdn.com/3347504880_bgbu4jyu.png\" > /dev/null 2>&1 &"
+            "command": "~/.myjiaoben/send_ntfy.sh \"Claude Code\" \"执行完成 $CLAUDE_PROJECT_DIR\" \"https://i.gsxcdn.com/3347504880_bgbu4jyu.png\" > /dev/null 2>&1 &"
           }
         ]
       }
