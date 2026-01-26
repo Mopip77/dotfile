@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.local/bin"
+
 # 获取文本内容
 text=$(~/.config/my-scripts/utils/get_prefer_text.sh --allow-clipboard-fallback)
 
@@ -11,7 +13,7 @@ echo "$text" > "$TEMP_FILE"
 find /tmp -name "claude-context-*.txt" -mtime +1 -delete 2>/dev/null
 
 echo "🚀 正在打开 Claude Code..."
-${HOME}/.config/my-scripts/lib/toast --position B --time 1 "使用 Claude Code✨ 打开" &
+toast-cli --position B --time 1 "使用 Claude Code✨ 打开" &
 
 if [[ -n "$text" ]]; then
     echo "📝 Prompt: ${text:0:100}$([ ${#text} -gt 100 ] && echo '...')"

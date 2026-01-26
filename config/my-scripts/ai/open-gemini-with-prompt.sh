@@ -1,3 +1,7 @@
+#!/bin/bash
+
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.local/bin"
+
 gemini_base_url=${GEMINI_BASE_URL:-"https://gemini.google.com/app"}
 text=$(~/.config/my-scripts/utils/get_prefer_text.sh --allow-clipboard-fallback)
 
