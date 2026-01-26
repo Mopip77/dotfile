@@ -11,6 +11,26 @@
     "deny": []
   },
   "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'mkdir -p /tmp/claude-session-open && session_id=$(cat | jq -r .session_id) && echo $session_id > /tmp/claude-session-open/$PPID'"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'rm -f /tmp/claude-session-open/$PPID'"
+          }
+        ]
+      }
+    ],
     "PermissionRequest": [
       {
         "hooks": [
@@ -20,7 +40,7 @@
           },
           {
             "type": "command",
-            "command": "open raycast://confetti > /dev/null 2>&1 &"
+            "command": "confetti-notifier --duration 1500 --text ⌨️ --textSize 4 --velocity 100 --particleCount 150 --spread 100 --location BL > /dev/null 2>&1 &"
           },
           {
             "type": "command",
@@ -38,7 +58,7 @@
           },
           {
             "type": "command",
-            "command": "open raycast://confetti > /dev/null 2>&1 &"
+            "command": "confetti-notifier --duration 1500 --text  ⭐ --textSize 2 --velocity 100 --particleCount 150 --spread 100 --location BR > /dev/null 2>&1 &"
           },
           {
             "type": "command",
@@ -54,9 +74,24 @@
     "padding": 0
   },
   "enabledPlugins": {
+    "sql@gaotu-tools": false,
     "typescript-lsp@claude-plugins-official": true,
-    "sql@gaotu-tools": true,
-    "superpowers@claude-plugins-official": false
+    "claude-mem@thedotmack": true,
+    "superpowers@claude-plugins-official": true,
+    "jdtls-lsp@claude-plugins-official": true
+  },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true,
+    "network": {
+      "allowUnixSockets": [
+        "/var/run/docker.sock"
+      ],
+      "allowLocalBinding": true
+    },
+    "excludedCommands": [
+      "docker"
+    ]
   },
   "alwaysThinkingEnabled": false
 }
