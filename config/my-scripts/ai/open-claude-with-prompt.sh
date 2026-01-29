@@ -13,7 +13,7 @@ echo "$text" > "$TEMP_FILE"
 find /tmp -name "claude-context-*.txt" -mtime +1 -delete 2>/dev/null
 
 echo "🚀 正在打开 Claude Code..."
-toast-cli --position B --time 1 "使用 Claude Code✨ 打开" &
+toast-cli --position B --time 1 "使用 Claude Code✨ 打开" --icon ~/.config/my-scripts/assets/claude-color.svg &
 
 if [[ -n "$text" ]]; then
     echo "📝 Prompt: ${text:0:100}$([ ${#text} -gt 100 ] && echo '...')"
