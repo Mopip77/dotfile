@@ -221,6 +221,12 @@ source ${ZIM_CUSTOM}/scripts/fzf-google-chrome.zsh
 # direnv
 _evalcache direnv hook $SHELL
 
+# wtp
+command -v wtp &>/dev/null && _evalcache wtp shell-init zsh
+
+# httpyac
+command -v httpyac &>/dev/null && _evalcache httpyac shell-init zsh
+
 # docker
 command -v docker &>/dev/null && _evalcache docker completion zsh
 
