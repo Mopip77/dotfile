@@ -76,7 +76,6 @@
   "enabledPlugins": {
     "sql@gaotu-tools": false,
     "typescript-lsp@claude-plugins-official": true,
-    "claude-mem@thedotmack": true,
     "superpowers@claude-plugins-official": true,
     "jdtls-lsp@claude-plugins-official": true
   },
