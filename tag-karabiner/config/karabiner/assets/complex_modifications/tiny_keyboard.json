@@ -12,6 +12,15 @@
               "name": "advanced_layer",
               "type": "variable_unless",
               "value": 1
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 8455,
+                  "description": "tiny_keyboard"
+                }
+              ]
             }
           ],
           "from": {
@@ -44,6 +53,15 @@
               "name": "advanced_layer",
               "type": "variable_unless",
               "value": 0
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 8455,
+                  "description": "tiny_keyboard"
+                }
+              ]
             }
           ],
           "from": {
@@ -71,37 +89,53 @@
         {
           "description": "1层1 => 左工作区",
           "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 8455,
+                  "description": "tiny_keyboard"
+                }
+              ]
+            }
+          ],
           "from": {
             "key_code": "f13",
             "modifiers": {
-              "optional": [
-                "any"
-              ]
+              "optional": ["any"]
             }
           },
           "to": [
             {
               "key_code": "left_arrow",
-              "modifiers": [
-                "left_control"
-              ]
+              "modifiers": ["left_control"]
             }
           ]
         },
         {
           "description": "1层2",
           "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 8455,
+                  "description": "tiny_keyboard"
+                }
+              ]
+            }
+          ],
           "from": {
             "key_code": "f14",
             "modifiers": {
-              "optional": [
-                "any"
-              ]
+              "optional": ["any"]
             }
           },
           "to_if_alone": [
             {
-              "consumer_key_code": "play_or_pause"
+              "shell_command": "${HOME}/.config/my-scripts/ai/open-gemini-with-prompt.sh"
             }
           ],
           "to": [
@@ -124,20 +158,27 @@
         {
           "description": "1层3 => 右工作区",
           "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 8455,
+                  "description": "tiny_keyboard"
+                }
+              ]
+            }
+          ],
           "from": {
             "key_code": "f15",
             "modifiers": {
-              "optional": [
-                "any"
-              ]
+              "optional": ["any"]
             }
           },
           "to": [
             {
               "key_code": "right_arrow",
-              "modifiers": [
-                "left_control"
-              ]
+              "modifiers": ["left_control"]
             }
           ]
         },
@@ -151,10 +192,17 @@
               "value": 1
             },
             {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.microsoft\\.edgemac$"
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 8455,
+                  "description": "tiny_keyboard"
+                }
               ]
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": ["^com\\.microsoft\\.edgemac$"]
             }
           ],
           "from": {
@@ -163,10 +211,7 @@
           "to": [
             {
               "key_code": "t",
-              "modifiers": [
-                "left_command",
-                "left_shift"
-              ]
+              "modifiers": ["left_command", "left_shift"]
             }
           ]
         },
@@ -180,10 +225,17 @@
               "value": 1
             },
             {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.jetbrains\\."
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 8455,
+                  "description": "tiny_keyboard"
+                }
               ]
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": ["^com\\.jetbrains\\."]
             }
           ],
           "from": {
@@ -192,21 +244,28 @@
           "to": [
             {
               "key_code": "f9",
-              "modifiers": [
-                "left_option"
-              ]
+              "modifiers": ["left_option"]
             }
           ]
         },
         {
           "description": "2层1 => 上一首",
           "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 8455,
+                  "description": "tiny_keyboard"
+                }
+              ]
+            }
+          ],
           "from": {
             "key_code": "f16",
             "modifiers": {
-              "optional": [
-                "any"
-              ]
+              "optional": ["any"]
             }
           },
           "to": [
@@ -218,12 +277,21 @@
         {
           "description": "2层2 => 暂不使用",
           "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 8455,
+                  "description": "tiny_keyboard"
+                }
+              ]
+            }
+          ],
           "from": {
             "key_code": "f17",
             "modifiers": {
-              "optional": [
-                "any"
-              ]
+              "optional": ["any"]
             }
           },
           "to": [
@@ -242,10 +310,17 @@
               "value": 1
             },
             {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.microsoft\\.edgemac$"
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 8455,
+                  "description": "tiny_keyboard"
+                }
               ]
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": ["^com\\.microsoft\\.edgemac$"]
             }
           ],
           "from": {
@@ -254,9 +329,7 @@
           "to": [
             {
               "key_code": "w",
-              "modifiers": [
-                "left_command"
-              ]
+              "modifiers": ["left_command"]
             }
           ]
         },
@@ -270,10 +343,17 @@
               "value": 1
             },
             {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.jetbrains\\."
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 8455,
+                  "description": "tiny_keyboard"
+                }
               ]
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": ["^com\\.jetbrains\\."]
             }
           ],
           "from": {
@@ -282,22 +362,28 @@
           "to": [
             {
               "key_code": "r",
-              "modifiers": [
-                "left_option",
-                "left_command"
-              ]
+              "modifiers": ["left_option", "left_command"]
             }
           ]
         },
         {
           "description": "2层3 => 下一首",
           "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 8455,
+                  "description": "tiny_keyboard"
+                }
+              ]
+            }
+          ],
           "from": {
             "key_code": "f18",
             "modifiers": {
-              "optional": [
-                "any"
-              ]
+              "optional": ["any"]
             }
           },
           "to": [
@@ -314,6 +400,15 @@
               "name": "radio_pressed",
               "type": "variable_if",
               "value": 1
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 8455,
+                  "description": "tiny_keyboard"
+                }
+              ]
             }
           ],
           "from": {
@@ -333,6 +428,15 @@
               "name": "layer1_key2",
               "type": "variable_if",
               "value": 1
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 8455,
+                  "description": "tiny_keyboard"
+                }
+              ]
             }
           ],
           "from": {
@@ -341,17 +445,11 @@
           "to": [
             {
               "key_code": "hyphen",
-              "modifiers": [
-                "left_option",
-                "left_command"
-              ]
+              "modifiers": ["left_option", "left_command"]
             },
             {
               "key_code": "hyphen",
-              "modifiers": [
-                "left_option",
-                "left_command"
-              ]
+              "modifiers": ["left_option", "left_command"]
             }
           ]
         },
@@ -365,10 +463,17 @@
               "value": 1
             },
             {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.jetbrains\\."
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 8455,
+                  "description": "tiny_keyboard"
+                }
               ]
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": ["^com\\.jetbrains\\."]
             }
           ],
           "from": {
@@ -390,10 +495,17 @@
               "value": 1
             },
             {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.microsoft\\.edgemac$"
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 8455,
+                  "description": "tiny_keyboard"
+                }
               ]
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": ["^com\\.microsoft\\.edgemac$"]
             }
           ],
           "from": {
@@ -402,16 +514,24 @@
           "to": [
             {
               "key_code": "tab",
-              "modifiers": [
-                "left_control",
-                "left_shift"
-              ]
+              "modifiers": ["left_control", "left_shift"]
             }
           ]
         },
         {
           "description": "旋钮左 => 音量减小",
           "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 8455,
+                  "description": "tiny_keyboard"
+                }
+              ]
+            }
+          ],
           "from": {
             "key_code": "f19"
           },
@@ -424,12 +544,21 @@
         {
           "description": "旋钮按下 => 静音",
           "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 8455,
+                  "description": "tiny_keyboard"
+                }
+              ]
+            }
+          ],
           "from": {
             "key_code": "f20",
             "modifiers": {
-              "optional": [
-                "any"
-              ]
+              "optional": ["any"]
             }
           },
           "to_if_alone": [
@@ -462,6 +591,15 @@
               "name": "radio_pressed",
               "type": "variable_if",
               "value": 1
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 8455,
+                  "description": "tiny_keyboard"
+                }
+              ]
             }
           ],
           "from": {
@@ -481,6 +619,15 @@
               "name": "layer1_key2",
               "type": "variable_if",
               "value": 1
+            },
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 8455,
+                  "description": "tiny_keyboard"
+                }
+              ]
             }
           ],
           "from": {
@@ -489,17 +636,11 @@
           "to": [
             {
               "key_code": "equal_sign",
-              "modifiers": [
-                "left_option",
-                "left_command"
-              ]
+              "modifiers": ["left_option", "left_command"]
             },
             {
               "key_code": "equal_sign",
-              "modifiers": [
-                "left_option",
-                "left_command"
-              ]
+              "modifiers": ["left_option", "left_command"]
             }
           ]
         },
@@ -513,10 +654,17 @@
               "value": 1
             },
             {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.microsoft\\.edgemac$"
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 8455,
+                  "description": "tiny_keyboard"
+                }
               ]
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": ["^com\\.microsoft\\.edgemac$"]
             }
           ],
           "from": {
@@ -525,9 +673,7 @@
           "to": [
             {
               "key_code": "tab",
-              "modifiers": [
-                "left_control"
-              ]
+              "modifiers": ["left_control"]
             }
           ]
         },
@@ -541,10 +687,17 @@
               "value": 1
             },
             {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.jetbrains\\."
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 8455,
+                  "description": "tiny_keyboard"
+                }
               ]
+            },
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": ["^com\\.jetbrains\\."]
             }
           ],
           "from": {
@@ -559,6 +712,17 @@
         {
           "description": "旋钮右 => 音量增加",
           "type": "basic",
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "product_id": 8455,
+                  "description": "tiny_keyboard"
+                }
+              ]
+            }
+          ],
           "from": {
             "key_code": "f21"
           },
@@ -572,3 +736,4 @@
     }
   ]
 }
+
