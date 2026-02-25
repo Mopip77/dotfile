@@ -395,6 +395,30 @@ function tf() {
   fi
 }
 
+function ai-update() {
+    typeset -A tools
+    tools=(
+      gemini-cli  "npm install -g @google/gemini-cli"
+      codex       "npm i -g @openai/codex"
+      opencode    "npm i -g opencode-ai"
+      claude      "claude update|npm install -g @anthropic-ai/claude-code"
+    )
+
+    for name in "${(@k)tools}"; do
+      echo ">>> Updating $name ..."
+      local updated=false
+      IFS='|' read -rA cmds <<< "${tools[$name]}"
+      for cmd in "${cmds[@]}"; do
+        if eval "$cmd"; then
+          updated=true
+          break
+        fi
+      done
+      [[ $updated == false ]] && echo "WARNING: $name update failed, skipping." >&2
+    done
+}
+
+
 ############### execute command #####################
 # 默认开启代理
 p
