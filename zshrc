@@ -307,3 +307,6 @@ fi
 
 # Added by Antigravity
 export PATH="${HOME}/.antigravity/antigravity/bin:$PATH"
+
+# OpenClaw Completion
+source "${HOME}/.openclaw/completions/openclaw.zsh"
