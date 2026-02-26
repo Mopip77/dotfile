@@ -25,6 +25,8 @@
     path = ~/.gitconfig.mine
 [includeIf "gitdir:~/project/yunying/"]
     path = ~/.gitconfig.work
+[includeIf "gitdir:~/project/market/"]
+    path = ~/.gitconfig.work
 [push]
 	autoSetupRemote = true
 [core]
