@@ -310,3 +310,6 @@ export PATH="${HOME}/.antigravity/antigravity/bin:$PATH"
 
 # OpenClaw Completion
 source "${HOME}/.openclaw/completions/openclaw.zsh"
+
+# notebooklm
+command -v notebooklm &>/dev/null && _evalcache notebooklm init-completion zsh
