@@ -165,6 +165,26 @@
       fi
   }
 
+  # Function to get session cost
+  get_session_cost() {
+      local cost=$(echo "$input" | jq -r '.cost.total_cost_usd // 0')
+
+      # Skip if no cost data
+      if [ "$cost" = "0" ] || [ "$cost" = "null" ] || [ -z "$cost" ]; then
+          return
+      fi
+
+      # Format cost display with color based on thresholds
+      local color="\033[32m"  # Green < $0.50
+      if (( $(awk "BEGIN {print ($cost >= 1.0)}") )); then
+          color="\033[31m"  # Red >= $1.00
+      elif (( $(awk "BEGIN {print ($cost >= 0.5)}") )); then
+          color="\033[33m"  # Yellow >= $0.50
+      fi
+
+      printf " ${color}[\$%.4f]\033[0m" "$cost"
+  }
+
   # Function to get session usage information
   get_session_usage() {
       local used=$(echo "$input" | jq -r '.context_window.total_input_tokens // 0')
@@ -204,6 +224,7 @@
   venv_info=$(get_virtualenv)
   custom_indicators=$(get_custom_indicators)
   session_usage=$(get_session_usage)
+  session_cost=$(get_session_cost)
 
   MODEL_DISPLAY=$(echo "$input" | jq -r '.model.display_name')
 
@@ -229,6 +250,11 @@
   fi
 
   status_line+=" <$MODEL_DISPLAY>"
+
+  # Add session cost
+  if [ -n "$session_cost" ]; then
+      status_line+="$session_cost"
+  fi
 
   # Add session usage information
   if [ -n "$session_usage" ]; then
