@@ -187,13 +187,19 @@
 
   # Function to get session usage information
   get_session_usage() {
-      local used=$(echo "$input" | jq -r '.context_window.total_input_tokens // 0')
+      # Sum input-only tokens from the last API call to match used_percentage's formula:
+      # input_tokens + cache_creation_input_tokens + cache_read_input_tokens
+      local used=$(echo "$input" | jq -r '
+          (.context_window.current_usage.input_tokens // 0)
+          + (.context_window.current_usage.cache_creation_input_tokens // 0)
+          + (.context_window.current_usage.cache_read_input_tokens // 0)
+      ')
       local limit=$(echo "$input" | jq -r '.context_window.context_window_size // 200000')
+      local percentage=$(echo "$input" | jq -r '.context_window.used_percentage // 0' | cut -d. -f1)
 
       if [ "$limit" -gt 0 ] && [ "$used" -gt 0 ]; then
           local used_fmt=$(format_number $used)
           local limit_fmt=$(format_number $limit)
-          local percentage=$((used * 100 / limit))
 
           # Choose color based on percentage
           local color="\033[32m"  # Green
