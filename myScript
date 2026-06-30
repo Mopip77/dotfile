@@ -23,8 +23,8 @@ alias mv="mv -i" # overwrite prompt
 alias rm="rip"
 alias cc="conda activate"
 alias o="open"
-alias c="command claude --permission-mode acceptEdits --dangerously-skip-permissions"
-alias co="command claude --permission-mode acceptEdits --model opus --dangerously-skip-permissions"
+alias c="command claude --permission-mode acceptEdits --dangerously-skip-permissions --model 'sonnet[1m]'"
+alias co="command claude --permission-mode acceptEdits --model 'opus[1m]' --dangerously-skip-permissions"
 alias copy="pbcopy"
 alias nvi="nvim"
 alias vim="nvim"
@@ -417,6 +417,10 @@ function ai-update() {
     done
 }
 
+function rc() {
+    realpath "$1" | copy
+    echo "Copied: $(realpath $1)"
+}
 
 ############### execute command #####################
 # 默认开启代理
