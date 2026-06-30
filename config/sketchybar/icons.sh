@@ -1,5 +1,11 @@
 case $@ in
-"Antigravity")
+"DBeaver" | "DBeaver Community")
+    icon_result=':dbeaver:'
+    ;;
+"Superset")
+    icon_result=':superset:'
+    ;;
+"Antigravity" | "Antigravity IDE")
     icon_result=':antigravity:'
     ;;
 "灵犀")
@@ -236,7 +242,7 @@ case $@ in
 "Canary Mail" | "HEY" | "Mail" | "Mailspring" | "MailMate" | "邮件")
   icon_result=":mail:"
   ;;
-"Safari" | "Safari Technology Preview")
+"Safari" | "Safari浏览器" | "Safari Technology Preview")
   icon_result=":safari:"
   ;;
 "Telegram")
