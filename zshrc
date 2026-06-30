@@ -310,3 +310,10 @@ export PATH="${HOME}/.antigravity/antigravity/bin:$PATH"
 
 # notebooklm
 command -v notebooklm &>/dev/null && _evalcache notebooklm init-completion zsh
+
+
+# Added by Antigravity CLI installer
+export PATH="/Users/bjhl/.local/bin:$PATH"
+
+# Added by Antigravity IDE
+export PATH="/Users/bjhl/.antigravity-ide/antigravity-ide/bin:$PATH"
