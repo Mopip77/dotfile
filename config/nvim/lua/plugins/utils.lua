@@ -11,4 +11,8 @@ return {
     {
         'rafamadriz/friendly-snippets',
     },
+    {
+        'hakonharnes/img-clip.nvim',
+        event = 'VeryLazy',
+    },
 }
