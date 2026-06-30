@@ -33,6 +33,7 @@
     pager = delta
 	quotepath = false
 	excludesfile = /Users/bjhl/.gitignore_global
+	symlinks = true
 [interactive]
     diffFilter = delta --color-only
 [delta]
