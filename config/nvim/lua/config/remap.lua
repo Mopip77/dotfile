@@ -50,6 +50,8 @@ vim.keymap.set("n", "Q", "<nop>")
 
 -- 快速替换当前word的snippet
 vim.keymap.set("n", "<leader>c", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+-- visual 模式下替换选中的文本
+vim.keymap.set("v", "<leader>c", [[y:%s/<C-r>"/<C-r>"/gI<Left><Left><Left>]])
 
 -- 快速增加可执行权限
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
