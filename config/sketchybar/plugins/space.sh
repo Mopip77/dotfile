@@ -31,7 +31,7 @@ fi
 
 if [[ $SENDER == "front_app_switched" ]]; then
 
-    SPACES=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
+    SPACES=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12" "13" "14" "15")
 
     for i in "${!SPACES[@]}"; do
         sid=$(($i+1))
