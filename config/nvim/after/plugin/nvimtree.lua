@@ -63,8 +63,8 @@ local function on_attach(bufnr)
     -- END_DEFAULT_ON_ATTACH
 
     -- CUSTOM
-    vim.keymap.set("n", "<Tab>", api.tree.change_root_to_node,          opts('CD'))
-    vim.keymap.set("n", "<S-Tab>", api.tree.change_root_to_parent,        opts('Up'))
+    --vim.keymap.set("n", "<Tab>", api.tree.change_root_to_node,          opts('CD'))
+    --vim.keymap.set("n", "<S-Tab>", api.tree.change_root_to_parent,        opts('Up'))
 end
 
 local ok, nvim_tree = pcall(require, "nvim-tree")
