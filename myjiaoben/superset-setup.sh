@@ -68,12 +68,35 @@ setup_shared_knowledge() {
 }
 
 # -----------------------------------------------------------------------------
+# 模块: 如果 knowledge_dir 中有 script/setup.sh，在当前目录执行它
+# -----------------------------------------------------------------------------
+run_knowledge_setup_script() {
+    if [[ -z "${SUPERSET_ROOT_PATH:-}" ]]; then
+        return 0
+    fi
+
+    local project_name
+    project_name="$(basename "$SUPERSET_ROOT_PATH")"
+    local setup_script="${HOME}/.config/claude-knowledge/${project_name}/script/setup.sh"
+
+    if [[ ! -f "$setup_script" ]]; then
+        log_info "未找到 knowledge setup 脚本，跳过: ${setup_script}"
+        return 0
+    fi
+
+    log_info "执行 knowledge setup 脚本: ${setup_script}"
+    bash "$setup_script"
+    log_info "knowledge setup 脚本执行完毕"
+}
+
+# -----------------------------------------------------------------------------
 # 主入口
 # -----------------------------------------------------------------------------
 main() {
     log_info "========== Superset Worktree 初始化开始 =========="
 
     setup_shared_knowledge
+    run_knowledge_setup_script
 
     log_info "========== Superset Worktree 初始化完成 =========="
 }
